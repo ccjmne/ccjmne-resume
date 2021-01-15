@@ -1,0 +1,31 @@
+{
+  "name": "ccjmne-resume",
+  "version": "1.0.0",
+  "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
+  "main": "src/index.js",
+  "dependencies": {
+    "webpack": "^5.15.0",
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccjmne/ccjmne-resume.git"
+  },
+  "keywords": [
+    "ccjmne",
+    "html",
+    "pdf",
+    "resume"
+  ],
+  "author": "Eric NICOLAS <ccjmne@gmail.com> (ccjmne)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ccjmne/ccjmne-resume/issues"
+  },
+  "homepage": "https://github.com/ccjmne/ccjmne-resume#readme"
+}
