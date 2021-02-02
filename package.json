@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
   "main": "src/index.js",
-  "dependencies": {
-    "webpack": "^5.15.0",
-    "webpack-cli": "^4.3.1",
-    "webpack-dev-server": "^3.11.2"
-  },
-  "devDependencies": {},
   "scripts": {
+    "start:dev": "cross-env TS_NODE_PROJECT=tsconfig-webpack.json webpack serve --inline --hot --watch-content-base --mode development --port 8042 --open",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +23,21 @@
   "bugs": {
     "url": "https://github.com/ccjmne/ccjmne-resume/issues"
   },
-  "homepage": "https://github.com/ccjmne/ccjmne-resume#readme"
+  "homepage": "https://github.com/ccjmne/ccjmne-resume#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "html-webpack-plugin": "^4.5.1",
+    "ts-loader": "^8.0.14",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  }
 }
