@@ -1,0 +1,15 @@
+@mixin rasterize-background ($background-image...) {
+  will-change: transform; // new stacking context
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: $background-image;
+    content: '';
+    filter: opacity(1);
+  }
+}

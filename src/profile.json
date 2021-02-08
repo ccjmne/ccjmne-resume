@@ -1,0 +1,37 @@
+{
+  "links": [{
+    "icon": "linkedin.svg",
+    "url": "https://www.linkedin.com/in/ccjmne",
+    "name": "linkedin.com/in/ccjmne"
+  }],
+  "identity": {
+    "name": "Eric NICOLAS",
+    "title": "Solution Architect"
+  },
+  "experience": [{
+    "dates": "2010–2013",
+    "duration": "3 years",
+    "company": "Snecma",
+    "location": "Paris area, France",
+    "title": "Software Developer",
+    "abstract": "Worked for one of the world’s leading manufacturers of aircraft and rocket engines."
+  }, {
+    "dates": "2010–2013",
+    "duration": "3 years",
+    "company": "Snecma",
+    "location": "Paris area, France",
+    "title": "Software Developer"
+  }, {
+    "dates": "2010–2013",
+    "duration": "3 years",
+    "company": "Snecma",
+    "location": "Paris area, France",
+    "title": "Software Developer"
+  }, {
+    "dates": "2010–2013",
+    "duration": "3 years",
+    "company": "Snecma",
+    "location": "Paris area, France",
+    "title": "Software Developer"
+  }]
+}

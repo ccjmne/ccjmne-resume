@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300%7CMontserrat:300&display=swap');
+
+@import './scss/mixins.scss';
+@import './scss/aside.scss';
+
+body {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-color: ghostwhite;
+  font-family: 'Montserrat', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  grid-template: 'aside header'auto 'aside main'1fr/ 32%;
+}
+
+main {
+  color: hsl(0deg 0% 28%);
+  grid-area: main;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 25px;
+  color: hsl(0deg 0% 28%);
+  grid-area: header;
+
+  >h1 {
+    margin: 0;
+  }
+}
+
+h1,
+h2,
+h3 {
+  padding: 10px 25px;
+}
+
+h1,
+h2 {
+  //   margin: 40px 0;
+  font-family: 'Marcellus', serif;
+  font-weight: lighter;
+}
+
+h2 {
+  @include rasterize-background(url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16"%3E%3Ccircle r="1" cx="4" cy="4" fill="%23ccc"/%3E%3Ccircle r="1" cx="12" cy="12" fill="%23ccc"/%3E%3C/svg%3E'));
+  // padding: 10px 25px;
+  border-top: 1px solid hsl(207deg 66% 22% / 50%);
+  margin-top: 40px;
+  color: hsl(207deg 66% 22%);
+  //   font-weight: bold;
+}
+
+h3 {
+  padding-bottom: 0;
+}
+
+a {
+  color: inherit;
+}
+
+p {
+  padding: 0 25px;
+  color: hsl(0deg 0% 0%);
+  font-size: 11pt;
+  text-align: justify;
+}
