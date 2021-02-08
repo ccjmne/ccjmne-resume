@@ -1,4 +1,12 @@
 module.exports = {
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
   extends: [
     'eslint:recommended',
     'airbnb-base',
@@ -8,13 +16,18 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 2021,
     sourceType: 'module',
+    ecmaFeatures: {
+      impliedStrict: true,
+    },
   },
   rules: {
+    'arrow-parens': ['error', 'as-needed'],
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['webpack.config.ts'] }],
     'quotes': ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }],
     'indent': ['error', 2],
+    'import/extensions': ['error', 'never'],
     'semi': ['error', 'always'],
     'max-len': ['error', 140, { ignoreTrailingComments: true }],
     'linebreak-style': ['error', 'unix'],
