@@ -6,7 +6,8 @@
   }],
   "identity": {
     "name": "Eric NICOLAS",
-    "title": "Solution Architect"
+    "title": "Solution Architect",
+    "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
   },
   "experience": [{
     "dates": "2010–2013",
@@ -14,7 +15,7 @@
     "company": "Snecma",
     "location": "Paris area, France",
     "title": "Software Developer",
-    "abstract": "Worked for one of the world’s leading manufacturers of aircraft and rocket engines."
+    "abstract": "Worked for one of the world's leading manufacturers of aircraft and rocket engines."
   }, {
     "dates": "2010–2013",
     "duration": "3 years",

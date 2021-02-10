@@ -4,6 +4,7 @@ declare module 'profile.json' {
   export interface Identity {
     name: string;
     title: string;
+    summary: string;
   }
 
   export interface Experience {

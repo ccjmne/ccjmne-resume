@@ -45,7 +45,8 @@
           "type": "object",
           "required": [
             "name",
-            "title"
+            "title",
+            "summary"
           ],
           "properties": {
             "name": {
@@ -54,6 +55,10 @@
             },
             "title": {
               "$id": "#/properties/identity/properties/title",
+              "type": "string"
+            },
+            "summary": {
+              "$id": "#/properties/identity/properties/summary",
               "type": "string"
             }
           },
