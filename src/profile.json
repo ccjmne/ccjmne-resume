@@ -10,29 +10,47 @@
     "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
   },
   "experience": [{
-    "dates": "2010–2013",
-    "duration": "3 years",
-    "company": "Snecma",
+    "dates": "Dec. 2014 – Present",
+    "duration": "6 years 3 months",
+    "company": "NCLS Development",
     "location": "Paris area, France",
-    "title": "Software Developer",
-    "abstract": "Worked for one of the world's leading manufacturers of aircraft and rocket engines."
+    "title": "Solution Architect & Product Owner",
+    "abstract": "Responsible for the design of the entirety of the services that make up our enterprise solution."
   }, {
-    "dates": "2010–2013",
-    "duration": "3 years",
-    "company": "Snecma",
-    "location": "Paris area, France",
-    "title": "Software Developer"
+    "dates": "Jul. 2014 – Dec. 2014",
+    "duration": "6 months",
+    "company": "Propellerhead",
+    "location": "Auckland, New Zealand",
+    "title": "Lead Developer"
   }, {
-    "dates": "2010–2013",
-    "duration": "3 years",
-    "company": "Snecma",
-    "location": "Paris area, France",
-    "title": "Software Developer"
+    "dates": "Dec. 2013 – Jul. 2014",
+    "duration": "8 months",
+    "company": "Propellerhead",
+    "location": "Auckland, New Zealand",
+    "title": "Full-Stack Developer & DevOps Engineer"
   }, {
-    "dates": "2010–2013",
-    "duration": "3 years",
-    "company": "Snecma",
+    "dates": "Oct. 2011 – Sep. 2013",
+    "duration": "2 years",
+    "company": "Snecma, Safran group",
+    "location": "Île-de-France, France",
+    "title": "Sofware Designer & Product Owner"
+  }, {
+    "dates": "Sep. 2010 – Oct. 2011",
+    "duration": "1 year 1 month",
+    "company": "Snecma, Safran group",
+    "location": "Île-de-France, France",
+    "title": "Software Engineer"
+  }, {
+    "dates": "Sep. 2012 – Mar. 2013",
+    "duration": "7 months",
+    "company": "Gaspard Monge Inst., University of Paris",
     "location": "Paris area, France",
-    "title": "Software Developer"
+    "title": "Project Manager"
+  }, {
+    "dates": "Sep. 2008 – Sep. 2010",
+    "duration": "2 years 1 month",
+    "company": "Site Alpha, Planon group",
+    "location": "Noisy-le-Grand area, France",
+    "title": "Assistant Project Manager"
   }]
 }
