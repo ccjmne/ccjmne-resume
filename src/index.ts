@@ -2,10 +2,11 @@ import profile, { Experience } from 'profile.json';
 import { homepage, name } from '../package.json';
 import { EasyHTMLElement, element } from './easy-htmlelement';
 
+const { experience, identity, links } = profile;
 document.body.append(function header(): EasyHTMLElement {
   return element('header').content(
-    element('h1').content(profile.identity.name),
-    element('h1').classed('title', 'lighter').content(profile.identity.title),
+    element('h1').content(identity.name),
+    element('h1').classed('title', 'lighter').content(identity.title),
   );
 }());
 
@@ -21,7 +22,7 @@ document.body.append(function aside(): EasyHTMLElement {
   );
 }());
 
-function experience({ title, company, dates, duration, location, abstract }: Experience): EasyHTMLElement {
+function exp({ title, company, dates, duration, location, abstract }: Experience): EasyHTMLElement {
   return element('div')
     .classed('experience', abstract ? 'w-summary' : '')
     .content(
@@ -34,7 +35,9 @@ function experience({ title, company, dates, duration, location, abstract }: Exp
 
 document.body.append(function main(): EasyHTMLElement {
   return element('main').content(
+    element('h2').content('Summary'),
+    element('p').content(identity.summary.replace(/\n/, String(element('br')))),
     element('h2').content('Experience'),
-    profile.experience.map(experience).join(String(element('div').classed('hr'))),
+    experience.map(exp).join(String(element('div').classed('hr'))),
   );
 }());
