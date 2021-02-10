@@ -25,6 +25,7 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    modules: ['src', 'node_modules'],
   },
   devtool: mode === 'development' && 'eval',
   devServer: {

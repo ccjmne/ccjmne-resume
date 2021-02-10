@@ -1,4 +1,4 @@
-import profile from './profile.json';
+import profile, { Experience } from 'profile.json';
 
 import { name, homepage } from '../package.json';
 
