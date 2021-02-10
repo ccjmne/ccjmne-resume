@@ -1,0 +1,22 @@
+@import './spacing';
+
+main {
+  padding: $vertical-padding $horizontal-padding;
+  padding-top: 0;
+  grid-area: main;
+}
+
+.experience {
+  display: grid;
+  margin: $horizontal-padding / 2 0;
+  gap: .3em 0;
+  grid-template: 'title title''when where'/1fr auto;
+
+  &.w-summary {
+    grid-template: 'title title''when where''summary summary'/1fr auto;
+  }
+
+  >* {
+    margin: 0;
+  }
+}

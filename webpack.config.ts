@@ -9,7 +9,7 @@ const src = resolve(__dirname, 'src');
 const dist = resolve(__dirname, 'dist');
 export default (_env: string, { mode }: { mode ? : 'production' | 'development' } = { mode: 'production' }): Configuration => ({
   entry: {
-    scss: resolve(src, 'style.scss'),
+    scss: resolve(src, 'index.scss'),
     main: resolve(src, 'index.ts'),
   },
   module: {

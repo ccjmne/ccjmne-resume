@@ -1,0 +1,34 @@
+@use 'sass:math';
+
+@import './colours';
+
+$hr-size: 5;
+$hr-diagonal: math.sqrt(math.pow($hr-size, 2) * 2);
+
+.hr {
+  height: #{math.ceil($hr-diagonal)}px;
+  will-change: transform; // new stacking context
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    border: 1px solid $light-fg-3;
+    content: '';
+    transform: translate(0, -50%) rotate(45deg);
+
+  }
+
+  &::before {
+    left: #{($hr-diagonal - $hr-size) / 2}px;
+    width: #{$hr-size}px;
+    height: #{$hr-size}px;
+  }
+
+  &::after {
+    left: #{$hr-diagonal * 2}px;
+    width: #{$hr-size * .7}px;
+    height: #{$hr-size * .7}px;
+  }
+}

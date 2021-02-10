@@ -1,0 +1,18 @@
+@import './spacing';
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: $vertical-padding $horizontal-padding;
+  grid-area: header;
+
+  h1 {
+    margin: 0;
+
+    &.title {
+      font-size: 1.7em;
+      font-weight: lighter;
+    }
+  }
+}
