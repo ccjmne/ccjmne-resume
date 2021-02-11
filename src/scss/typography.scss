@@ -22,6 +22,10 @@ h2 {
   border-top: 1px solid $primary-lighter;
   margin: 0 -#{$horizontal-padding};
   color: $primary;
+
+  &:not(:first-child) {
+    margin-top: $horizontal-padding;
+  }
 }
 
 h3 {
