@@ -1,6 +1,6 @@
 import profile, { Experience } from 'profile.json';
 import { homepage, name } from '../package.json';
-import { EasyHTMLElement, element } from './easy-htmlelement';
+import { div, EasyHTMLElement, element, lighter, lightest } from './easy-htmlelement';
 
 const { experience, identity, links } = profile;
 
@@ -22,13 +22,13 @@ document.body.append(
     element('h2').content('Summary'),
     element('p').content(identity.summary.replace(/\n/, String(element('br')))),
     element('h2').content('Experience'),
-    experience.map(({ title, company, dates, duration, location, abstract }: Experience): EasyHTMLElement => element('div')
+    experience.map(({ title, company, dates, duration, location, abstract }: Experience): EasyHTMLElement => div()
       .classed('experience', abstract ? 'w-summary' : '')
       .content(
-        element('h3').at('title').content(`${title} ${element().content('at').lightest()} ${company}`),
+        element('h3').at('title').content(title, ' ', element('small').content(lightest('at'), ' ', lighter(company))),
         element().at('when').content(`${dates} (${duration})`),
         element().at('where').content(location),
-        abstract ? element('p').at('summary').content(abstract) : '',
-      )).join(String(element('div').classed('hr'))),
+        abstract ? element('p').at('summary').content(abstract.replace(/\n/, String(element('br')))) : '',
+      )).join(String(div().classed('hr'))),
   ),
 );
