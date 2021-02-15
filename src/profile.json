@@ -15,42 +15,49 @@
     "company": "NCLS Development",
     "location": "Paris area, France",
     "title": "Solution Architect & Product Owner",
-    "abstract": "Responsible for the design of the entirety of the services that make up our enterprise solution."
+    "abstract": "Designed the entirety of the services that make up our enterprise solution."
   }, {
     "dates": "Jul. 2014 – Dec. 2014",
     "duration": "6 months",
     "company": "Propellerhead",
     "location": "Auckland, New Zealand",
-    "title": "Lead Developer"
+    "title": "Lead Developer",
+    "abstract": "Lead development and integration of a newer solution with a client's legacy systems."
   }, {
     "dates": "Dec. 2013 – Jul. 2014",
     "duration": "8 months",
     "company": "Propellerhead",
     "location": "Auckland, New Zealand",
-    "title": "Full-Stack Developer & DevOps Engineer"
+    "title": "Software & DevOps Engineer",
+    "abstract": "Co-designed and implemented an engine responsible for parsing and semantically classifying 160+ years of historical data.\nProject highlighted by the W3C as the foremost example for their \"Data on the Web Best Practice\" publication in 2017.",
+    "readmore": "https://www.propellerhead.co.nz/auckland-museum-case-study"
   }, {
     "dates": "Sep. 2012 – Mar. 2013",
     "duration": "7 months",
     "company": "Gaspard Monge Institute, University of Paris",
     "location": "Paris area, France",
-    "title": "Project Manager"
+    "title": "Project Manager",
+    "abstract": "Lead a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute."
   }, {
     "dates": "Oct. 2011 – Sep. 2013",
     "duration": "2 years",
     "company": "Snecma, Safran group",
     "location": "Île-de-France, France",
-    "title": "Sofware Designer & Product Owner"
+    "title": "Solution Architect",
+    "abstract": "Honoured for my creativity in one particular solution I designed, conducted, integrated and partially developed.\nMentored a junior IT engineer from 2011 to 2013."
   }, {
     "dates": "Sep. 2010 – Oct. 2011",
     "duration": "1 year 1 month",
     "company": "Snecma, Safran group",
     "location": "Île-de-France, France",
-    "title": "Software Engineer"
+    "title": "Software Engineer",
+    "abstract": "Primarily interfaced with mathematicians and physicists to develop and implement real-time ports of cutting-edge signal processing algorithms in the demanding context of aircraft and rocket engines."
   }, {
     "dates": "Sep. 2008 – Sep. 2010",
     "duration": "2 years 1 month",
     "company": "Site Alpha, Planon group",
     "location": "Noisy-le-Grand area, France",
-    "title": "Assistant Project Manager"
+    "title": "Assistant Project Manager",
+    "abstract": "Worked directly with our CEO to elaborate specification documents for the company's new flagship product."
   }]
 }
