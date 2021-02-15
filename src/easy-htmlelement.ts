@@ -42,3 +42,21 @@ export function element(type = 'span'): EasyHTMLElement {
     },
   });
 }
+
+export type ElementContent = (string | EasyHTMLElement)[];
+
+export function span(...content: ElementContent): EasyHTMLElement {
+  return element().content(...content);
+}
+
+export function div(...content: ElementContent): EasyHTMLElement {
+  return element('div').content(...content);
+}
+
+export function lighter(...content: ElementContent): EasyHTMLElement {
+  return span(...content).lighter();
+}
+
+export function lightest(...content: ElementContent): EasyHTMLElement {
+  return span(...content).lightest();
+}
