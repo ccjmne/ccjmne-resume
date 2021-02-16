@@ -18,8 +18,8 @@ declare module 'profile.json' {
 
   export interface Link {
     icon: string;
-    url: string;
-    name: string;
+    href: string;
+    text: string;
   }
 
   export interface Profile {

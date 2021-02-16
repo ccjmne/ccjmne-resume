@@ -21,20 +21,20 @@
             "type": "object",
             "required": [
               "icon",
-              "url",
-              "name"
+              "href",
+              "text"
             ],
             "properties": {
               "icon": {
                 "$id": "#/properties/links/items/properties/icon",
                 "type": "string",
               },
-              "url": {
-                "$id": "#/properties/links/items/properties/url",
+              "href": {
+                "$id": "#/properties/links/items/properties/href",
                 "type": "string",
               },
-              "name": {
-                "$id": "#/properties/links/items/properties/name",
+              "text": {
+                "$id": "#/properties/links/items/properties/text",
                 "type": "string"
               }
             },
