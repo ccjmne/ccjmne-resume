@@ -1,8 +1,20 @@
 {
   "links": [{
+    "icon": "mail.svg",
+    "href": "mailto:ccjmne@gmail.com",
+    "text": "ccjmne@gmail.com"
+  }, {
     "icon": "linkedin.svg",
-    "url": "https://www.linkedin.com/in/ccjmne",
-    "name": "linkedin.com/in/ccjmne"
+    "href": "https://www.linkedin.com/in/ccjmne",
+    "text": "linkedin/ccjmne"
+  }, {
+    "icon": "stackoverflow.svg",
+    "href": "https://stackoverflow.com/users/2427596/ccjmne",
+    "text": "stackoverflow/ccjmne"
+  }, {
+    "icon": "github.svg",
+    "href": "https://github.com/ccjmne",
+    "text": "github/ccjmne"
   }],
   "identity": {
     "name": "Eric NICOLAS",
