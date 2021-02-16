@@ -1,6 +1,8 @@
 @import './colours';
 @import './spacing';
 
+$icon-size: 24px;
+
 aside {
   display: flex;
   flex-direction: column;
@@ -16,5 +18,16 @@ aside {
 
   .watermark {
     text-align: center;
+  }
+
+  .links {
+    display: grid;
+    align-items: center;
+    gap: 1em;
+
+    img {
+      width: $icon-size;
+      height: $icon-size;
+    }
   }
 }

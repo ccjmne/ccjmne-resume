@@ -11,6 +11,12 @@ document.body.append(
   ),
   element('aside').content(
     element().content('mail: ', element('a').attrs({ href: 'mailto:ccjmne@gmail.com' }).content('ccjmne@gmail.com')),
+    div().classed('links').content(
+      ...[].concat(...links.map(({ icon, text, href }, row) => [
+        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `./assets/${icon}`).default }),
+        element('a').at(`${row + 1} / 2`).attrs({ href }).content(text),
+      ])),
+    ),
     element('small').classed('watermark').content(
       `Generated on ${new Date().toISOString().split(/T/)[0]}`,
       element('br'),
