@@ -21,6 +21,10 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
       test: /\.scss?$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
+    }, {
+      test: /\.svg$/,
+      use: ['url-loader'],
+      type: 'javascript/auto', // Prevent asset duplication, see https://webpack.js.org/guides/asset-modules/
     }],
   },
   resolve: {
