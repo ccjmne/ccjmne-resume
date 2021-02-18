@@ -13,7 +13,14 @@ declare module 'profile.json' {
     location: string;
     dates: string;
     duration: string;
-    abstract ? : string;
+    abstract ?: string;
+  }
+
+  export interface Education {
+    degree: string;
+    field: string;
+    dates ?: string;
+    highlight ?: string;
   }
 
   export interface Link {
@@ -22,10 +29,21 @@ declare module 'profile.json' {
     text: string;
   }
 
+  export type Skills = string;
+
+  export interface Endorsment {
+    from: string;
+    title: string;
+    excerpt: string;
+  }
+
   export interface Profile {
     links: Link[];
     identity: Identity;
     experience: Experience[];
+    education: Education[];
+    endorsments: Endorsment[];
+    skills: string[];
   }
 
   const profile: Profile;

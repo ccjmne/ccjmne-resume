@@ -21,6 +21,7 @@
     "title": "Solution Architect",
     "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
   },
+  "skills": ["Amazon Web Services (AWS)", "DevOps", "Communication", "Data Structures", "Problem Solving", "Architectural Patterns", "Algorithmics"],
   "experience": [{
     "dates": "Dec. 2014 – Present",
     "duration": "6 years 3 months",
@@ -71,5 +72,30 @@
     "location": "Noisy-le-Grand area, France",
     "title": "Assistant Project Manager",
     "abstract": "Worked directly with our CEO to elaborate specification documents for the company's new flagship product."
+  }],
+  "education": [{
+    "degree": "Engineer's Degree",
+    "field": "Network Security",
+    "dates": "2010 – 2013",
+    "highlight": "Trained in Java by [Rémi FORAX](https://blogs.oracle.com/java/remi-forax), major contributor to its expansion.\nDiploma obtained with highest honours.\nValedictorian."
+  }, {
+    "degree": "Licentiate's Degree",
+    "field": "Computer Science",
+    "dates": "2008 – 2010",
+    "highlight": "Diploma obtained with highest honours.\nTop of my class."
+  }, {
+    "degree": "Bachelor's Degree",
+    "field": "Applied Physics for Electronics",
+    "dates": "2005 – 2008",
+    "highlight": "Diploma obtained with highest honours.\nValedictorian."
+  }],
+  "endorsments": [{
+    "from": "Etienne DURIS",
+    "title": "University Lecturer",
+    "excerpt": "[...] a hard working person, tackling all assignments with dedication.\nI highly recommend Eric, he is a team player and would make a great asset to any organization. "
+  }, {
+    "from": "Christian POPESCU",
+    "title": "Senior Software Engineer",
+    "excerpt": "[...] showed obvious technical skills and remarkable abstraction capacities. I trust in his technical and human skills."
   }]
 }
