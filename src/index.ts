@@ -1,8 +1,26 @@
 import profile from 'profile.json';
 import { homepage, name } from '../package.json';
-import { div, EasyHTMLElement, element, lighter, lightest } from './easy-htmlelement';
+import { div, EasyHTMLElement, element, lighter, lightest, span } from './easy-htmlelement';
 
-const { experience, identity, links } = profile;
+const { experience, identity, links, skills, education, endorsments } = profile;
+
+function hr(height = 10): EasyHTMLElement {
+  const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5];
+  return element('svg')
+    .attrs({ viewBox: `-1 -1 ${height + 2} ${height + 2}`, preserveAspectRatio: 'xMinYMid meet', height: String(height), width: '100%' })
+    .html(`
+      <g transform="translate(0 ${height / 2})" style="fill: none;">
+        <path style="stroke: #aaa; stroke-width: 1px; fill: none"
+          d="M0,0     l${d1},-${d1}l${d1},${d1}l-${d1},${d1}l-${d1},-${d1}z m${2 * d1},0
+            m${gap},0 l${d2},-${d2}l${d2},${d2}l-${d2},${d2}l-${d2},-${d2}z m${2 * d2},0
+            m${gap},0 l${d3},-${d3}l${d3},${d3}l-${d3},${d3}l-${d3},-${d3}z m${2 * d3},0"
+        ></path>
+        <path style="stroke: #aaa; stroke-width: 1px; fill: none; shape-rendering: crispEdges;"
+          d="M${2 * d1 + 2 * d2 + 2 * d3 + 3 * gap},0 h999999"
+        ></path>
+      </g>
+    `);
+}
 
 document.body.append(
   element('header').content(
@@ -19,6 +37,26 @@ document.body.append(
     div(
       element('h3').classed('hr-d').content('Top Skills', hr()),
       skills.join(' • '),
+    ),
+    div(
+      element('h3').classed('hr-d').content('Education', hr()),
+      ...education.map(({ degree, field, dates, highlight }) => div()
+        .classed('education')
+        .content(
+          element('h4').at('degree').content(degree),
+          element('h4').at('field').content(lightest('in '), field),
+          lighter(highlight).at('highlight'),
+        )),
+    ),
+    div(
+      element('h3').classed('hr-d').content('Endorsments', hr()),
+      ...endorsments.map(({ from, title, excerpt }) => div()
+        .classed('endorsment')
+        .content(
+          element('h4').at('from').content(from),
+          element('h4').at('title').content(title),
+          span()/* element('p') */.at('excerpt').content(excerpt),
+        )),
     ),
     element('small').classed('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),

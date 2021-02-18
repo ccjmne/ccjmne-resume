@@ -35,4 +35,34 @@ aside {
     font-variant: small-caps;
     letter-spacing: .3ch;
   }
+
+  .education {
+    display: grid;
+    grid-template: 'degree dates''field field''highlight highlight'/ 1fr auto;
+
+    [grid-area=field] {
+      margin-bottom: .3em;
+      font-size: .9em;
+      text-align: right;
+    }
+
+    +.education {
+      margin-top: 15px;
+    }
+  }
+
+  .endorsment {
+    display: grid;
+    grid-template: 'from''title''excerpt'/auto;
+
+    [grid-area=title] {
+      margin-bottom: .3em;
+      font-size: .9em;
+      text-align: right;
+    }
+
+    +.endorsment {
+      margin-top: 15px;
+    }
+  }
 }
