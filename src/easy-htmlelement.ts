@@ -1,14 +1,17 @@
+const domParser = new DOMParser();
+
 export type EasyHTMLElement = HTMLElement & {
   classed: (...classes: string[]) => EasyHTMLElement,
   attrs: (a: { [key: string]: string }) => EasyHTMLElement,
   content: (...c: (string | EasyHTMLElement)[]) => EasyHTMLElement,
+  html: (html: string) => EasyHTMLElement,
   at: (area: string) => EasyHTMLElement,
   lighter: () => EasyHTMLElement,
   lightest: () => EasyHTMLElement,
 };
 
-export function element(type = 'span'): EasyHTMLElement {
-  return Object.assign(document.createElement(type), {
+export function element(base: string | HTMLElement = 'span'): EasyHTMLElement {
+  return Object.assign(typeof base === 'string' ? document.createElement(base) : base, {
     classed(this: EasyHTMLElement, ...classes: string[]): EasyHTMLElement {
       this.classList.add(...classes.filter(c => !!c));
       return this;
@@ -19,14 +22,32 @@ export function element(type = 'span'): EasyHTMLElement {
       return this;
     },
 
+    /**
+     * Parses contents and replace:
+     * - linefeeds with `<br />`
+     * - markdown-style links with `<a href="...">...</a>`
+     */
     content(this: EasyHTMLElement, ...c: (string | EasyHTMLElement)[]): EasyHTMLElement {
-      this.innerHTML = c.join('');
+      return this.html(c
+        .map(s => (typeof s === 'string'
+          ? s
+            .replace(/\n/g, String(element('br')))
+            .replace(/\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)/g, (...args) => {
+              const { text, href } = args.pop();
+              return String(element('a').attrs({ href }).content(text));
+            })
+          : String(s)))
+        .join(''));
+    },
+
+    html(this: EasyHTMLElement, html: string): EasyHTMLElement {
+      this.innerHTML = html;
       return this;
     },
 
     at(this: EasyHTMLElement, area: string): EasyHTMLElement {
       this.style.gridArea = area;
-      return this;
+      return this.attrs({ 'grid-area': area }); // for ease of use with css selectors
     },
 
     lighter(this: EasyHTMLElement): EasyHTMLElement {
