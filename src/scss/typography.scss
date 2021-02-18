@@ -11,6 +11,11 @@ body {
   font-size: 10pt;
 }
 
+.inverse {
+  background-color: $dark-bg;
+  color: $dark-fg;
+}
+
 h1,
 h2 {
   font-family: 'Marcellus', serif;
@@ -28,23 +33,43 @@ h2 {
   }
 }
 
-h3 {
-  margin-bottom: 0;
+h3.hr-d {
+  display: grid;
+  align-items: baseline;
+  gap: 0 .5ch;
+  grid-template-columns: auto 1fr;
+}
+
+h4 {
+  margin: 0;
 }
 
 p {
-  color: hsl(0deg 0% 0%);
+  color: $light-fg-0;
   text-align: justify;
+
+  .inverse & {
+    color: $dark-fg-0;
+  }
 }
 
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
+  text-underline-offset: .1em;
 }
 
 .lighter {
   color: $light-fg-2;
+
+  .inverse & {
+    color: $dark-fg-2;
+  }
 }
 
 .lightest {
   color: $light-fg-3;
+
+  .inverse & {
+    color: $dark-fg-3;
+  }
 }
