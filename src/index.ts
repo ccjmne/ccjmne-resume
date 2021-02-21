@@ -30,7 +30,7 @@ document.body.append(
   element('aside').classed('inverse').content(
     div().classed('links').content(
       ...[].concat(...links.map(({ icon, text, href }, row) => [
-        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `./assets/${icon}`).default }),
+        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `./assets/${icon}`) }),
         element('a').at(`${row + 1} / 2`).attrs({ href }).content(text),
       ])),
     ),

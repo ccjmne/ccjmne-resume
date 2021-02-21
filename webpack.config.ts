@@ -1,5 +1,6 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import svgToMiniDataURI from 'mini-svg-data-uri';
 import { resolve } from 'path';
 import { Compiler, Configuration } from 'webpack';
 import { author, description, homepage, keywords, name, repository, title } from './package.json';
@@ -23,8 +24,9 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
       exclude: /node_modules/,
     }, {
       test: /\.svg$/,
-      use: ['url-loader'],
-      type: 'javascript/auto', // Prevent asset duplication, see https://webpack.js.org/guides/asset-modules/
+      // see https://webpack.js.org/guides/asset-modules/
+      type: 'asset/inline',
+      generator: { dataUrl: (content: unknown) => svgToMiniDataURI(content.toString()) },
     }],
   },
   resolve: {
