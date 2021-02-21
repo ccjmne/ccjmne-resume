@@ -65,51 +65,59 @@
         },
         "education": {
           "$id": "#/properties/education",
-          "type": "object",
-          "required": [
-            "degree",
-            "field"
-          ],
-          "properties": {
-            "degree": {
-              "$id": "#/properties/education/properties/degree",
-              "type": "string"
+          "type": "array",
+          "items": {
+            "$id": "#/properties/education/items",
+            "type": "object",
+            "required": [
+              "degree",
+              "field"
+            ],
+            "properties": {
+              "degree": {
+                "$id": "#/properties/education/items/properties/degree",
+                "type": "string"
+              },
+              "field": {
+                "$id": "#/properties/education/items/properties/field",
+                "type": "string"
+              },
+              "dates": {
+                "$id": "#/properties/education/items/properties/dates",
+                "type": "string"
+              },
+              "highlight": {
+                "$id": "#/properties/education/items/properties/highlight",
+                "type": "string"
+              }
             },
-            "field": {
-              "$id": "#/properties/education/properties/field",
-              "type": "string"
-            },
-            "dates": {
-              "$id": "#/properties/education/properties/dates",
-              "type": "string"
-            },
-            "highlight": {
-              "$id": "#/properties/education/properties/highlight",
-              "type": "string"
-            }
           },
         },
         "endorsments": {
           "$id": "#/properties/endorsments",
-          "type": "object",
-          "required": [
-            "from",
-            "title",
-            "excerpt"
-          ],
-          "properties": {
-            "from": {
-              "$id": "#/properties/endorsments/properties/from",
-              "type": "string"
+          "type": "array",
+          "items": {
+            "$id": "#/properties/endorsments/items",
+            "type": "object",
+            "required": [
+              "from",
+              "title",
+              "excerpt"
+            ],
+            "properties": {
+              "from": {
+                "$id": "#/properties/endorsments/items/properties/from",
+                "type": "string"
+              },
+              "title": {
+                "$id": "#/properties/endorsments/items/properties/title",
+                "type": "string"
+              },
+              "excerpt": {
+                "$id": "#/properties/endorsments/items/properties/excerpt",
+                "type": "string"
+              }
             },
-            "title": {
-              "$id": "#/properties/endorsments/properties/title",
-              "type": "string"
-            },
-            "excerpt": {
-              "$id": "#/properties/endorsments/properties/excerpt",
-              "type": "string"
-            }
           },
         },
         "skills": {
