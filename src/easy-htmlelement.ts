@@ -3,6 +3,7 @@ const domParser = new DOMParser();
 export type EasyHTMLElement = HTMLElement & {
   classed: (...classes: string[]) => EasyHTMLElement,
   attrs: (a: { [key: string]: string }) => EasyHTMLElement,
+  styles: (a: { [key: string]: string }) => EasyHTMLElement,
   content: (...c: (string | EasyHTMLElement)[]) => EasyHTMLElement,
   html: (html: string) => EasyHTMLElement,
   at: (area: string) => EasyHTMLElement,
@@ -19,6 +20,11 @@ export function element(base: string | HTMLElement = 'span'): EasyHTMLElement {
 
     attrs(this: EasyHTMLElement, a: { [key: string]: string }): EasyHTMLElement {
       Object.entries(a).forEach(([k, v]) => this.setAttribute(k, v));
+      return this;
+    },
+
+    styles(this: EasyHTMLElement, s: { [key: string]: string }): EasyHTMLElement {
+      Object.entries(s).forEach(([k, v]) => this.style.setProperty(k, v));
       return this;
     },
 
@@ -74,10 +80,21 @@ export function div(...content: ElementContent): EasyHTMLElement {
   return element('div').content(...content);
 }
 
+/**
+ * Creates a new `<span />` element with the supplied `content`,
+ * unless the content already is a *single EasyHTMLElement*, in which case
+ * it won't be wrapped into a (meaningless) span.
+ */
+export function make(...content: ElementContent): EasyHTMLElement {
+  return (content.length === 1 && typeof content[0] !== 'string')
+    ? content[0]
+    : span(...content);
+}
+
 export function lighter(...content: ElementContent): EasyHTMLElement {
-  return span(...content).lighter();
+  return make(...content).lighter();
 }
 
 export function lightest(...content: ElementContent): EasyHTMLElement {
-  return span(...content).lightest();
+  return make(...content).lightest();
 }

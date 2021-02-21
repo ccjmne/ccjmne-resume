@@ -33,15 +33,14 @@ h2 {
   }
 }
 
-h3.hr-d {
-  display: grid;
-  align-items: baseline;
-  gap: 0 .5ch;
-  grid-template-columns: auto 1fr;
-}
-
 h4 {
   margin: 0;
+}
+
+.hr {
+  display: flex;
+  align-items: baseline;
+  gap: 0 .5ch;
 }
 
 p {
@@ -68,6 +67,17 @@ a {
 
 .lightest {
   color: $light-fg-3;
+
+  .inverse & {
+    color: $dark-fg-3;
+  }
+}
+
+.ellipsis::before {
+  color: $light-fg-3;
+  content: '[...]';
+  font-weight: bold;
+  letter-spacing: .5ch;
 
   .inverse & {
     color: $dark-fg-3;

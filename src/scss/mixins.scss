@@ -10,7 +10,7 @@
     left: 0;
     background-image: $background-image;
     content: '';
-    filter: opacity(1);
+    filter: opacity(1); // forces rasterising
     pointer-events: none;
   }
 }
