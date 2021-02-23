@@ -1,6 +1,6 @@
-const domParser = new DOMParser();
+const SVGNS = 'http://www.w3.org/2000/svg';
 
-export type EasyHTMLElement = HTMLElement & {
+export type EasyHTMLElement = (HTMLElement | SVGElement) & {
   classed: (...classes: string[]) => EasyHTMLElement,
   attrs: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement,
   styles: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement,
@@ -11,7 +11,7 @@ export type EasyHTMLElement = HTMLElement & {
   lightest: () => EasyHTMLElement,
 };
 
-export function element(base: string | HTMLElement = 'span'): EasyHTMLElement {
+export function element(base: string | (HTMLElement | SVGElement) = 'span'): EasyHTMLElement {
   return Object.assign(typeof base === 'string' ? document.createElement(base) : base, {
     classed(this: EasyHTMLElement, ...classes: string[]): EasyHTMLElement {
       this.classList.add(...classes.filter(c => !!c));
@@ -68,6 +68,10 @@ export function element(base: string | HTMLElement = 'span'): EasyHTMLElement {
       return this.outerHTML;
     },
   });
+}
+
+export function elementNS(type = 'svg'): EasyHTMLElement {
+  return element(document.createElementNS(SVGNS, type)).attrs(type === 'svg' ? { xmlns: SVGNS } : {});
 }
 
 export type ElementContent = (string | EasyHTMLElement)[];
