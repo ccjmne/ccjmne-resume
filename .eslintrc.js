@@ -30,6 +30,7 @@ module.exports = {
     'import/extensions': ['error', 'never'],
     'semi': ['error', 'always'],
     'max-len': ['error', 140, { ignoreTrailingComments: true }],
+    'no-shadow': ['error', { allow: ['_'] }],
     'linebreak-style': ['error', 'unix'],
     'quote-props': ['error', 'consistent-as-needed'],
     'object-curly-newline': ['error', {
