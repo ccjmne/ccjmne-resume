@@ -2,8 +2,8 @@ const domParser = new DOMParser();
 
 export type EasyHTMLElement = HTMLElement & {
   classed: (...classes: string[]) => EasyHTMLElement,
-  attrs: (a: { [key: string]: string }) => EasyHTMLElement,
-  styles: (a: { [key: string]: string }) => EasyHTMLElement,
+  attrs: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement,
+  styles: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement,
   content: (...c: (string | EasyHTMLElement)[]) => EasyHTMLElement,
   html: (html: string) => EasyHTMLElement,
   at: (area: string) => EasyHTMLElement,
@@ -18,13 +18,13 @@ export function element(base: string | HTMLElement = 'span'): EasyHTMLElement {
       return this;
     },
 
-    attrs(this: EasyHTMLElement, a: { [key: string]: string }): EasyHTMLElement {
-      Object.entries(a).forEach(([k, v]) => this.setAttribute(k, v));
+    attrs(this: EasyHTMLElement, a: { [key: string]: { toString: () => string } }): EasyHTMLElement {
+      Object.entries(a).forEach(([k, v]) => this.setAttribute(k, String(v)));
       return this;
     },
 
-    styles(this: EasyHTMLElement, s: { [key: string]: string }): EasyHTMLElement {
-      Object.entries(s).forEach(([k, v]) => this.style.setProperty(k, v));
+    styles(this: EasyHTMLElement, s: { [key: string]: { toString: () => string } }): EasyHTMLElement {
+      Object.entries(s).forEach(([k, v]) => this.style.setProperty(k, String(v)));
       return this;
     },
 

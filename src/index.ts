@@ -10,7 +10,7 @@ function hr(height = 10, reverse = false): EasyHTMLElement {
     .attrs({
       viewBox: `-1 -1 ${height + 2} ${height + 2}`,
       preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`,
-      height: String(height),
+      height,
     })
     .styles({ flex: '1' })
     .lighter()
