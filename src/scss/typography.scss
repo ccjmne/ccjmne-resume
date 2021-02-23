@@ -22,7 +22,7 @@ h2 {
 }
 
 h2 {
-  @include rasterize-background(url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16"%3E%3Ccircle r="1" cx="4" cy="4" fill="%23ccc"/%3E%3Ccircle r="1" cx="12" cy="12" fill="%23ccc"/%3E%3C/svg%3E'));
+  position: relative;
   padding: 6px $horizontal-padding;
   border-top: 1px solid $primary-lighter;
   margin: 0 -#{$horizontal-padding};

@@ -1,12 +1,12 @@
 import profile from 'profile.json';
 import { homepage, name } from '../package.json';
-import { div, EasyHTMLElement, element, lighter, lightest, span } from './easy-htmlelement';
+import { div, EasyHTMLElement, element, elementNS, lighter, lightest, span } from './easy-htmlelement';
 
 const { experience, identity, links, skills, education, endorsments } = profile;
 
 function hr(height = 10, reverse = false): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5];
-  return element('svg')
+  return elementNS('svg')
     .attrs({
       viewBox: `-1 -1 ${height + 2} ${height + 2}`,
       preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`,
@@ -26,6 +26,47 @@ function hr(height = 10, reverse = false): EasyHTMLElement {
         </path>
       </g>
     `);
+}
+
+function h2bg(size = 24): EasyHTMLElement {
+  const [half, cols, rows] = [size / 2, 30, 5];
+
+  // Inspired by https://stackoverflow.com/a/19303725
+  const random = (function prng() {
+    let seed = 2017 - 3 - 10;
+    // eslint-disable-next-line no-plusplus
+    return () => (r => r - Math.floor(r))(Math.sin(++seed) * 100000);
+  }());
+
+  /**
+   * Generates slight variations of the given colour.
+   * @param hsl A css-style hsl representation of the base colour, like: `hsl(208deg 56% 26%)`
+   */
+  function colour(hsl: string): string {
+    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)deg (?<s>\d+)% (?<l>\d+)%\)$/.exec(hsl);
+    const [sat, lit] = [Number(s), Number(l)];
+    return `hsl(${h}deg ${Math.floor(sat / 2 + (sat / 2) * random())}% ${Math.floor(lit + 20 * (random() - 0.5))}%)`;
+  }
+
+  /**
+   * A diamond of diagonal `diag` centered around `(x, y)`.
+   */
+  function diamond({ x, y, diag }: { x: number, y: number, diag: number }): EasyHTMLElement {
+    const d = diag / 2;
+    return elementNS('path').attrs({
+      transform: `translate(${x} ${y})`,
+      d: `m${-d},0 l${d},-${d} l${d},${d} l${-d},${d} l${-d},${-d}z`,
+    }).styles({ fill: colour('hsl(208deg 56% 26%)') });
+  }
+
+  return elementNS('svg')
+    .attrs({ viewBox: `${-size * cols} 0 ${size * cols} ${half * (rows - 1)}`, preserveAspectRatio: `xMaxYMid meet` })
+    .styles({ position: 'absolute', top: 0, right: 0, height: '100%' })
+    .content(...[].concat(...Array.from({ length: rows }).map(
+      (_, r) => Array.from({ length: cols }).map(
+        (_, c) => diamond({ x: -c * size - (r % 2) * half, y: r * half, diag: Math.max(2, size - c) }),
+      ),
+    )));
 }
 
 document.body.append(
@@ -67,9 +108,9 @@ document.body.append(
     element('small').classed('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
-    element('h2').content('Summary'),
+    element('h2').content('Summary', h2bg()),
     element('p').content(identity.summary),
-    element('h2').content('Experience'),
+    element('h2').content('Experience', h2bg()),
     ...experience.map(({ title, company, dates, duration, location, abstract }) => div()
       .classed('experience', abstract ? 'w-summary' : '')
       .content(
