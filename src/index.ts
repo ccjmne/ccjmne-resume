@@ -59,12 +59,21 @@ function h2bg(size = 24): EasyHTMLElement {
     }).styles({ fill: colour('hsl(208deg 56% 26%)') });
   }
 
+  /**
+   * JS implementation of the GLSL `smoothstep` function, as described here:
+   * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml
+   */
+  const smoothstep = ((e0, e1) => (c: number) => {
+    const t = Math.max(0, Math.min(1, (c - e0) / (e1 - e0))); // clamp and linear interpolation
+    return t * t * (3 - 2 * t); // smoothen through cubic interpolation
+  })(24, 0); // smoothly steps *down* over [0, 24]
+
   return elementNS('svg')
     .attrs({ viewBox: `${-size * cols} 0 ${size * cols} ${half * (rows - 1)}`, preserveAspectRatio: `xMaxYMid meet` })
     .styles({ position: 'absolute', top: 0, right: 0, height: '100%' })
     .content(...[].concat(...Array.from({ length: rows }).map(
       (_, r) => Array.from({ length: cols }).map(
-        (_, c) => diamond({ x: -c * size - (r % 2) * half, y: r * half, diag: Math.max(2, size - c) }),
+        (_, c) => diamond({ x: -c * size - (r % 2) * half, y: r * half, diag: Math.max(2, size * smoothstep(c)) }),
       ),
     )));
 }
