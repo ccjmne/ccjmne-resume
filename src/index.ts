@@ -80,7 +80,7 @@ function h2bg(size = 24): EasyHTMLElement {
 
 document.body.append(
   element('header').content(
-    element('h1').content(identity.name),
+    element('h1').classed('name').content(identity.name.replace(/[a-z]+/g, s => String(span(s).classed('bigger-small-caps')))),
     element('h1').classed('title', 'lighter').content(identity.title),
   ),
   element('aside').classed('inverse').content(

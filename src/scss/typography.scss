@@ -28,6 +28,7 @@ h2 {
   border-top: 1px solid $primary-lighter;
   margin: 0 -#{$horizontal-padding};
   color: $primary;
+  letter-spacing: .2ch;
 
   &:not(:first-child) {
     margin-top: $horizontal-padding;
