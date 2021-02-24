@@ -12,20 +12,18 @@ function hr(height = 10, reverse = false): EasyHTMLElement {
       preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`,
       height,
     })
-    .styles({ flex: '1' })
+    .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
     .lighter()
-    .html(`
-      <g transform="translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})" style="fill: none; stroke: currentColor;">
-        <path
-          d="M${-d1},0 l${d1},-${d1}l${d1},${d1}l-${d1},${d1}l-${d1},-${d1}z m${2 * d1},0
-            m${gap},0  l${d2},-${d2}l${d2},${d2}l-${d2},${d2}l-${d2},-${d2}z m${2 * d2},0
-            m${gap},0  l${d3},-${d3}l${d3},${d3}l-${d3},${d3}l-${d3},-${d3}z m${2 * d3},0">
-          </path>
-        <path style="shape-rendering: crispEdges;"
-          d="M${-d1 + 2 * (d1 + d2 + d3) + 3 * gap},0 h999999">
-        </path>
-      </g>
-    `);
+    .content(
+      elementNS('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
+        elementNS('path').attrs({
+          d: `M${-d1},0 l${d1},-${d1} l${d1},${d1} l-${d1},${d1} l-${d1},-${d1}z m${2 * d1},0
+              m${gap},0 l${d2},-${d2} l${d2},${d2} l-${d2},${d2} l-${d2},-${d2}z m${2 * d2},0
+              m${gap},0 l${d3},-${d3} l${d3},${d3} l-${d3},${d3} l-${d3},-${d3}z m${2 * d3},0`,
+        }),
+        elementNS('path').styles({ 'shape-rendering': 'crispEdges' }).attrs({ d: `M${-d1 + 2 * (d1 + d2 + d3) + 3 * gap},0 h9999` }),
+      ),
+    );
 }
 
 function h2bg(size = 24): EasyHTMLElement {
@@ -86,7 +84,8 @@ document.body.append(
   element('aside').classed('inverse').content(
     div().classed('links').content(
       ...[].concat(...links.map(({ icon, text, href }, row) => [
-        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `./assets/${icon}`) }),
+        // eslint-disable-next-line
+        element('img').at(`${row + 1} / 1`).attrs({ src: require( /* webpackMode: 'eager' */ `./assets/${icon}`) }),
         element('a').at(`${row + 1} / 2`).attrs({ href }).content(text),
       ])),
     ),
