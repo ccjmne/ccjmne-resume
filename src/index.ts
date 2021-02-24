@@ -29,13 +29,13 @@ function hr(height = 10, reverse = false): EasyHTMLElement {
 }
 
 function h2bg(size = 24): EasyHTMLElement {
-  const [half, cols, rows] = [size / 2, 30, 5];
+  const [half, cols, rows] = [size / 2, 100, 5];
 
   // Inspired by https://stackoverflow.com/a/19303725
   const random = (function prng() {
     let seed = 2017 - 3 - 10;
     // eslint-disable-next-line no-plusplus
-    return () => (r => r - Math.floor(r))(Math.sin(++seed) * 100000);
+    return () => (r => r - Math.floor(r))(Math.sin(++seed) * 10000);
   }());
 
   /**

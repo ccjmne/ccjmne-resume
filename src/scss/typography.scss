@@ -23,6 +23,7 @@ h2 {
 
 h2 {
   position: relative;
+  overflow: hidden;
   padding: 6px $horizontal-padding;
   border-top: 1px solid $primary-lighter;
   margin: 0 -#{$horizontal-padding};
