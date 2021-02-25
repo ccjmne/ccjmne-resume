@@ -1,101 +1,99 @@
 {
   "links": [{
     "icon": "mail.svg",
-    "href": "mailto:ccjmne@gmail.com",
-    "text": "ccjmne@gmail.com"
+    "href": "mailto:y.moroitsu@valencia.com",
+    "text": "y.moroitsu@valencia.com"
+  }, {
+    "icon": "house.svg",
+    "href": "https://www.google.com/maps/place/Valencia,+Spain",
+    "text": "1–2 Main St., Arehaza City"
   }, {
     "icon": "linkedin.svg",
-    "href": "https://www.linkedin.com/in/ccjmne",
-    "text": "linkedin/ccjmne"
+    "href": "https://www.linkedin.com/in/moroitsu.yaalon",
+    "text": "linkedin/moroitsu.yaalon"
   }, {
-    "icon": "stackoverflow.svg",
-    "href": "https://stackoverflow.com/users/2427596/ccjmne",
-    "text": "stackoverflow/ccjmne"
-  }, {
-    "icon": "github.svg",
-    "href": "https://github.com/ccjmne",
-    "text": "github/ccjmne"
+    "icon": "facebook.svg",
+    "href": "https://facebook.com/y.moroitsu",
+    "text": "facebook/y.moroitsu"
   }],
   "identity": {
-    "name": "Eric NICOLAS",
-    "title": "Solution Architect",
-    "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
+    "name": "Yaalon MOROITSU",
+    "title": "Gentle like Moonlight",
+    "summary": "On my free time, I grind Turos and perform fire acrobatics in the forest.\nThey actually named that ghoulish zone \"Ash Forest\" after a particularly eventful representation of mine that will never be forgotten.\nI can hold deadlines, too."
   },
-  "skills": ["Amazon Web Services (AWS)", "DevOps", "Communication", "Data Structures", "Problem Solving", "Architectural Patterns", "Algorithmics"],
+  "skills": ["Growing Dalvenia Alreas", "Grinding Turos", "Failing PENs", "Recruiting idjits", "One versus One", "One versus Two", "One versus Three", "Being of service"],
   "experience": [{
-    "dates": "Dec. 2014 – Present",
-    "duration": "6 years 3 months",
-    "company": "NCLS Development",
-    "location": "Paris area, France",
-    "title": "Solution Architect & Product Owner",
-    "abstract": "Designed the entirety of the services that make up our enterprise solution."
-  }, {
-    "dates": "Jul. 2014 – Dec. 2014",
-    "duration": "6 months",
-    "company": "Propellerhead",
-    "location": "Auckland, New Zealand",
-    "title": "Lead Developer",
-    "abstract": "Lead development and integration of a newer solution with a client's legacy systems."
-  }, {
-    "dates": "Dec. 2013 – Jul. 2014",
-    "duration": "8 months",
-    "company": "Propellerhead",
-    "location": "Auckland, New Zealand",
-    "title": "Software & DevOps Engineer",
-    "abstract": "Co-designed and implemented an engine responsible for parsing and semantically classifying 160+ years of historical data.\nProject highlighted by the W3C as the foremost example for their \"Data on the Web Best Practice\" publication in 2017.",
-    "readmore": "https://www.propellerhead.co.nz/auckland-museum-case-study"
-  }, {
-    "dates": "Sep. 2012 – Mar. 2013",
+    "dates": "Sep. 285 – Present",
     "duration": "7 months",
-    "company": "Gaspard Monge Institute, University of Paris",
-    "location": "Paris area, France",
-    "title": "Project Manager",
-    "abstract": "Lead a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute."
+    "company": "ExplorersGuild",
+    "location": "from Kamasylvia to Valencia",
+    "title": "Recruiter & Party Planner",
+    "abstract": "Keeping the communication channels busy and entertaining at all times.\nPart of the hiring team that discovered the rarest of pearls ever recruited."
   }, {
-    "dates": "Oct. 2011 – Sep. 2013",
-    "duration": "2 years",
-    "company": "Snecma, Safran group",
-    "location": "Île-de-France, France",
-    "title": "Solution Architect",
-    "abstract": "Honoured for my creativity in one particular solution I designed, conducted, integrated and partially developed.\nMentored a junior IT engineer from 2011 to 2013."
+    "dates": "Jul. 283 – Sep. 285",
+    "duration": "2 years 3 months",
+    "company": "Moronitsu Ltd.",
+    "location": "Round Sulfur Mines, Valencia area",
+    "title": "Intelligence Officer",
+    "abstract": "In a secret mission to the Middle-East. Grinded undercover for a while, reporting directly to ██████ ████████.\nSingle-handedly overturned plots from the ███████████ government.\nBrought the ████████████ ██ ██████ conspiracy to light."
   }, {
-    "dates": "Sep. 2010 – Oct. 2011",
-    "duration": "1 year 1 month",
-    "company": "Snecma, Safran group",
-    "location": "Île-de-France, France",
-    "title": "Software Engineer",
-    "abstract": "Primarily interfaced with mathematicians and physicists to develop and implement real-time ports of cutting-edge signal processing algorithms in the demanding context of aircraft and rocket engines."
+    "dates": "Apr. 282 – Jul. 283",
+    "duration": "1 year 4 months",
+    "company": "Shakatu Furnitures & Co.",
+    "location": "Arehaza City",
+    "title": "Interior Designer",
+    "abstract": "Designed and promoted our most prominent display home to date.\nProject highlighted by the Calpheon Metropolis Magazine as a prime example of contemporary interior design trends."
   }, {
-    "dates": "Sep. 2008 – Sep. 2010",
-    "duration": "2 years 1 month",
-    "company": "Site Alpha, Planon group",
-    "location": "Noisy-le-Grand area, France",
-    "title": "Assistant Project Manager",
-    "abstract": "Worked directly with our CEO to elaborate specification documents for the company's new flagship product."
+    "dates": "Nov. 281 – Apr. 282",
+    "duration": "6 months",
+    "company": "ThatHappened Inc.",
+    "location": "All over the place",
+    "title": "Ninja (Contractor job)",
+    "abstract": "Tried my hands at a less-irrelevant class.\nTurns out Musa is just right for me."
+  }, {
+    "dates": "Jun. 279 – Nov. 281",
+    "duration": "2 years 6 months",
+    "company": "Teff International",
+    "location": "Red Desert, Valencia area",
+    "title": "Industrial Magnate",
+    "abstract": "Establised a sprawling worker empire that directly impacts the global Marketplace.\nSet up precise protocols so that this corporation practically runs itself."
+  }, {
+    "dates": "May. 278 – Jun. 279",
+    "duration": "1 year 2 months",
+    "company": "Stonetail Ranch",
+    "location": "Central Mediah",
+    "title": "Horse Breeder",
+    "abstract": "Lovingly cared for our most magnificient animals.\nProud father of a mythical Diné and his little Arduanatt sister."
+  }, {
+    "dates": "Oct. 275 – May. 277",
+    "duration": "1 year 8 months",
+    "company": "The Behr Bear Brothers",
+    "location": "Margoria and Serendia",
+    "title": "Competitive Hunter",
+    "abstract": "Reached First Place at the 277 Olympic Games in both Whale and Khalk categories."
   }],
   "education": [{
-    "degree": "Engineer's Degree",
-    "field": "Network Security",
-    "dates": "2010 – 2013",
-    "highlight": "Trained in the Java language by [Rémi FORAX](https://blogs.oracle.com/java/remi-forax), major contributor to its expansion.\nDiploma obtained with highest honours.\nValedictorian."
+    "degree": "Doctorate's Degree",
+    "field": "Valencian Ecology",
+    "highlight": "Learned to appreciate the most delicate flora of our world.\nGraduated top of my class."
   }, {
-    "degree": "Licentiate's Degree",
-    "field": "Computer Science",
+    "degree": "Master's Degree",
+    "field": "Balenos Cuisine",
     "dates": "2008 – 2010",
-    "highlight": "Diploma obtained with highest honours.\nTop of my class."
+    "highlight": "Focused primarily on refining recipes to elevate Pickled Vegetables to the status of delicacy."
   }, {
-    "degree": "Bachelor's Degree",
-    "field": "Applied Physics for Electronics",
+    "degree": "Apprenticeship",
+    "field": "Occult Arts",
     "dates": "2005 – 2008",
-    "highlight": "Diploma obtained with highest honours.\nValedictorian."
+    "highlight": "Trained in Weapon Enchanting by the Black Spirit, the most famous university lecturer in all Blackstone matters.\nDegree obtained after a decade of practice."
   }],
   "endorsments": [{
-    "from": "Etienne DURIS",
-    "title": "University Professor",
-    "excerpt": "[...] a hard-working person, tackling all assignments with dedication.\nI highly recommend Eric, he is a team player and would make a great asset to any organization. "
+    "from": "Karine NINOSHKA",
+    "title": "Duvencrunian Statue",
+    "excerpt": "[...] a very talented individual, tackling all assignments with dedication.\nI highly recommend Yaalon, he is a team player and would make a great asset to any organisation."
   }, {
-    "from": "Christian POPESCU",
-    "title": "Senior Software Engineer",
-    "excerpt": "[...] showed obvious technical skills and remarkable abstraction capacities. I trust in his technical and human skills."
+    "from": "Anonymous PKer",
+    "title": "Master Duellist",
+    "excerpt": "Yaalon showed obvious technical skills and remarkable maternal abilities.\nDon't try to poke the bear, 'cause his Crescent Blade pokes back pretty hard."
   }]
 }
