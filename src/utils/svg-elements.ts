@@ -64,7 +64,7 @@ export function h2bg(size = 24): EasyHTMLElement {
    * @param hsl A css-style hsl representation of the base colour, like: `hsl(208deg 56% 26%)`
    */
   function colour(hsl: string): string {
-    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)deg, (?<s>\d+)%, (?<l>\d+)%\)$/.exec(hsl);
+    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)(?:deg)?,? (?<s>\d+)%,? (?<l>\d+)%\)$/.exec(hsl);
     const [sat, lit] = [Number(s), Number(l)];
     return `hsl(${h}deg ${Math.floor(sat / 2 + (sat / 2) * random())}% ${Math.floor(lit + 20 * (random() - 0.5))}%)`;
   }
