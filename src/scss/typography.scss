@@ -30,7 +30,7 @@ h2 {
   letter-spacing: .2ch;
 
   &:not(:first-child) {
-    margin-top: $horizontal-padding;
+    margin-top: 12px;
   }
 }
 

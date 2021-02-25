@@ -1,14 +1,23 @@
 @import './spacing';
 
 main {
+  display: flex;
   grid-area: main;
+  flex-direction: column;
   padding: 0 $horizontal-padding;
+}
+
+.experiences {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin: 1.5em 0;
 }
 
 .experience {
   display: grid;
   grid-template: 'title title''when where'/1fr auto;
-  margin: 1.5em 0;
   gap: .3em 0;
 
   &.w-summary {

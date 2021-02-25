@@ -48,13 +48,15 @@ document.body.append(
     element('h2').content('Summary', h2bg()),
     element('p').content(identity.summary),
     element('h2').content('Experience', h2bg()),
-    ...experience.map(({ title, company, dates, duration, location, abstract }) => div()
-      .classed('experience', abstract ? 'w-summary' : '')
-      .content(
-        element('h3').at('title').content(title, ' ', element('small').content(lightest('at'), ' ', lighter(company))),
-        element().at('when').content(`${dates} (${duration})`),
-        element().at('where').content(location),
-        abstract ? element('p').at('summary').content(abstract) : '',
-      )),
+    div().classed('experiences').content(
+      ...experience.map(({ title, company, dates, duration, location, abstract }) => div()
+        .classed('experience', abstract ? 'w-summary' : '')
+        .content(
+          element('h3').at('title').content(title, ' ', element('small').content(lightest('at'), ' ', lighter(company))),
+          element().at('when').content(`${dates} (${duration})`),
+          element().at('where').content(location),
+          abstract ? element('p').at('summary').content(abstract) : '',
+        )),
+    ),
   ),
 );
