@@ -42,7 +42,6 @@ document.body.append(
           lighter().at('excerpt').content(excerpt.replace(/\[\.\.\.\]/g, String(span().classed('ellipsis')))),
         )),
     ),
-    element('small').classed('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
     element('h2').content('Summary', h2bg()),
