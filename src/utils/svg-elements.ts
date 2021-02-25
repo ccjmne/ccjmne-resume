@@ -16,7 +16,7 @@ function diamondPath(r: number, align: 'center' | 'left' = 'center'): string {
 
 // Inspired by https://stackoverflow.com/a/19303725
 function seededRandom(): () => number {
-  let seed = 2017 - 3 - 10;
+  let seed = 1990 - 5 - 15;
   // eslint-disable-next-line no-plusplus
   return () => (r => r - Math.floor(r))(Math.sin(++seed) * 10000);
 }
