@@ -2,10 +2,10 @@
 
 header {
   display: flex;
+  grid-area: header;
   flex-direction: column;
   justify-content: center;
   padding: $vertical-padding $horizontal-padding;
-  grid-area: header;
 
   h1 {
     margin: 0;

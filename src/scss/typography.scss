@@ -23,10 +23,10 @@ h2 {
 
 h2 {
   position: relative;
-  overflow: hidden;
-  padding: 6px $horizontal-padding;
-  border-top: 1px solid $primary-lighter;
   margin: 0 -#{$horizontal-padding};
+  padding: 6px $horizontal-padding;
+  overflow: hidden;
+  border-top: 1px solid $primary-lighter;
   color: $primary;
   letter-spacing: .2ch;
 
@@ -76,8 +76,8 @@ a {
 }
 
 .ellipsis::before {
-  color: $light-fg-3;
   content: '[...]';
+  color: $light-fg-3;
   font-weight: bold;
   letter-spacing: .5ch;
 

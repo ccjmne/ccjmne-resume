@@ -5,11 +5,11 @@ $icon-size: 22px;
 
 aside {
   display: flex;
+  grid-area: aside;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: $horizontal-padding;
-  grid-area: aside;
 
   @media print {
     & {

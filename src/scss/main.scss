@@ -1,15 +1,15 @@
 @import './spacing';
 
 main {
-  padding: 0 $horizontal-padding;
   grid-area: main;
+  padding: 0 $horizontal-padding;
 }
 
 .experience {
   display: grid;
+  grid-template: 'title title''when where'/1fr auto;
   margin: 1.5em 0;
   gap: .3em 0;
-  grid-template: 'title title''when where'/1fr auto;
 
   &.w-summary {
     grid-template: 'title title''when where''summary summary'/1fr auto;
