@@ -89,3 +89,7 @@ a {
     color: $dark-fg-3;
   }
 }
+
+svg {
+  pointer-events: none;
+}
