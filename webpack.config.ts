@@ -47,6 +47,7 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
   plugins: [].concat(
     mode === 'production' ? new CleanWebpackPlugin() : [],
     new HtmlWebpackPlugin({
+      title: name,
       meta: { author, description, repository, keywords: keywords.join(', ') },
       filename: resolve(dist, 'ccjmne-resume.html'),
     }),
