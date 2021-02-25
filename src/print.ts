@@ -11,7 +11,7 @@ export default async function compile(
   const browser = await launch({ headless: true, args: ['--no-sandbox', '--disabled-setuid-sandbox'] });
   const page = await browser.newPage();
   await page.goto(`file://${resolve(input)}`, { waitUntil: 'networkidle0' });
-  const content = await page.pdf({ format: 'A4', landscape: false, printBackground: true, ...options, path: null });
+  const content = await page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options, path: null });
   await browser.close();
   const doc = new Document({ font: null, properties });
   doc.addPagesOf(new ExternalDocument(content));

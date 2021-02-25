@@ -30,7 +30,7 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
       // see https://webpack.js.org/guides/asset-modules/
       type: 'asset/inline',
       generator: { dataUrl: (content: unknown) => svgToMiniDataURI(content.toString()) },
-    }],
+    } as unknown], // TODO: remove 'as unknown' as soon as typings are updated for `RuleSetRule`
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
