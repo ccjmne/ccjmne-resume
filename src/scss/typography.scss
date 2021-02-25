@@ -56,6 +56,11 @@ p {
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
   text-underline-offset: .1em;
+  text-decoration-color: $light-fg-2;
+
+  .inverse & {
+    text-decoration-color: $dark-fg-2;
+  }
 }
 
 .lighter {
