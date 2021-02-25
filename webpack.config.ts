@@ -33,6 +33,7 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
     } as unknown], // TODO: remove 'as unknown' as soon as typings are updated for `RuleSetRule`
   },
   resolve: {
+    alias: { src },
     extensions: ['.tsx', '.ts', '.js'],
     modules: ['src', 'node_modules'],
   },
