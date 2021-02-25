@@ -1,3 +1,4 @@
+import css from '../scss/exported-vars.scss';
 import { EasyHTMLElement, elementNS } from './easy-htmlelement';
 
 /**
@@ -63,7 +64,7 @@ export function h2bg(size = 24): EasyHTMLElement {
    * @param hsl A css-style hsl representation of the base colour, like: `hsl(208deg 56% 26%)`
    */
   function colour(hsl: string): string {
-    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)deg (?<s>\d+)% (?<l>\d+)%\)$/.exec(hsl);
+    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)deg, (?<s>\d+)%, (?<l>\d+)%\)$/.exec(hsl);
     const [sat, lit] = [Number(s), Number(l)];
     return `hsl(${h}deg ${Math.floor(sat / 2 + (sat / 2) * random())}% ${Math.floor(lit + 20 * (random() - 0.5))}%)`;
   }
@@ -74,7 +75,7 @@ export function h2bg(size = 24): EasyHTMLElement {
   function diamond({ x, y, diag }: { x: number, y: number, diag: number }): EasyHTMLElement {
     return elementNS('path')
       .attrs({ transform: `translate(${x} ${y})`, d: diamondPath(diag / 2) })
-      .styles({ fill: colour('hsl(208deg 56% 26%)') });
+      .styles({ fill: colour(css.primary) });
   }
 
   return elementNS('svg')

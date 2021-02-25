@@ -1,0 +1,12 @@
+@use 'sass:string';
+
+@import './colours';
+
+@function hsl-str($color) {
+  @return string.unquote("hsl(#{hue($color)}, #{saturation($color)}, #{lightness($color)})");
+}
+
+:export {
+  // stylelint-disable property-no-unknown
+  primary: hsl-str($primary);
+}

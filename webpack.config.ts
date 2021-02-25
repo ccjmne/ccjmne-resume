@@ -19,7 +19,10 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
       use: 'ts-loader',
       exclude: /node_modules/,
     }, {
-      test: /\.scss?$/,
+      test: /exported-vars\.scss$/,
+      use: ['style-loader', { loader: 'css-loader', options: { modules: { compileType: 'icss' } } }, 'sass-loader'],
+    }, {
+      test: /(?<!exported-vars)\.scss?$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
     }, {
@@ -33,7 +36,7 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
     extensions: ['.tsx', '.ts', '.js'],
     modules: ['src', 'node_modules'],
   },
-  devtool: mode === 'development' && 'eval',
+  devtool: mode === 'development' ? 'eval' : false,
   devServer: {
     writeToDisk: true,
     index: 'ccjmne-resume.html',

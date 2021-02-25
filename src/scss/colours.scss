@@ -1,16 +1,16 @@
-$primary: hsl(208deg 56% 26%);
+$primary: hsl(208deg, 56%, 26%);
 $primary-lighter: lighten($primary, 10%);
 
 $light-bg: ghostwhite;
-$light-fg: hsl(0deg 0% 28%);
-$light-fg-0: hsl(0deg 0% 0%);
+$light-fg: hsl(0deg, 0%, 28%);
+$light-fg-0: hsl(0deg, 0%, 0%);
 $light-fg-1: $light-fg;
-$light-fg-2: hsl(0deg 0% 42%);
-$light-fg-3: hsl(0deg 0% 66%);
+$light-fg-2: hsl(0deg, 0%, 42%);
+$light-fg-3: hsl(0deg, 0%, 66%);
 
 $dark-bg: black;
 $dark-fg: $light-bg;
-$dark-fg-0: hsl(0deg 0% 100%);
+$dark-fg-0: hsl(0deg, 0%, 100%);
 $dark-fg-1: $dark-fg;
-$dark-fg-2: hsl(0deg 0% 65%);
-$dark-fg-3: hsl(0deg 0% 40%);
+$dark-fg-2: hsl(0deg, 0%, 65%);
+$dark-fg-3: hsl(0deg, 0%, 40%);
