@@ -1,14 +1,22 @@
+import { resolve } from 'path';
+
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import svgToMiniDataURI from 'mini-svg-data-uri';
-import { resolve } from 'path';
 import { Compiler, Configuration } from 'webpack';
+
+import 'webpack-dev-server'; // Augment "Configuration" type
 import { author, description, homepage, keywords, name, repository, title } from './package.json';
 import compile from './src/print';
 
 const src = resolve(__dirname, 'src');
 const dist = resolve(__dirname, 'dist');
-export default (_env: string, { mode }: { mode ? : 'production' | 'development' } = { mode: 'production' }): Configuration => ({
+const out = 'ccjmne-resume';
+
+export default (
+  _env: string,
+  { mode = 'production', port = 8042 }: { mode?: 'production' | 'development', port?: number } = {},
+): Configuration => ({
   entry: {
     scss: resolve(src, 'index.scss'),
     main: resolve(src, 'index.ts'),
@@ -20,7 +28,12 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
       exclude: /node_modules/,
     }, {
       test: /exported-vars\.scss$/,
-      use: ['style-loader', { loader: 'css-loader', options: { modules: { compileType: 'icss' } } }, 'sass-loader'],
+      use: [
+        'style-loader',
+        'css-modules-typescript-loader',
+        { loader: 'css-loader', options: { modules: 'icss' } },
+        'sass-loader',
+      ],
     }, {
       test: /(?<!exported-vars)\.scss?$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
@@ -29,8 +42,10 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
       test: /\.svg$/,
       // see https://webpack.js.org/guides/asset-modules/
       type: 'asset/inline',
-      generator: { dataUrl: (content: unknown) => svgToMiniDataURI(content.toString()) },
-    } as unknown], // TODO: remove 'as unknown' as soon as typings are updated for `RuleSetRule`
+      generator: {
+        dataUrl: (content: string | Buffer) => svgToMiniDataURI(String(content)),
+      },
+    }],
   },
   resolve: {
     alias: { src },
@@ -39,25 +54,33 @@ export default (_env: string, { mode }: { mode ? : 'production' | 'development' 
   },
   devtool: mode === 'development' ? 'eval' : false,
   devServer: {
-    writeToDisk: true,
-    index: 'ccjmne-resume.html',
+    port,
+    devMiddleware: {
+      index: `${out}.html`,
+      writeToDisk: true,
+    },
   },
   output: {
     path: dist,
   },
-  plugins: [].concat(
-    mode === 'production' ? new CleanWebpackPlugin() : [],
+  plugins: [
+    ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
     new HtmlWebpackPlugin({
       title: name,
       meta: { author, description, repository, keywords: keywords.join(', ') },
-      filename: resolve(dist, 'ccjmne-resume.html'),
+      filename: resolve(dist, `${out}.html`),
     }),
     (compiler: Compiler) => {
-      compiler.hooks.afterEmit.tapPromise('AfterEmitPlugin', () => compile(
-        resolve(dist, 'ccjmne-resume.html'),
-        resolve(dist, 'ccjmne-resume.pdf'),
+      /**
+       * Use `afterDone` rather than `afterEmit` to prevent deadlock
+       * where this hook attempts to query the devServer while the devServer
+       * waits for all compilation hooks to be resolved before serving content.
+       */
+      compiler.hooks.afterDone.tap('AfterDonePlugin', () => compile(
+        resolve(dist, `${out}.html`),
+        resolve(dist, `${out}.pdf`),
         { properties: { author, creator: `${name} (${homepage})`, keywords: keywords.join(', '), title, subject: description } },
       ));
     },
-  ),
+  ],
 });

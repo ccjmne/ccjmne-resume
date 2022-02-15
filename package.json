@@ -5,8 +5,8 @@
   "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
   "main": "src/index.ts",
   "scripts": {
-    "start:dev": "cross-env TS_NODE_CONFIG=tsconfig-webpack.json webpack serve --mode development --port 8042 --open --watch-content-base",
-    "compile:pdf": "cross-env TS_NODE_CONFIG=tsconfig-webpack.json webpack --mode production",
+    "start:dev": "webpack serve --mode development --port 8042 --open",
+    "compile:pdf": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,7 +35,6 @@
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "clean-webpack-plugin": "^4.0.0",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.6.0",
     "css-modules-typescript-loader": "^4.0.1",
     "eslint": "^8.8.0",

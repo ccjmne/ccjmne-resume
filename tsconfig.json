@@ -1,26 +1,36 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "incremental": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./node_modules/@types/*", "./src/*"], // to avoid looking into node_modules/@types/d3-selection-multi/node_modules/@types/d3-selection/index.d.ts
+      "src/*": ["./src/*"],
+      "webpack": ["./node_modules/webpack"] // together with es-interop
+    },
+    "moduleResolution": "Node",
+    "module": "ESNext",
+    "target": "ESNext",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": false,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
+    "incremental": true,
     "importHelpers": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
     "resolveJsonModule": true,
-    "target": "ESNext",
-    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["DOM", "ESNext"],
     "typeRoots": [
-      "src/**/*.d.ts",
+      "src/*.d.ts",
       "node_modules/@types",
     ]
   },
-  "exclude": ["node_modules"]
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": [".eslintrc.js", "**/*"],
+  "exclude": ["node_modules", "dist"]
 }
