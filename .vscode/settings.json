@@ -1,4 +1,10 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+  },
+  "editor.formatOnSave": false,
   "json.schemas": [{
     "fileMatch": [
       "src/profile.json"
