@@ -67,7 +67,6 @@ export default (
     port,
     devMiddleware: {
       index: `${out}.html`,
-      writeToDisk: true,
     },
   },
   output: {
@@ -87,7 +86,7 @@ export default (
        * waits for all compilation hooks to be resolved before serving content.
        */
       compiler.hooks.afterDone.tap('AfterDonePlugin', () => compile(
-        resolve(dist, `${out}.html`),
+        { port },
         resolve(dist, `${out}.pdf`),
         { properties: { author, creator: `${name} (${homepage})`, keywords: keywords.join(', '), title, subject: description } },
       ));
