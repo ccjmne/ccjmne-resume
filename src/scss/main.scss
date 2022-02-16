@@ -4,7 +4,7 @@ main {
   display: flex;
   grid-area: main;
   flex-direction: column;
-  padding: 0 $horizontal-padding;
+  padding: 0 $default-padding;
 }
 
 .experiences {
@@ -12,8 +12,7 @@ main {
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
-  // TODO: margin: $default-padding 0;
-  margin: 25px 0;
+  margin: $default-padding 0;
 }
 
 .experience {

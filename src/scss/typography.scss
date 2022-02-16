@@ -24,8 +24,8 @@ aside h3 {
 
 h2 {
   position: relative;
-  margin: 0 -#{$horizontal-padding};
-  padding: 5px $horizontal-padding;
+  margin: 0 -#{$default-padding};
+  padding: 5px $default-padding;
   overflow: hidden;
   border-top: 1px solid $primary;
   color: $light-bg;
@@ -95,8 +95,4 @@ a {
   .inverse & {
     color: $dark-fg-3;
   }
-}
-
-svg {
-  pointer-events: none;
 }

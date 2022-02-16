@@ -5,7 +5,7 @@ header {
   grid-area: header;
   flex-direction: column;
   justify-content: center;
-  padding: $vertical-padding $horizontal-padding;
+  padding: 35px $default-padding;
 
   h1 {
     margin: 0;
