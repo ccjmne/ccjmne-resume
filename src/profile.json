@@ -17,58 +17,58 @@
     "text": "github/ccjmne"
   }],
   "identity": {
-    "name": "Eric NICOLAS",
+    "name": "Éric NICOLAS",
     "title": "Solution Architect",
     "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
   },
-  "skills": ["Amazon Web Services (AWS)", "DevOps", "Communication", "Data Structures", "Problem Solving", "Architectural Patterns", "Algorithmics"],
+  "skills": ["Amazon Web Services (AWS)", "DevOps", "Communication", "Security", "Problem Solving", "Architectural Patterns", "Algorithmics", "Collaborative Work"],
   "experience": [{
     "dates": "Dec. 2014 – Present",
     "duration": "6 years 3 months",
-    "company": "NCLS Development",
+    "company": "[NCLS Development](https://www.orca-solution.com/)",
     "location": "Paris area, France",
     "title": "Solution Architect & Product Owner",
     "abstract": "Designed the entirety of the services that make up our enterprise solution."
   }, {
     "dates": "Jul. 2014 – Dec. 2014",
     "duration": "6 months",
-    "company": "Propellerhead",
+    "company": "[Propellerhead](https://www.propellerhead.co.nz/)",
     "location": "Auckland, New Zealand",
     "title": "Lead Developer",
-    "abstract": "Lead development and integration of a newer solution with a client's legacy systems."
+    "abstract": "Lead development and integration of a newer corporate solution with a client's legacy systems."
   }, {
     "dates": "Dec. 2013 – Jul. 2014",
     "duration": "8 months",
-    "company": "Propellerhead",
+    "company": "[Propellerhead](https://www.propellerhead.co.nz/)",
     "location": "Auckland, New Zealand",
     "title": "Software & DevOps Engineer",
-    "abstract": "Co-designed and implemented an engine responsible for parsing and semantically classifying 160+ years of historical data.\nProject highlighted by the W3C as the foremost example for their \"Data on the Web Best Practice\" publication in 2017.",
-    "readmore": "https://www.propellerhead.co.nz/auckland-museum-case-study"
+    "abstract": "Co-designed and implemented an engine responsible for parsing and semantically classifying 160+ years of historical data.\nProject [highlighted by the W3C](https://twitter.com/w3c/status/826454510902136834) as the foremost example for their \"Data on the Web Best Practice\" publication in 2017.",
+    "readmore": "https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630"
   }, {
     "dates": "Sep. 2012 – Mar. 2013",
     "duration": "7 months",
-    "company": "Gaspard Monge Institute, University of Paris",
+    "company": "[Gaspard Monge Institute, University of Paris](https://igm.univ-gustave-eiffel.fr/)",
     "location": "Paris area, France",
     "title": "Project Manager",
     "abstract": "Lead a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute."
   }, {
     "dates": "Oct. 2011 – Sep. 2013",
     "duration": "2 years",
-    "company": "Snecma, Safran group",
+    "company": "[Snecma, Safran group](https://www.safran-group.com/companies/safran-aircraft-engines)",
     "location": "Île-de-France, France",
     "title": "Solution Architect",
     "abstract": "Honoured for my creativity in one particular solution I designed, conducted, integrated and partially developed.\nMentored a junior IT engineer from 2011 to 2013."
   }, {
     "dates": "Sep. 2010 – Oct. 2011",
     "duration": "1 year 1 month",
-    "company": "Snecma, Safran group",
+    "company": "[Snecma, Safran group](https://www.safran-group.com/companies/safran-aircraft-engines)",
     "location": "Île-de-France, France",
     "title": "Software Engineer",
     "abstract": "Primarily interfaced with mathematicians and physicists to develop and implement real-time ports of cutting-edge signal processing algorithms in the demanding context of aircraft and rocket engines."
   }, {
     "dates": "Sep. 2008 – Sep. 2010",
     "duration": "2 years 1 month",
-    "company": "Site Alpha, Planon group",
+    "company": "[Site Alpha, Planon group](https://planonsoftware.com/uk/)",
     "location": "Noisy-le-Grand area, France",
     "title": "Assistant Project Manager",
     "abstract": "Worked directly with our CEO to elaborate specification documents for the company's new flagship product."
@@ -77,25 +77,25 @@
     "degree": "Engineer's Degree",
     "field": "Network Security",
     "dates": "2010 – 2013",
-    "highlight": "Trained in the Java language by [Rémi FORAX](https://blogs.oracle.com/java/remi-forax), major contributor to its expansion.\nDiploma obtained with highest honours.\nValedictorian."
+    "highlight": "Trained in the Java language by [Rémi FORAX](https://github.com/forax), major contributor to its expansion.\nDiploma obtained with highest honours.\nGraduated top of my class."
   }, {
     "degree": "Licentiate's Degree",
     "field": "Computer Science",
     "dates": "2008 – 2010",
-    "highlight": "Diploma obtained with highest honours.\nTop of my class."
+    "highlight": "Diploma obtained with highest honours.\nGraduated top of my class."
   }, {
     "degree": "Bachelor's Degree",
     "field": "Applied Physics for Electronics",
     "dates": "2005 – 2008",
-    "highlight": "Diploma obtained with highest honours.\nValedictorian."
+    "highlight": "Diploma obtained with highest honours.\nGraduated top of my class; top 0.4% nationwide."
   }],
   "endorsments": [{
-    "from": "Etienne DURIS",
-    "title": "University Professor",
-    "excerpt": "[...] a hard-working person, tackling all assignments with dedication.\nI highly recommend Eric, he is a team player and would make a great asset to any organization. "
-  }, {
-    "from": "Christian POPESCU",
+    "from": "[Christian POPESCU](https://www.linkedin.com/in/christian-popescu-6766873/)",
     "title": "Senior Software Engineer",
-    "excerpt": "[...] showed obvious technical skills and remarkable abstraction capacities. I trust in his technical and human skills."
+    "excerpt": "Éric showed obvious technical skills and remarkable abstraction capacities. I trust in his technical and human skills."
+  }, {
+    "from": "[Etienne DURIS](https://www.linkedin.com/in/etienneduris/)",
+    "title": "University Professor",
+    "excerpt": "[...] a hard-working person, tackling all assignments with dedication.\nI highly recommend Éric, he is a team player and would make a great asset to any organization. "
   }]
 }
