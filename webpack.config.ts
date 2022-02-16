@@ -10,6 +10,7 @@ import { author, description, homepage, keywords, name, repository, title } from
 import compile from './src/print';
 
 const src = resolve(__dirname, 'src');
+const lib = resolve(__dirname, 'lib');
 const dist = resolve(__dirname, 'dist');
 const out = 'ccjmne-resume';
 
@@ -40,6 +41,15 @@ export default (
       exclude: /node_modules/,
     }, {
       test: /\.svg$/,
+      enforce: 'pre',
+      use: 'svgo-loader',
+    }, {
+      test: /\.svg$/, // w/o `?template` query param
+      resourceQuery: /template/,
+      use: resolve(lib, 'template-element-loader.ts'),
+    }, {
+      test: /\.svg$/, // w/ `?template` query param
+      resourceQuery: query => !/template/.test(query),
       // see https://webpack.js.org/guides/asset-modules/
       type: 'asset/inline',
       generator: {

@@ -1,3 +1,5 @@
+import externalLink from 'src/assets/external-link.svg?template';
+
 const SVGNS = 'http://www.w3.org/2000/svg';
 
 export type EasyHTMLElement = (HTMLElement | SVGElement) & {
@@ -82,6 +84,12 @@ export function span(...content: ElementContent): EasyHTMLElement {
 
 export function div(...content: ElementContent): EasyHTMLElement {
   return element('div').content(...content);
+}
+
+export function link({ text, href }: { text: string, href: string }): EasyHTMLElement {
+  const a = element('a').attrs({ href }).content(text.trim());
+  a.appendChild(externalLink.content.cloneNode(true));
+  return a;
 }
 
 /**
