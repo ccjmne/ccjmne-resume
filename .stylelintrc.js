@@ -12,5 +12,6 @@ module.exports = {
       true,
       { ignorePseudoClasses: ['export'] },
     ],
+    'string-quotes': 'single',
   },
 };
