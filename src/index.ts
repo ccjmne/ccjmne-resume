@@ -7,7 +7,7 @@ const { experience, identity, links, skills, education, endorsments } = profile;
 
 document.body.append(
   element('header').content(
-    element('h1').classed('name').content(identity.name.replace(/[a-z]+/g, s => String(span(s).classed('bigger-small-caps')))),
+    element('h1').classed('name').content(identity.name),
     element('h1').classed('title', 'lighter').content(identity.title),
   ),
   element('aside').classed('inverse').content(

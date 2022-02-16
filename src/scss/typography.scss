@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap');
 
 @import './spacing';
 @import './colours';
@@ -6,8 +6,9 @@
 body {
   background-color: $light-bg;
   color: $light-fg;
-  font-family: 'Montserrat', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Raleway', 'Montserrat', 'HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
   font-size: 10pt;
+  letter-spacing: .5px;
 }
 
 .inverse {
@@ -16,18 +17,21 @@ body {
 }
 
 h1,
-h2 {
-  font-family: 'Marcellus', serif;
+h2,
+aside h3 {
+  font-family: 'Cinzel', serif;
 }
 
 h2 {
   position: relative;
   margin: 0 -#{$horizontal-padding};
-  padding: 6px $horizontal-padding;
+  padding: 5px $horizontal-padding;
   overflow: hidden;
   border-top: 1px solid $primary;
   color: $primary;
+  color: $light-bg;
   letter-spacing: .2ch;
+}
 
   &:not(:first-child) {
     margin-top: 12px;
