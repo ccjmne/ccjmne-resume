@@ -3,7 +3,7 @@
 @import './colours';
 
 @function hsl-str($color) {
-  @return string.unquote("hsl(#{hue($color)}, #{saturation($color)}, #{lightness($color)})");
+  @return string.unquote('hsl(#{hue($color)}, #{saturation($color)}, #{lightness($color)})');
 }
 
 :export {

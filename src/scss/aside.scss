@@ -17,8 +17,14 @@ aside {
     }
   }
 
-  @include rasterize-background(linear-gradient(transparentize($primary, .2), transparentize(darken($primary, 10%), .2) 45%, $dark-bg),
-    url('src/assets/circuit-board.svg'));
+  @include rasterize-background(
+    linear-gradient(
+      transparentize($primary, .2),
+      transparentize(darken($primary, 10%), .2) 45%,
+      $dark-bg
+    ),
+    url('src/assets/circuit-board.svg')
+  );
 
   .watermark {
     text-align: center;
@@ -38,35 +44,35 @@ aside {
   h3 {
     margin-top: 0;
     font-size: 1.3em;
-    letter-spacing: 0.3ch;
+    letter-spacing: .3ch;
   }
 
   .education {
     display: grid;
-    grid-template: 'degree dates''field field''highlight highlight'/ 1fr auto;
+    grid-template: 'degree dates' 'field field' 'highlight highlight'/ 1fr auto;
 
-    [grid-area=field] {
+    [grid-area='field'] {
       margin-bottom: .3em;
       font-size: .9em;
       text-align: right;
     }
 
-    +.education {
+    + .education {
       margin-top: 15px;
     }
   }
 
   .endorsment {
     display: grid;
-    grid-template: 'from''title''excerpt'/auto;
+    grid-template: 'from' 'title' 'excerpt' / auto;
 
-    [grid-area=title] {
+    [grid-area='title'] {
       margin-bottom: .3em;
       font-size: .9em;
       text-align: right;
     }
 
-    +.endorsment {
+    + .endorsment {
       margin-top: 15px;
     }
   }
