@@ -98,6 +98,14 @@ export function link({ text, href }: { text: string, href: string }): EasyHTMLEl
   return a;
 }
 
+export function section(id: string, ...content: ElementContent): EasyHTMLElement {
+  return element('section').attrs({ id }).content(...content);
+}
+
+export function article(cls: string, ...content: ElementContent): EasyHTMLElement {
+  return element('article').classed(cls).content(...content);
+}
+
 /**
  * Creates a new `<span />` element with the supplied `content`,
  * unless the content already is a *single EasyHTMLElement*, in which case

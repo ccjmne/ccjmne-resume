@@ -7,7 +7,7 @@ main {
   padding: 0 $default-padding;
 }
 
-.experiences {
+section#experience {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -15,7 +15,7 @@ main {
   margin: $default-padding 0;
 }
 
-.experience {
+article.experience {
   display: grid;
   grid-template: 'title title' 'when where' / 1fr auto;
   gap: .3em 0;

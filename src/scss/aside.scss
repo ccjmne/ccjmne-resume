@@ -30,7 +30,7 @@ aside {
     text-align: center;
   }
 
-  .links {
+  section#links {
     display: grid;
     align-items: center;
     gap: .3em 1em;
@@ -66,22 +66,22 @@ aside {
     letter-spacing: .3ch;
   }
 
-  .education {
+  article + article {
+    margin-top: 15px;
+  }
+
+  article.education {
     display: grid;
-    grid-template: 'degree dates' 'field field' 'highlight highlight'/ 1fr auto;
+    grid-template: 'degree dates' 'field field' 'highlight highlight' / 1fr auto;
 
     [grid-area='field'] {
       margin-bottom: .3em;
       font-size: .9em;
       text-align: right;
     }
-
-    + .education {
-      margin-top: 15px;
-    }
   }
 
-  .endorsment {
+  article.endorsment {
     display: grid;
     grid-template: 'from' 'title' 'excerpt' / auto;
 
@@ -89,10 +89,6 @@ aside {
       margin-bottom: .3em;
       font-size: .9em;
       text-align: right;
-    }
-
-    + .endorsment {
-      margin-top: 15px;
     }
   }
 }
