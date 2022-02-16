@@ -1,16 +1,18 @@
 import externalLink from 'src/assets/external-link.svg?template';
 
+import { RegExpGroups } from 'src/types';
+
 const SVGNS = 'http://www.w3.org/2000/svg';
 
 export type EasyHTMLElement = (HTMLElement | SVGElement) & {
-  classed: (...classes: string[]) => EasyHTMLElement,
-  attrs: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement,
-  styles: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement,
-  content: (...c: (string | EasyHTMLElement)[]) => EasyHTMLElement,
-  html: (html: string) => EasyHTMLElement,
-  at: (area: string) => EasyHTMLElement,
-  lighter: () => EasyHTMLElement,
-  lightest: () => EasyHTMLElement,
+  classed: (...classes: string[]) => EasyHTMLElement;
+  attrs: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
+  styles: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
+  content: (...c: (string | EasyHTMLElement)[]) => EasyHTMLElement;
+  html: (html: string) => EasyHTMLElement;
+  at: (area: string) => EasyHTMLElement;
+  lighter: () => EasyHTMLElement;
+  lightest: () => EasyHTMLElement;
 };
 
 export function element(base: string | (HTMLElement | SVGElement) = 'span'): EasyHTMLElement {
@@ -34,15 +36,19 @@ export function element(base: string | (HTMLElement | SVGElement) = 'span'): Eas
      * Parses contents and replace:
      * - linefeeds with `<br />`
      * - markdown-style links with `<a href="...">...</a>`
+     * - ellipses ("[...]") with a specifically-style element
      */
     content(this: EasyHTMLElement, ...c: (string | EasyHTMLElement)[]): EasyHTMLElement {
       return this.html(c
         .map(s => (typeof s === 'string'
           ? s
+            .replaceAll('[...]', String(element('span').classed('ellipsis')))
             .replace(/\n/g, String(element('br')))
             .replace(/\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)/g, (...args) => {
-              const { text, href } = args.pop();
-              return String(element('a').attrs({ href }).content(text));
+              const { text, href } = args.pop() as RegExpGroups<'text' | 'href'>;
+              // TODO: rewrite everything here with an actual class anyways
+              // and don't just Stringify anything. Use Document#createTextNode and Node#appendChild
+              return String(link({ text, href }));
             })
           : String(s)))
         .join(''));
@@ -72,7 +78,7 @@ export function element(base: string | (HTMLElement | SVGElement) = 'span'): Eas
   });
 }
 
-export function elementNS(type = 'svg'): EasyHTMLElement {
+export function elementSVG(type = 'svg'): EasyHTMLElement {
   return element(document.createElementNS(SVGNS, type)).attrs(type === 'svg' ? { xmlns: SVGNS } : {});
 }
 

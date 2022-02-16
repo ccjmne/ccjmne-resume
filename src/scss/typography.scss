@@ -63,6 +63,11 @@ a {
   .inverse & {
     text-decoration-color: $dark-fg-2;
   }
+
+  > svg {
+    padding-left: 2px;
+    vertical-align: middle;
+  }
 }
 
 .lighter {
@@ -82,7 +87,7 @@ a {
 }
 
 .ellipsis::before {
-  content: '[...]';
+  content: '[…]';
   color: $light-fg-3;
   font-weight: bold;
   letter-spacing: .5ch;

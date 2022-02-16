@@ -47,6 +47,21 @@ aside {
     letter-spacing: .3ch;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    a {
+      text-decoration: none;
+
+      > svg {
+        // bump the 'external-link' icon a bit higher to account for the absence of underline
+        position: relative;
+        top: -1px;
+      }
+    }
+  }
+
   .education {
     display: grid;
     grid-template: 'degree dates' 'field field' 'highlight highlight'/ 1fr auto;

@@ -1,5 +1,8 @@
+import { RegExpWGroups } from 'src/types';
+
 import css from '../scss/exported-vars.scss';
-import { EasyHTMLElement, elementNS } from './easy-htmlelement';
+
+import { EasyHTMLElement, elementSVG } from './easy-htmlelement';
 
 /**
  * Generates the `d` attribute for a `path` SVG element that draws a diamond.
@@ -34,7 +37,7 @@ function smoothstep(e0: number, e1: number): (x: number) => number {
 
 export function hr(height = 10, reverse = false): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5];
-  return elementNS('svg')
+  return elementSVG('svg')
     .attrs({
       viewBox: `-1 -1 ${height + 2} ${height + 2}`,
       preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`,
@@ -43,28 +46,28 @@ export function hr(height = 10, reverse = false): EasyHTMLElement {
     .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
     .lighter()
     .content(
-      elementNS('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
-        elementNS('path').attrs({
+      elementSVG('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
+        elementSVG('path').attrs({
           d: `M0,0      ${diamondPath(d1, 'center')} m${d1},0
               m${gap},0 ${diamondPath(d2, 'left')} m${2 * d2},0
               m${gap},0 ${diamondPath(d3, 'left')}`,
         }),
-        elementNS('path').styles({ 'shape-rendering': 'crispEdges' }).attrs({ d: `M${-d1 + 2 * (d1 + d2 + d3) + 3 * gap},0 h9999` }),
+        elementSVG('path').styles({ 'shape-rendering': 'crispEdges' }).attrs({ d: `M${-d1 + 2 * (d1 + d2 + d3) + 3 * gap},0 h9999` }),
       ),
     );
 }
 
 export function h2bg(size = 24): EasyHTMLElement {
-  const [half, cols, rows] = [size / 2, 100, 5];
+  const [half, cols, rows] = [size / 2, 100, 7];
   const random = seededRandom();
-  const ss = smoothstep(24, 0); // smoothly steps *down* over [0, 24]
+  const ss = smoothstep(48, 12); // smoothly steps *down* over [12, 48]
 
   /**
    * Generates slight variations of the given colour.
    * @param hsl A css-style hsl representation of the base colour, like: `hsl(208deg 56% 26%)`
    */
   function colour(hsl: string): string {
-    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)(?:deg)?,? (?<s>\d+)%,? (?<l>\d+)%\)$/.exec(hsl);
+    const { groups: { h, s, l } } = /^hsl\((?<h>\d+)(?:deg)?,? (?<s>\d+)%,? (?<l>\d+)%\)$/.exec(hsl) as RegExpWGroups<'h' | 's' | 'l'>;
     const [sat, lit] = [Number(s), Number(l)];
     return `hsl(${h}deg ${Math.floor(sat / 2 + (sat / 2) * random())}% ${Math.floor(lit + 20 * (random() - 0.5))}%)`;
   }
@@ -73,17 +76,16 @@ export function h2bg(size = 24): EasyHTMLElement {
    * A diamond of diagonal `diag` centered around `(x, y)`.
    */
   function diamond({ x, y, diag }: { x: number, y: number, diag: number }): EasyHTMLElement {
-    return elementNS('path')
+    return elementSVG('path')
       .attrs({ transform: `translate(${x} ${y})`, d: diamondPath(diag / 2) })
       .styles({ fill: colour(css.primary) });
   }
 
-  return elementNS('svg')
-    .attrs({ viewBox: `${-size * cols} 0 ${size * cols} ${half * (rows - 1)}`, preserveAspectRatio: `xMaxYMid meet` })
-    .styles({ position: 'absolute', top: 0, right: 0, height: '100%' })
-    .content(...[].concat(...Array.from({ length: rows }).map(
-      (_, r) => Array.from({ length: cols }).map(
-        (_, c) => diamond({ x: -c * size - (r % 2) * half, y: r * half, diag: Math.max(2, size * ss(c)) }),
-      ),
+  return elementSVG('svg')
+    .attrs({ viewBox: `0 0 ${size * cols} ${half * (rows - 1)}`, preserveAspectRatio: 'xMaxYMid meet' })
+    .styles({ 'position': 'absolute', 'top': 0, 'left': 0, 'height': '100%', 'z-index': -1 })
+    .content(...Array.from({ length: rows }).flatMap((_, r) => Array.from(
+      { length: cols },
+      (_, c) => diamond({ x: size * (c + (r % 2) / 2), y: r * half, diag: Math.max(2, size * ss(c + (r % 2) / 2)) }),
     )));
 }
