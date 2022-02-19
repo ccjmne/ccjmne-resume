@@ -3,11 +3,11 @@ import { resolve } from 'path';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import svgToMiniDataURI from 'mini-svg-data-uri';
-import { Compiler, Configuration } from 'webpack';
+import { Configuration } from 'webpack';
 
 import 'webpack-dev-server'; // Augment "Configuration" type
 import { author, description, homepage, keywords, name, repository, title } from './package.json';
-import compile from './src/print';
+import { PDFPrinter } from './tooling/pdf-printer-plugin';
 
 const src = resolve(__dirname, 'src');
 const dist = resolve(__dirname, 'dist');
@@ -80,17 +80,10 @@ export default (
       template: resolve(src, 'index.html'),
       filename: resolve(dist, `${out}.html`),
     }),
-    (compiler: Compiler) => {
-      /**
-       * Use `afterDone` rather than `afterEmit` to prevent deadlock
-       * where this hook attempts to query the devServer while the devServer
-       * waits for all compilation hooks to be resolved before serving content.
-       */
-      compiler.hooks.afterDone.tap('AfterDonePlugin', () => compile(
-        { port },
-        resolve(dist, `${out}.pdf`),
-        { properties: { author, creator: `${name} (${homepage})`, keywords: keywords.join(', '), title, subject: description } },
-      ));
-    },
+    new PDFPrinter({
+      port,
+      output: resolve(dist, `${out}.pdf`),
+      properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
+    }),
   ],
 });
