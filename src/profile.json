@@ -42,7 +42,7 @@
     "company": "[Propellerhead](https://www.propellerhead.co.nz/)",
     "location": "Auckland, New Zealand",
     "title": "Software & DevOps Engineer",
-    "abstract": "Co-designed and implemented an engine responsible for parsing and semantically classifying 160+ years of historical data.\nProject [highlighted by the W3C](https://twitter.com/w3c/status/826454510902136834) as the foremost example for their \"Data on the Web Best Practice\" publication in 2017.",
+    "abstract": "Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://twitter.com/w3c/status/826454510902136834) as a foremost example for their [Data&nbsp;on&nbsp;the&nbsp;Web&nbsp;Best&nbsp;Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.",
     "readmore": "https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630"
   }, {
     "dates": "Sep. 2012 – Mar. 2013",
@@ -77,25 +77,25 @@
     "degree": "Engineer's Degree",
     "field": "Network Security",
     "dates": "2010 – 2013",
-    "highlight": "Trained in the Java language by [Rémi FORAX](https://github.com/forax), major contributor to its expansion.\nDiploma obtained with highest honours.\nGraduated top of my class."
+    "highlight": "Upskilled in the Java language by [Rémi FORAX](https://github.com/forax), major con&shy;trib&shy;u&shy;tor to its expansion.\nAward&shy;ed with the great&shy;est dis&shy;tinc&shy;tion. Graduated top of my class."
   }, {
     "degree": "Licentiate's Degree",
     "field": "Computer Science",
     "dates": "2008 – 2010",
-    "highlight": "Diploma obtained with highest honours.\nGraduated top of my class."
+    "highlight": "Award&shy;ed with the great&shy;est dis&shy;tinc&shy;tion. Graduated top of my class."
   }, {
     "degree": "Bachelor's Degree",
     "field": "Applied Physics for Electronics",
     "dates": "2005 – 2008",
-    "highlight": "Diploma obtained with highest honours.\nGraduated top of my class; top 0.4% nationwide."
+    "highlight": "Award&shy;ed with the great&shy;est dis&shy;tinc&shy;tion. Graduated top of my class; top 0.4% nationwide."
   }],
   "endorsments": [{
     "from": "[Christian POPESCU](https://www.linkedin.com/in/christian-popescu-6766873/)",
     "title": "Senior Software Engineer",
-    "excerpt": "Éric showed obvious technical skills and remarkable abstraction capacities. I trust in his technical and human skills."
+    "excerpt": "Éric showed obvious technical skills and re&shy;mark&shy;able ab&shy;strac&shy;tion ca&shy;pac&shy;i&shy;ties. I trust in his technical and human skills."
   }, {
     "from": "[Etienne DURIS](https://www.linkedin.com/in/etienneduris/)",
     "title": "University Professor",
-    "excerpt": "[...] a hard-working person, tackling all assignments with dedication.\nI highly recommend Éric, he is a team player and would make a great asset to any organization. "
+    "excerpt": "Éric is a hard-working person, tackling all assignments with dedication.\nI highly recommend him, he is a team player and would make a great asset to any organization. "
   }]
 }
