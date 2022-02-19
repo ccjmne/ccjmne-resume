@@ -11,6 +11,7 @@ aside {
   justify-content: space-between;
   padding: $default-padding;
   text-align: justify;
+  hyphens: auto;
 
   @media print {
     & {

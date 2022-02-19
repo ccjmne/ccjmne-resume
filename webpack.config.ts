@@ -77,6 +77,7 @@ export default (
     new HtmlWebpackPlugin({
       title: name,
       meta: { author, description, repository, keywords: keywords.join(', ') },
+      template: resolve(src, 'index.html'),
       filename: resolve(dist, `${out}.html`),
     }),
     (compiler: Compiler) => {
