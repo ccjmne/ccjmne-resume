@@ -10,14 +10,18 @@ const { experience, identity, links, skills, education, endorsments } = profile;
 
 document.body.append(
   element('header').content(
-    element('h1').classed('name').content(identity.name),
-    element('h1').classed('title', 'lighter').content(identity.title),
+    div(
+      element('h1').classed('name').content(identity.name),
+      element('h1').classed('title', 'lighter').content(identity.title),
+    ),
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    element('img').classed('logo').attrs({ src: require('./assets/ccjmne-logo.svg') as string }),
   ),
   element('aside').classed('inverse').content(
     section('links').content(
       ...links.flatMap(({ icon, text, href }, row) => [
         // eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-dynamic-require
-        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `./assets/${icon}?color=white`) as string }),
+        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `./assets/${icon}`) as string }),
         link({ text, href }).at(`${row + 1} / 2`),
       ]),
     ),

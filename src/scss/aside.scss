@@ -10,6 +10,7 @@ aside {
   align-items: center;
   justify-content: space-between;
   padding: $default-padding;
+  text-align: justify;
 
   @media print {
     & {

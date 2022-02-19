@@ -3,9 +3,10 @@
 header {
   display: flex;
   grid-area: header;
-  flex-direction: column;
-  justify-content: center;
-  padding: 35px $default-padding;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px $default-padding;
+  padding-left: 0;
 
   h1 {
     margin: 0;
@@ -20,5 +21,9 @@ header {
       font-weight: lighter;
       line-height: 80%;
     }
+  }
+
+  img.logo {
+    max-width: 100px;
   }
 }
