@@ -10,8 +10,8 @@ import { author, description, homepage, keywords, name, repository, title } from
 import compile from './src/print';
 
 const src = resolve(__dirname, 'src');
-const lib = resolve(__dirname, 'lib');
 const dist = resolve(__dirname, 'dist');
+const tools = resolve(__dirname, 'tooling');
 const out = 'ccjmne-resume';
 
 export default (
@@ -46,7 +46,7 @@ export default (
     }, {
       test: /\.svg$/, // w/o `?template` query param
       resourceQuery: /template/,
-      use: resolve(lib, 'template-element-loader.ts'),
+      use: resolve(tools, 'template-element-loader.ts'),
     }, {
       test: /\.svg$/, // w/ `?template` query param
       resourceQuery: query => !/template/.test(query),

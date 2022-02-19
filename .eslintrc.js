@@ -83,7 +83,7 @@ module.exports = {
       '@typescript-eslint/switch-exhaustiveness-check': ['error'],
       'func-names': ['warn', 'as-needed'],
       'global-require': ['off'], // deprecated, see https://eslint.org/docs/rules/global-require
-      'import/no-extraneous-dependencies': ['error', { devDependencies: ['webpack.config.ts', 'tools/**/*.{js,ts}'] }],
+      'import/no-extraneous-dependencies': ['error', { devDependencies: ['webpack.config.ts', 'tooling/**/*.{js,ts}'] }],
       'no-empty-function': 'off',
       '@typescript-eslint/no-empty-function': ['error'],
       'no-unused-vars': 'off',
