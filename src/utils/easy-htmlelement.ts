@@ -6,9 +6,9 @@ const SVGNS = 'http://www.w3.org/2000/svg';
 
 export type EasyHTMLElement = (HTMLElement | SVGElement) & {
   classed: (...classes: string[]) => EasyHTMLElement;
-  attrs: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
-  styles: (a: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
-  content: (...c: (string | EasyHTMLElement)[]) => EasyHTMLElement;
+  attrs: (attributes: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
+  styles: (styles: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
+  content: (...content: (string | EasyHTMLElement)[]) => EasyHTMLElement;
   html: (html: string) => EasyHTMLElement;
   at: (area: string) => EasyHTMLElement;
   lighter: () => EasyHTMLElement;
@@ -22,13 +22,13 @@ export function element(base: string | (HTMLElement | SVGElement) = 'span'): Eas
       return this;
     },
 
-    attrs(this: EasyHTMLElement, a: { [key: string]: { toString: () => string } }): EasyHTMLElement {
-      Object.entries(a).forEach(([k, v]) => this.setAttribute(k, String(v)));
+    attrs(this: EasyHTMLElement, attributes: { [key: string]: { toString: () => string } }): EasyHTMLElement {
+      Object.entries(attributes).forEach(([k, v]) => this.setAttribute(k, String(v)));
       return this;
     },
 
-    styles(this: EasyHTMLElement, s: { [key: string]: { toString: () => string } }): EasyHTMLElement {
-      Object.entries(s).forEach(([k, v]) => this.style.setProperty(k, String(v)));
+    styles(this: EasyHTMLElement, styles: { [key: string]: { toString: () => string } }): EasyHTMLElement {
+      Object.entries(styles).forEach(([k, v]) => this.style.setProperty(k, String(v)));
       return this;
     },
 
@@ -38,8 +38,8 @@ export function element(base: string | (HTMLElement | SVGElement) = 'span'): Eas
      * - markdown-style links with `<a href="...">...</a>`
      * - ellipses ("[...]") with a specifically-style element
      */
-    content(this: EasyHTMLElement, ...c: (string | EasyHTMLElement)[]): EasyHTMLElement {
-      return this.html(c
+    content(this: EasyHTMLElement, ...content: (string | EasyHTMLElement)[]): EasyHTMLElement {
+      return this.html(content
         .map(s => (typeof s === 'string'
           ? s
             .replaceAll('[...]', String(element('span').classed('ellipsis')))
