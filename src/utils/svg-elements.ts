@@ -2,7 +2,7 @@ import { RegExpWGroups } from 'src/types';
 
 import css from '../scss/exported-vars.scss';
 
-import { EasyHTMLElement, elementSVG } from './easy-htmlelement';
+import EasyHTMLElement, { elementSVG } from './easy-htmlelement';
 
 /**
  * Generates the `d` attribute for a `path` SVG element that draws a diamond.
@@ -38,13 +38,13 @@ function smoothstep(e0: number, e1: number): (x: number) => number {
 export function hr(height = 10, reverse = false): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5];
   return elementSVG('svg')
+    .cls('lighter')
     .attrs({
       viewBox: `-1 -1 ${height + 2} ${height + 2}`,
       preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`,
       height,
     })
     .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
-    .lighter()
     .content(
       elementSVG('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
         elementSVG('path').attrs({

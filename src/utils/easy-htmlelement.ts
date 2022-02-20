@@ -4,106 +4,86 @@ import { RegExpGroups } from 'src/types';
 
 const SVGNS = 'http://www.w3.org/2000/svg';
 
-export type EasyHTMLElement = (HTMLElement | SVGElement) & {
-  classed: (...classes: string[]) => EasyHTMLElement;
-  attrs: (attributes: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
-  styles: (styles: { [key: string]: { toString: () => string } }) => EasyHTMLElement;
-  content: (...content: (string | EasyHTMLElement)[]) => EasyHTMLElement;
-  html: (html: string) => EasyHTMLElement;
-  at: (area: string) => EasyHTMLElement;
-  lighter: () => EasyHTMLElement;
-  lightest: () => EasyHTMLElement;
-};
+export default class EasyHTMLElement {
 
-export function element(base: string | (HTMLElement | SVGElement) = 'span'): EasyHTMLElement {
-  return Object.assign(typeof base === 'string' ? document.createElement(base) : base, {
-    classed(this: EasyHTMLElement, ...classes: string[]): EasyHTMLElement {
-      this.classList.add(...classes.filter(c => !!c));
-      return this;
-    },
+  private readonly e!: HTMLElement | SVGElement;
 
-    attrs(this: EasyHTMLElement, attributes: { [key: string]: { toString: () => string } }): EasyHTMLElement {
-      Object.entries(attributes).forEach(([k, v]) => this.setAttribute(k, String(v)));
-      return this;
-    },
+  constructor(base: string | HTMLElement | SVGElement) {
+    this.e = typeof base === 'string' ? document.createElement(base) : base;
+  }
 
-    styles(this: EasyHTMLElement, styles: { [key: string]: { toString: () => string } }): EasyHTMLElement {
-      Object.entries(styles).forEach(([k, v]) => this.style.setProperty(k, String(v)));
-      return this;
-    },
+  public static anchor({ href, text }: { href: string, text: string }): EasyHTMLElement {
+    return new EasyHTMLElement('a').attrs({ href }).content(text, new EasyHTMLElement(externalLink.content.cloneNode(true) as SVGElement));
+  }
 
-    /**
-     * Parses contents and replace:
-     * - linefeeds with `<br />`
-     * - markdown-style links with `<a href="...">...</a>`
-     * - ellipses ("[...]") with a specifically-style element
-     */
-    content(this: EasyHTMLElement, ...content: (string | EasyHTMLElement)[]): EasyHTMLElement {
-      return this.html(content
-        .map(s => (typeof s === 'string'
-          ? s
-            .replaceAll('[...]', String(element('span').classed('ellipsis')))
-            .replace(/\n/g, String(element('br')))
-            .replace(/\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)/g, (...args) => {
-              const { text, href } = args.pop() as RegExpGroups<'text' | 'href'>;
-              // TODO: rewrite everything here with an actual class anyways
-              // and don't just Stringify anything. Use Document#createTextNode and Node#appendChild
-              return String(link({ text, href }));
-            })
-          : String(s)))
-        .join(''));
-    },
+  public cls(...classes: string[]): this {
+    this.e.classList.add(...classes.filter(c => !!c));
+    return this;
+  }
 
-    html(this: EasyHTMLElement, html: string): EasyHTMLElement {
-      this.innerHTML = html;
-      return this;
-    },
+  public attrs(attributes: Record<string, { toString: () => string }>): this {
+    Object.entries(attributes).forEach(([k, v]) => this.e.setAttribute(k, String(v)));
+    return this;
+  }
 
-    at(this: EasyHTMLElement, area: string): EasyHTMLElement {
-      this.style.gridArea = area;
-      return this.attrs({ 'grid-area': area }); // for ease of use with css selectors
-    },
+  public styles(styles: Record<string, { toString: () => string }>): this {
+    Object.entries(styles).forEach(([k, v]) => this.e.style.setProperty(k, String(v)));
+    return this;
+  }
 
-    lighter(this: EasyHTMLElement): EasyHTMLElement {
-      return this.classed('lighter');
-    },
+  public at(area: string): this {
+    return this.attrs({ 'grid-area': area }).styles({ 'grid-area': area }); // For ease of use with CSS selectors
+  }
 
-    lightest(this: EasyHTMLElement): EasyHTMLElement {
-      return this.classed('lightest');
-    },
+  /**
+   * Parses contents and replace:
+   * - linefeeds with `<br />`
+   * - markdown-style links with `<a href="...">...</a>`
+   * - "&nbsp;" with `\u00A0` (non-breaking space)
+   */
+  public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
+    const anchors: EasyHTMLElement[] = [];
+    this.e.append(...contents.flatMap(c => (typeof c !== 'string' ? c.e : c
+      .replace(/&nbsp;/g, '\u00A0') // non-breaking spaces
+      .replace(
+        /\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)/g,
+        (...args) => anchors.push(EasyHTMLElement.anchor(args.pop() as RegExpGroups<'text' | 'href'>)) as 1 && ':~:',
+      )
+      .split(':~:')
+      .flatMap((s, i) => (!i ? s : [(anchors.shift() as EasyHTMLElement).e, s]))
+      .flatMap(t => (typeof t !== 'string' ? t : t.split(/\n/g).flatMap(s => [new EasyHTMLElement('br').e, s]).slice(1)))
+    )));
 
-    toString(this: EasyHTMLElement): string {
-      return this.outerHTML;
-    },
-  });
+    return this;
+  }
+
 }
 
-export function elementSVG(type = 'svg'): EasyHTMLElement {
-  return element(document.createElementNS(SVGNS, type)).attrs(type === 'svg' ? { xmlns: SVGNS } : {});
+export function element(tag: keyof HTMLElementTagNameMap | HTMLElement = 'div'): EasyHTMLElement {
+  return new EasyHTMLElement(tag);
 }
 
-export type ElementContent = (string | EasyHTMLElement)[];
-
-export function span(...content: ElementContent): EasyHTMLElement {
-  return element().content(...content);
+export function elementSVG(tag: keyof SVGElementTagNameMap = 'svg'): EasyHTMLElement {
+  return new EasyHTMLElement(document.createElementNS(SVGNS, tag));
 }
 
-export function div(...content: ElementContent): EasyHTMLElement {
-  return element('div').content(...content);
+export function div(...contents: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return new EasyHTMLElement('div').content(...contents);
 }
 
-export function link({ text, href }: { text: string, href: string }): EasyHTMLElement {
-  const a = element('a').attrs({ href }).content(text.trim());
-  a.appendChild(externalLink.content.cloneNode(true));
-  return a;
+export function span(...contents: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return new EasyHTMLElement('span').content(...contents);
 }
 
-export function section(id: string, ...content: ElementContent): EasyHTMLElement {
-  return element('section').attrs({ id }).content(...content);
+export function anchor({ href, text }: { href: string, text: string }): EasyHTMLElement {
+  return EasyHTMLElement.anchor({ href, text });
+}
+export function section(id: string): EasyHTMLElement {
+  return new EasyHTMLElement('section').attrs({ id });
 }
 
-export function article(cls: string, ...content: ElementContent): EasyHTMLElement {
-  return element('article').classed(cls).content(...content);
+export function article(cls: string): EasyHTMLElement {
+  return new EasyHTMLElement('article').cls(cls);
 }
 
 /**
@@ -111,16 +91,14 @@ export function article(cls: string, ...content: ElementContent): EasyHTMLElemen
  * unless the content already is a *single EasyHTMLElement*, in which case
  * it won't be wrapped into a (meaningless) span.
  */
-export function make(...content: ElementContent): EasyHTMLElement {
-  return (content.length === 1 && typeof content[0] !== 'string')
-    ? content[0]
-    : span(...content);
+function make(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return (content.length === 1 && typeof content[0] !== 'string') ? content[0] : span(...content);
 }
 
-export function lighter(...content: ElementContent): EasyHTMLElement {
-  return make(...content).lighter();
+export function lighter(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return make(...content).cls('lighter');
 }
 
-export function lightest(...content: ElementContent): EasyHTMLElement {
-  return make(...content).lightest();
+export function lightest(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return make(...content).cls('lightest');
 }
