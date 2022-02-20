@@ -5,6 +5,7 @@ main {
   grid-area: main;
   flex-direction: column;
   padding: 0 $default-padding;
+  hyphens: none;
 }
 
 section#experience {

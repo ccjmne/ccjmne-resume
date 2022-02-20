@@ -1,3 +1,4 @@
+import { hyphenateSync as hyphenate } from 'hyphen/en-gb';
 import externalLink from 'src/assets/external-link.svg?template';
 
 import { RegExpGroups } from 'src/types';
@@ -51,7 +52,7 @@ export default class EasyHTMLElement {
       )
       .split(':~:')
       .flatMap((s, i) => (!i ? s : [(anchors.shift() as EasyHTMLElement).e, s]))
-      .flatMap(t => (typeof t !== 'string' ? t : t.split(/\n/g).flatMap(s => [new EasyHTMLElement('br').e, s]).slice(1)))
+      .flatMap(t => (typeof t !== 'string' ? t : t.split(/\n/g).flatMap(s => [new EasyHTMLElement('br').e, hyphenate(s)]).slice(1)))
     )));
 
     return this;
