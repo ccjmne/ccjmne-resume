@@ -135,6 +135,14 @@
           "abstract": {
             "$id": "#/properties/experience/items/properties/abstract",
             "type": "string"
+          },
+          "tags": {
+            "$id": "#/properties/experience/items/properties/tags",
+            "type": "array",
+            "items": {
+              "$id": "#/properties/experience/items/properties/tags/items",
+              "type": "string"
+            }
           }
         }
       }

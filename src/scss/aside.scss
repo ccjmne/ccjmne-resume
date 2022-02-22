@@ -76,7 +76,7 @@ aside {
     display: grid;
     grid-template: 'degree dates' 'field field' 'highlight highlight' / 1fr auto;
 
-    [grid-area='field'] {
+    [grid-area=field] {
       margin-bottom: .3em;
       font-size: .9em;
       text-align: right;
@@ -87,7 +87,7 @@ aside {
     display: grid;
     grid-template: 'from' 'title' 'excerpt' / auto;
 
-    [grid-area='title'] {
+    [grid-area=title] {
       margin-bottom: .3em;
       font-size: .9em;
       text-align: right;

@@ -1,3 +1,5 @@
+import { RegExpWGroups } from 'types';
+
 import pkg from '../package.json';
 
 import profile from './profile.json';
@@ -30,7 +32,7 @@ element(document.body).content(
     ),
     section('education').content(
       element('h3').cls('hr').content('Education', hr()),
-      ...education.map(({ degree, field, highlight/* , dates */ }) => article('education').content(
+      ...education.map(({ degree, field, highlight }) => article('education').content(
         element('h4').at('degree').content(degree),
         element('h4').at('field').cls('hr').content(lightest(hr(8, true)), lighter('in '), field),
         lighter(highlight).at('highlight'),
@@ -51,13 +53,19 @@ element(document.body).content(
     element('p').content(identity.summary),
     element('h2').content('Experience', h2bg()),
     section('experience').content(
-      ...experience.map(({ title, company, dates, duration, location, abstract/* , readmore */ }) => article('experience')
-        .cls(abstract ? 'w-summary' : '')
+      ...experience.map(({ title, company, dates, duration, location, abstract, tags }) => article('experience')
         .content(
           element('h3').at('title').content(title, ' ', element('small').content(lightest('at'), ' ', lighter(company))),
           element().at('when').content(`${dates} (${duration})`),
           element().at('where').content(location),
-          abstract ? element('p').at('summary').content(abstract) : '',
+          element('p').at('summary').content(
+            abstract,
+            tags
+              ? element('ol').cls('tags').content(...tags
+                .map(tag => (/^(?<star>\*)?(?<tag>.+)/.exec(tag) as RegExpWGroups<'star' | 'tag'>).groups)
+                .map(({ tag, star }) => element('li').cls(star ? 'star' : '').content(tag)))
+              : '',
+          ),
         )),
     ),
   ),
