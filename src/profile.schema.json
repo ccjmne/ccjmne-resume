@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://github.com/ccjmne/ccjmne-resume/profile.schema.json",
+  "type": "object",
+  "required": ["links", "identity", "experience"],
+  "properties": {
+    "links": {
+      "$id": "#/properties/links",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/links/items",
+        "type": "object",
+        "required": ["icon", "href", "text"],
+        "properties": {
+          "icon": {
+            "$id": "#/properties/links/items/properties/icon",
+            "type": "string"
+          },
+          "href": {
+            "$id": "#/properties/links/items/properties/href",
+            "type": "string"
+          },
+          "text": {
+            "$id": "#/properties/links/items/properties/text",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "identity": {
+      "$id": "#/properties/identity",
+      "type": "object",
+      "required": ["name", "title", "summary"],
+      "properties": {
+        "name": {
+          "$id": "#/properties/identity/properties/name",
+          "type": "string"
+        },
+        "title": {
+          "$id": "#/properties/identity/properties/title",
+          "type": "string"
+        },
+        "summary": {
+          "$id": "#/properties/identity/properties/summary",
+          "type": "string"
+        }
+      }
+    },
+    "education": {
+      "$id": "#/properties/education",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/education/items",
+        "type": "object",
+        "required": ["degree", "field"],
+        "properties": {
+          "degree": {
+            "$id": "#/properties/education/items/properties/degree",
+            "type": "string"
+          },
+          "field": {
+            "$id": "#/properties/education/items/properties/field",
+            "type": "string"
+          },
+          "dates": {
+            "$id": "#/properties/education/items/properties/dates",
+            "type": "string"
+          },
+          "highlight": {
+            "$id": "#/properties/education/items/properties/highlight",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "endorsments": {
+      "$id": "#/properties/endorsments",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/endorsments/items",
+        "type": "object",
+        "required": ["from", "title", "excerpt"],
+        "properties": {
+          "from": {
+            "$id": "#/properties/endorsments/items/properties/from",
+            "type": "string"
+          },
+          "title": {
+            "$id": "#/properties/endorsments/items/properties/title",
+            "type": "string"
+          },
+          "excerpt": {
+            "$id": "#/properties/endorsments/items/properties/excerpt",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skills": {
+      "$id": "#/properties/skills",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/skills/items",
+        "type": "string"
+      }
+    },
+    "experience": {
+      "$id": "#/properties/experience",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/experience/items",
+        "type": "object",
+        "required": ["dates", "duration", "company", "location", "title", "abstract"],
+        "properties": {
+          "dates": {
+            "$id": "#/properties/experience/items/properties/dates",
+            "type": "string"
+          },
+          "duration": {
+            "$id": "#/properties/experience/items/properties/duration",
+            "type": "string"
+          },
+          "company": {
+            "$id": "#/properties/experience/items/properties/company",
+            "type": "string"
+          },
+          "location": {
+            "$id": "#/properties/experience/items/properties/location",
+            "type": "string"
+          },
+          "title": {
+            "$id": "#/properties/experience/items/properties/title",
+            "type": "string"
+          },
+          "abstract": {
+            "$id": "#/properties/experience/items/properties/abstract",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
