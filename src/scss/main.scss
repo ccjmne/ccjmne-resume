@@ -8,6 +8,12 @@ main {
   hyphens: none;
 }
 
+section#summary br {
+  content: '';
+  display: block;
+  margin-top: .5em;
+}
+
 section#experience {
   display: flex;
   flex-direction: column;

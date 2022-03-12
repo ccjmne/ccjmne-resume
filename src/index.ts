@@ -50,7 +50,7 @@ element(document.body).content(
   ),
   element('main').content(
     element('h2').content('Summary', h2bg()),
-    element('p').content(identity.summary),
+    section('summary').content(element('p').content(identity.summary)),
     element('h2').content('Experience', h2bg()),
     section('experience').content(
       ...experience.map(({ title, company, dates, duration, location, abstract, tags }) => article('experience')
