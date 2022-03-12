@@ -19,17 +19,17 @@
   "identity": {
     "name": "Éric NICOLAS",
     "title": "Solution Architect",
-    "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
+    "summary": "Analytical tinkerer by nature, I like to constantly challenge myself and experiment with technologies beyond my comfort zone.\nI am a detail-oriented problem solver who thinks critically and aims for infallible, simple and reusable solutions: in my experience, the secret often lies in the savvy design of scalable microservices."
   },
   "skills": [["AWS Platform", "Arch. Design"], ["DevOps", "TypeScript", "Java"], ["Documentation", "DB Admin."], ["Web Dev.", "Communication"], ["Code Quality", "Organisation"]],
   "experience": [{
     "dates": "Dec. 2014 – Present",
-    "duration": "6 years 3 months",
+    "duration": "7 years, 2 months",
     "company": "[NCLS Development](https://www.orca-solution.com/)",
     "location": "Paris area, France",
-    "title": "Solution Architect & Product Owner",
-    "abstract": "Designed the entirety of the services that make up our enterprise solution.",
-    "tags": ["*AWS Platform", "*TypeScript", "*DevOps", "*Java", "*Angular", "*PostgreSQL", "*Docker", "*CI/CD"]
+    "title": "Solution Architect",
+    "abstract": "Designed the entirety of the services that make up an enterprise EHS solution.",
+    "tags": ["*AWS Platform", "*TypeScript", "*DevOps", "*Java", "*PostgreSQL", "*CI/CD"]
   }, {
     "dates": "Jul. 2014 – Dec. 2014",
     "duration": "6 months",
@@ -43,39 +43,42 @@
     "duration": "8 months",
     "company": "[Propellerhead](https://www.propellerhead.co.nz/)",
     "location": "Auckland, New Zealand",
-    "title": "Software & DevOps Engineer",
+    "title": "Software Engineer",
     "abstract": "Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://twitter.com/w3c/status/826454510902136834) as a foremost example for their [Data&nbsp;on&nbsp;the&nbsp;Web&nbsp;Best&nbsp;Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.",
     "readmore": "https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630",
-    "tags": ["*AWS Platform", "*Java", "*Semantic Web", "*Atlassian Suite", "RDF DB", "*DevOps", "Docker"]
+    "tags": ["*AWS Platform", "*Java", "*Semantic Web", "*Atlassian Suite", "RDF DBMS", "DevOps"]
   }, {
     "dates": "Sep. 2012 – Mar. 2013",
     "duration": "7 months",
     "company": "[Gaspard Monge Institute, University of Paris](https://igm.univ-gustave-eiffel.fr/)",
     "location": "Paris area, France",
     "title": "Project Manager",
-    "abstract": "Lead a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute."
+    "abstract": "Lead a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute.",
+    "tags": ["*Project Management", "Java EE"]
   }, {
     "dates": "Oct. 2011 – Sep. 2013",
     "duration": "2 years",
     "company": "[Snecma, Safran group](https://www.safran-group.com/companies/safran-aircraft-engines)",
     "location": "Île-de-France, France",
     "title": "Solution Architect",
-    "abstract": "Honoured for my creativity in one particular solution I designed, conducted, integrated and partially developed.\nMentored a junior IT engineer from 2011 to 2013."
+    "abstract": "Honoured as part of a creativity initiative for a particular tool I designed, developed, promoted and integrated. Mentored a junior IT engineer from 2011 to 2013.",
+    "tags": ["*Cost-Benefit Analysis", "*C++", "Qt Toolkit"]
   }, {
     "dates": "Sep. 2010 – Oct. 2011",
-    "duration": "1 year 1 month",
+    "duration": "1 year, 1 month",
     "company": "[Snecma, Safran group](https://www.safran-group.com/companies/safran-aircraft-engines)",
     "location": "Île-de-France, France",
     "title": "Software Engineer",
     "abstract": "Primarily interfaced with mathematicians and physicists to develop and implement real-time ports of cutting-edge signal processing algorithms in the demanding context of aircraft and rocket engines.",
-    "tags": ["*C++", "*Signal Processing", "MATLAB", "Qt"]
+    "tags": ["*C++", "*Signal Processing", "MATLAB", "Qt Toolkit"]
   }, {
     "dates": "Sep. 2008 – Sep. 2010",
-    "duration": "2 years 1 month",
+    "duration": "2 years, 1 month",
     "company": "[Site Alpha, Planon group](https://planonsoftware.com/uk/)",
     "location": "Noisy-le-Grand area, France",
     "title": "Assistant Project Manager",
-    "abstract": "Worked directly with our CEO to elaborate specification documents for the company's new flagship product."
+    "abstract": "Worked directly with our CEO to elaborate specification documents for the company's new flagship product.",
+    "tags": ["*Business Requirements Docs", "VBA"]
   }],
   "education": [{
     "degree": "Engineer's Degree",
