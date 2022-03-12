@@ -21,7 +21,7 @@
     "title": "Solution Architect",
     "summary": "Critical thinker above all else, I am a detail-oriented and creative problem solver.\nI believe in the separation of concerns and orchestrating reusable, flexible services. I have the ability to multitask and work on a couple of projects at once.\nI can hold deadlines, too."
   },
-  "skills": ["Amazon Web Services (AWS)", "DevOps", "Communication", "Security", "Problem Solving", "Architectural Patterns", "Algorithmics", "Collaborative Work"],
+  "skills": [["AWS Platform", "Arch. Design"], ["DevOps", "TypeScript", "Java"], ["Documentation", "DB Admin."], ["Web Dev.", "Communication"], ["Code Quality", "Organisation"]],
   "experience": [{
     "dates": "Dec. 2014 – Present",
     "duration": "6 years 3 months",

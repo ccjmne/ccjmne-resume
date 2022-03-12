@@ -10,7 +10,7 @@ import EasyHTMLElement, { elementSVG } from './easy-htmlelement';
  * @param r Circumradius of the diamond
  * @param align Whether the current location shall correspond to the left or center of the diamond
  */
-function diamondPath(r: number, align: 'center' | 'left' = 'center'): string {
+function diamondPathD(r: number, align: 'center' | 'left' = 'center'): string {
   return `
     ${align === 'center' ? `m-${r},0` : ''}
     l${r},-${r}l${r},${r}l-${r},${r}l-${r},-${r}z
@@ -35,6 +35,14 @@ function smoothstep(e0: number, e1: number): (x: number) => number {
   };
 }
 
+export function diamond(height = 10): EasyHTMLElement {
+  return elementSVG()
+    .cls('lighter')
+    .attrs({ viewBox: `${-height / 2 - 1} ${-height / 2 - 1} ${height + 2} ${height + 2}`, height })
+    .styles({ fill: 'none', stroke: 'currentColor' })
+    .content(elementSVG('path').attrs({ d: diamondPathD(height / 2) }));
+}
+
 export function hr(height = 10, reverse = false): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5];
   return elementSVG()
@@ -44,9 +52,9 @@ export function hr(height = 10, reverse = false): EasyHTMLElement {
     .content(
       elementSVG('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
         elementSVG('path').attrs({
-          d: `M0,0      ${diamondPath(d1, 'center')} m${d1},0
-              m${gap},0 ${diamondPath(d2, 'left')} m${2 * d2},0
-              m${gap},0 ${diamondPath(d3, 'left')}`,
+          d: `M0,0      ${diamondPathD(d1, 'center')} m${d1},0
+              m${gap},0 ${diamondPathD(d2, 'left')} m${2 * d2},0
+              m${gap},0 ${diamondPathD(d3, 'left')}`,
         }),
         elementSVG('path').styles({ 'shape-rendering': 'crispEdges' }).attrs({ d: `M${-d1 + 2 * (d1 + d2 + d3) + 3 * gap},0 h9999` }),
       ),
@@ -71,9 +79,9 @@ export function h2bg(size = 24): EasyHTMLElement {
   /**
    * A diamond of diagonal `diag` centered around `(x, y)`.
    */
-  function diamond({ x, y, diag }: { x: number, y: number, diag: number }): EasyHTMLElement {
+  function diamondPath({ x, y, diag }: { x: number, y: number, diag: number }): EasyHTMLElement {
     return elementSVG('path')
-      .attrs({ transform: `translate(${x} ${y})`, d: diamondPath(diag / 2) })
+      .attrs({ transform: `translate(${x} ${y})`, d: diamondPathD(diag / 2) })
       .styles({ fill: colour(css.primary) });
   }
 
@@ -82,6 +90,6 @@ export function h2bg(size = 24): EasyHTMLElement {
     .styles({ 'position': 'absolute', 'top': 0, 'left': 0, 'height': '100%', 'z-index': -1 })
     .content(...Array.from({ length: rows }).flatMap((_, r) => Array.from(
       { length: cols },
-      (_, c) => diamond({ x: size * (c + (r % 2) / 2), y: r * half, diag: Math.max(2, size * ss(c + (r % 2) / 2)) }),
+      (_, c) => diamondPath({ x: size * (c + (r % 2) / 2), y: r * half, diag: Math.max(2, size * ss(c + (r % 2) / 2)) }),
     )));
 }

@@ -5,7 +5,7 @@ import pkg from '../package.json';
 import logo from './assets/ccjmne-logo.svg';
 import profile from './profile.json';
 import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement';
-import { h2bg, hr } from './utils/svg-elements';
+import { h2bg, hr, diamond } from './utils/svg-elements';
 
 const { name, homepage } = pkg;
 const { experience, identity, links, skills, education, endorsments } = profile;
@@ -28,7 +28,7 @@ element(document.body).content(
     ),
     section('top-skills').content(
       element('h3').cls('hr').content('Top Skills', hr()),
-      skills.join(' • '),
+      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => ([diamond(8), skill])).slice(1)))),
     ),
     section('education').content(
       element('h3').cls('hr').content('Education', hr()),

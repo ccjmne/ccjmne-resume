@@ -73,6 +73,12 @@ aside {
     margin-top: 15px;
   }
 
+  article.top-skills > * {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   article.education {
     display: grid;
     grid-template: 'degree dates' 'field field' 'highlight highlight' / 1fr auto;

@@ -100,8 +100,12 @@
       "$id": "#/properties/skills",
       "type": "array",
       "items": {
-        "$id": "#/properties/skills/items",
-        "type": "string"
+        "$id": "#/properties/skills/lines",
+        "type": "array",
+        "items": {
+          "$id": "#/properties/skills/lines/items",
+          "type": "string"
+        }
       }
     },
     "experience": {
