@@ -22,7 +22,7 @@ element(document.body).content(
     section('links').content(
       ...links.flatMap(({ icon, text, href }, row) => [
         // eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-dynamic-require
-        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `src/assets/${icon}`) as string }),
+        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `src/assets/links/${icon}`) as string }),
         anchor({ text, href }).at(`${row + 1} / 2`),
       ]),
     ),
