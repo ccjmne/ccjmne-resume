@@ -1,8 +1,8 @@
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
 
-import { type DocumentProperties, Document, ExternalDocument } from 'pdfjs';
-import Puppeteer, { type Browser, type Page, type PDFOptions } from 'puppeteer';
+import { Document, ExternalDocument, type DocumentProperties } from 'pdfjs';
+import Puppeteer, { type Browser, type PDFOptions } from 'puppeteer';
 import { type Compiler } from 'webpack';
 
 export type PDFPrinterConfig = {

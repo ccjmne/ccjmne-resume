@@ -2,6 +2,7 @@ import { RegExpWGroups } from 'types';
 
 import pkg from '../package.json';
 
+import logo from './assets/ccjmne-logo.svg';
 import profile from './profile.json';
 import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement';
 import { h2bg, hr } from './utils/svg-elements';
@@ -15,8 +16,7 @@ element(document.body).content(
       element('h1').cls('name').content(identity.name),
       element('h1').cls('title', 'lighter').content(identity.title),
     ),
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    element('img').cls('logo').attrs({ src: require('src/assets/ccjmne-logo.svg') as string }),
+    element('img').cls('logo').attrs({ src: logo }),
   ),
   element('aside').cls('inverse').content(
     section('links').content(

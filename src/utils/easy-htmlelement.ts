@@ -37,10 +37,11 @@ export default class EasyHTMLElement {
   }
 
   /**
-   * Parses contents and replace:
-   * - linefeeds with `<br />`
-   * - markdown-style links with `<a href="...">...</a>`
-   * - "&nbsp;" with `\u00A0` (non-breaking space)
+   * Parses contents and:
+   * - automatically mark for hyphenation (for en-gb) with `\u00AD` (soft hyphen),
+   * - replace linefeeds (literal `\n`) with `<br />` tags
+   * - replace markdown-style links with `<a href="...">...</a>` tags
+   * - replace `&nbsp;` with `\u00A0` (non-breaking space)
    */
   public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
     const anchors: EasyHTMLElement[] = [];

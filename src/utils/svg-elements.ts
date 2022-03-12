@@ -37,13 +37,9 @@ function smoothstep(e0: number, e1: number): (x: number) => number {
 
 export function hr(height = 10, reverse = false): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5];
-  return elementSVG('svg')
+  return elementSVG()
     .cls('lighter')
-    .attrs({
-      viewBox: `-1 -1 ${height + 2} ${height + 2}`,
-      preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`,
-      height,
-    })
+    .attrs({ viewBox: `-1 -1 ${height + 2} ${height + 2}`, preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`, height })
     .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
     .content(
       elementSVG('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
@@ -81,7 +77,7 @@ export function h2bg(size = 24): EasyHTMLElement {
       .styles({ fill: colour(css.primary) });
   }
 
-  return elementSVG('svg')
+  return elementSVG()
     .attrs({ viewBox: `0 0 ${size * cols} ${half * (rows - 1)}`, preserveAspectRatio: 'xMaxYMid meet' })
     .styles({ 'position': 'absolute', 'top': 0, 'left': 0, 'height': '100%', 'z-index': -1 })
     .content(...Array.from({ length: rows }).flatMap((_, r) => Array.from(

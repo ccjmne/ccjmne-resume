@@ -38,6 +38,7 @@ module.exports = {
       // newlines
       'linebreak-style': ['warn', 'unix'],
       'lines-between-class-members': ['warn', 'always', { exceptAfterSingleLine: true }],
+      '@typescript-eslint/lines-between-class-members': 'off', // I prefer base lines-between-class-members, which accepts exceptAfterSingleLine
       'padded-blocks': ['warn', { blocks: 'never', switches: 'never', classes: 'always' }],
       'object-curly-newline': ['warn', {
         ImportDeclaration: 'never',
