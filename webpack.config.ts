@@ -16,7 +16,7 @@ const out = 'ccjmne-resume';
 
 export default (
   _env: string,
-  { mode = 'production', port = 8042 }: { mode?: 'production' | 'development', port?: number } = {},
+  { mode = 'production', port = '8042' }: { mode?: 'production' | 'development', port?: string } = {},
 ): Configuration => ({
   entry: {
     scss: resolve(src, 'index.scss'),
@@ -81,7 +81,7 @@ export default (
       filename: resolve(dist, `${out}.html`),
     }),
     new PDFPrinter({
-      port,
+      ...mode === 'production' ? { scheme: 'file', path: resolve(dist, `${out}.html`) } : { port },
       output: resolve(dist, `${out}.pdf`),
       properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
     }),
