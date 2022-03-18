@@ -17,14 +17,31 @@ export type PDFPrinterConfig = {
 
 export class PDFPrinter implements WebpackPluginInstance {
 
+  private static readonly PLUGIN_ID = 'pdf-printer';
+
   private browser: Browser;
 
   public constructor(private config: PDFPrinterConfig) {}
 
   public apply(compiler: Compiler): void {
-    compiler.hooks.watchRun.tap('Launch Puppeteer', () => this.launch());
-    compiler.hooks.done.tap('Print PDF', () => this.print());
-    compiler.hooks.watchClose.tap('Gracefully Close Puppeteer', () => this.close());
+    const logger = compiler.getInfrastructureLogger(PDFPrinter.PLUGIN_ID);
+    logger.info('Reading contents from', this.uri);
+    logger.info('Compiling PDF at', this.config.output);
+
+    compiler.hooks.afterEmit.tapPromise(`${PDFPrinter.PLUGIN_ID}:compile`, async () => {
+      try {
+        await this.print();
+        logger.info('Successfully printed', this.config.output);
+      } catch (_) {
+        logger.error('An error occurred while attempting to compile PDF document');
+        logger.trace();
+      }
+    });
+
+    (compiler.watchMode
+      ? compiler.hooks.watchClose
+      : compiler.hooks.afterDone
+    ).tap(`${PDFPrinter.PLUGIN_ID}:close`, () => this.close());
   }
 
   private async launch(): Promise<void> {
@@ -40,9 +57,9 @@ export class PDFPrinter implements WebpackPluginInstance {
       await this.launch();
     }
 
-    const { scheme = 'http', host = 'localhost', port = '80', path = '', output, options, properties } = this.config;
+    const { output, options, properties } = this.config;
     const page = await this.browser.newPage();
-    await page.goto(`${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path}`, { waitUntil: 'networkidle0' });
+    await page.goto(this.uri, { waitUntil: 'networkidle0' });
     const content = await page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options });
     await page.close();
 
@@ -52,6 +69,11 @@ export class PDFPrinter implements WebpackPluginInstance {
     doc.addPagesOf(new ExternalDocument(content));
     const buffer = await doc.asBuffer();
     await fs.writeFile(resolve(output), buffer);
+  }
+
+  private get uri(): string {
+    const { scheme = 'http', host = 'localhost', port = '80', path = '' } = this.config;
+    return `${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path}`;
   }
 
 }
