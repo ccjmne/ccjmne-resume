@@ -23,19 +23,19 @@ Technologies used:
 
 ## How-To
 
-Development merely uses the standard [NodeJS](https://nodejs.org/en/) (using `npm`) process;<br />
+Development merely uses the standard [NodeJS](https://nodejs.org/en/) process (using `npm`);<br />
 Publication is automated through [Continuous Deployment](https://www.atlassian.com/continuous-delivery/continuous-deployment), leverating [GitHub Actions](https://docs.github.com/en/actions).
 
 ### Set up
 
-Install w/ `npm install`.
+Install with `npm install`.
 
 ### Build
 
 Continuously watch-rebuild with `npm run start:dev` (or `webpack serve --mode development`) during development;<br />
 Perform a one-off compilation with `npm run compile:pdf` (or `webpack --mode production`).
 
-The PDF output (and the pre-compiled HTML-CSS-JS assets in dev. mode) will be generated under `/dist`.
+The PDF output (and the pre-compiled HTML-CSS-JS assets in dev. mode) will be generated under `dist/`.
 
 ### Deploy
 
@@ -49,7 +49,7 @@ When pushing commits to the `master` Git branch:
 2. a subsequent job will:
    - retrieve the compiled artifact,
    - generate a stripped-down `index.html` that merely sets up an [HTML Meta Refresh](https://en.wikipedia.org/wiki/Meta_refresh) to the PDF resume,
-   - pushes a new commit to the `gh-pages` branch, referencing the original commit to `master` that triggered the rebuild-redeploy
+   - push a new commit to the `gh-pages` branch, referencing the original commit to `master` that triggered the rebuild-redeploy
 3. this commit to `gh-pages` triggers another GitHub Action that publishes my resume [here](https://ccjmne.github.io/ccjmne-resume), with [GitHub Pages](https://pages.github.com/)
 
 ## Licensing
