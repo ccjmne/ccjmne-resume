@@ -28,7 +28,7 @@ element(document.body).content(
     ),
     section('top-skills').content(
       element('h3').cls('hr').content('Top Skills', hr()),
-      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => ([diamond(8), skill])).slice(1)))),
+      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => [diamond(8), skill]).slice(1)))),
     ),
     section('education').content(
       element('h3').cls('hr').content('Education', hr()),
@@ -53,9 +53,11 @@ element(document.body).content(
     section('summary').content(element('p').content(identity.summary)),
     element('h2').content('Experience', h2bg()),
     section('experience').content(
-      ...experience.map(({ title, company, dates, duration, location, abstract, tags }) => article('experience')
+      ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')
         .content(
-          element('h3').at('title').content(title, ' ', element('small').content(lightest('at'), ' ', lighter(company))),
+          element('h3').at('title').content(title, ' ', element('small')
+            .content(lightest('at'), ' ', lighter(company))
+            .content(notabene ? lightest(` (${String(notabene)})`) : '')),
           element().at('when').content(`${dates} (${duration})`),
           element().at('where').content(location),
           element('p').at('summary').content(

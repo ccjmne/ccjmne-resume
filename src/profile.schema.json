@@ -128,6 +128,10 @@
             "$id": "#/properties/experience/items/properties/company",
             "type": "string"
           },
+          "notabene": {
+            "$id": "#/properties/experience/items/properties/company",
+            "type": "string"
+          },
           "location": {
             "$id": "#/properties/experience/items/properties/location",
             "type": "string"

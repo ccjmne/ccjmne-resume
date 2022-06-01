@@ -38,14 +38,15 @@ export default class EasyHTMLElement {
 
   /**
    * Parses contents and:
-   * - automatically mark for hyphenation (for en-gb) with `\u00AD` (soft hyphen),
+   * - discard empty strings
+   * - automatically mark for hyphenation (for `en-gb`) with `\u00AD` (soft hyphen),
    * - replace linefeeds (literal `\n`) with `<br />` tags
    * - replace markdown-style links with `<a href="...">...</a>` tags
    * - replace `&nbsp;` with `\u00A0` (non-breaking space)
    */
   public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
     const anchors: EasyHTMLElement[] = [];
-    this.e.append(...contents.flatMap(c => (typeof c !== 'string' ? c.e : c
+    this.e.append(...contents.filter(c => !!c).flatMap(c => (typeof c !== 'string' ? c.e : c
       .replace(/&nbsp;/g, '\u00A0') // non-breaking spaces
       .replace(
         /\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)/g,

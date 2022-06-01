@@ -28,6 +28,7 @@
     "company": "[NCLS Development](https://www.orca-solution.com/)",
     "location": "Brittany region, France",
     "title": "Solutions Architect",
+    "notabene": "freelance entrepreneur",
     "abstract": "Designed the entirety of the services that make up an enterprise EHS solution.",
     "tags": ["*AWS Platform", "*TypeScript", "*DevOps", "*Java", "*PostgreSQL", "*CI/CD"]
   }, {
