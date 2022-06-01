@@ -1,7 +1,7 @@
 {
   "name": "ccjmne-resume",
   "title": "Eric NICOLAS :: Resume",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
   "main": "src/index.ts",
   "scripts": {
