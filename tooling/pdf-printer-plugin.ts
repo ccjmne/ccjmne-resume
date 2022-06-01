@@ -32,9 +32,9 @@ export class PDFPrinter implements WebpackPluginInstance {
       try {
         await this.print();
         logger.info('Successfully printed', this.config.output);
-      } catch (_) {
+      } catch (trace) {
         logger.error('An error occurred while attempting to compile PDF document');
-        logger.trace();
+        logger.error(trace);
       }
     });
 
