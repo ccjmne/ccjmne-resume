@@ -5,7 +5,7 @@ import pkg from '../package.json';
 import logo from './assets/ccjmne-logo.svg';
 import profile from './profile.json';
 import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement';
-import { h2bg, hr, diamond } from './utils/svg-elements';
+import { diamond, h2bg, hr } from './utils/svg-elements';
 
 const { name, homepage } = pkg;
 const { experience, identity, links, skills, education, endorsments } = profile;
@@ -60,11 +60,9 @@ element(document.body).content(
           element().at('where').content(location),
           element('p').at('summary').content(
             abstract,
-            tags
-              ? element('ol').cls('tags').content(...tags
-                .map(tag => (/^(?<star>\*)?(?<tag>.+)/.exec(tag) as RegExpWGroups<'star' | 'tag'>).groups)
-                .map(({ tag, star }) => element('li').cls(star ? 'star' : '').content(tag)))
-              : '',
+            element('ol').cls('tags').content(...tags
+              .map(tag => (/^(?<star>\*)?(?<tag>.+)/.exec(tag) as RegExpWGroups<'star' | 'tag'>).groups)
+              .map(({ tag, star }) => element('li').cls(star ? 'star' : '').content(tag))),
           ),
         )),
     ),

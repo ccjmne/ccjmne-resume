@@ -114,7 +114,7 @@
       "items": {
         "$id": "#/properties/experience/items",
         "type": "object",
-        "required": ["dates", "duration", "company", "location", "title", "abstract"],
+        "required": ["dates", "duration", "company", "location", "title", "abstract", "tags"],
         "properties": {
           "dates": {
             "$id": "#/properties/experience/items/properties/dates",
