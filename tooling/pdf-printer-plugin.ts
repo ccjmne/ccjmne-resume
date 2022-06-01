@@ -8,13 +8,15 @@ import { type Compiler, type WebpackPluginInstance } from 'webpack';
 type Concrete<T> = { [P in keyof T]-?: NonNullable<T[P]> };
 
 export type PDFPrinterConfig = {
+  output: string;
   scheme?: 'http' | 'file';
   host?: string;
   port?: string;
   path?: string;
-  output: string;
   options?: PDFOptions;
   properties?: DocumentProperties;
+  /** Whether the rest of the compilation should wait for PDF compilation to go through */
+  blocking?: boolean;
 };
 
 export class PDFPrinter implements WebpackPluginInstance {
@@ -30,7 +32,7 @@ export class PDFPrinter implements WebpackPluginInstance {
     logger.info('Reading contents from', this.uri);
     logger.info('Compiling PDF at', this.config.output);
 
-    compiler.hooks.afterEmit.tapPromise(`${PDFPrinter.PLUGIN_ID}:compile`, async () => {
+    compiler.hooks.done[this.config.blocking ? 'tapPromise' : 'tap'](`${PDFPrinter.PLUGIN_ID}:compile`, async () => {
       try {
         await this.print();
         logger.info('Successfully printed', this.config.output);
@@ -40,10 +42,7 @@ export class PDFPrinter implements WebpackPluginInstance {
       }
     });
 
-    (compiler.watchMode
-      ? compiler.hooks.watchClose
-      : compiler.hooks.afterDone
-    ).tap(`${PDFPrinter.PLUGIN_ID}:close`, () => this.close());
+    compiler.hooks.shutdown.tapPromise(`${PDFPrinter.PLUGIN_ID}:close`, () => this.close());
   }
 
   private async launch(): Promise<void> {

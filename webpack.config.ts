@@ -84,6 +84,7 @@ export default (
       ...mode === 'production' ? { scheme: 'file', path: resolve(dist, `${out}.html`) } : { port },
       output: resolve(dist, `${out}.pdf`),
       properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
+      blocking: mode === 'production',
     }),
   ],
 });
