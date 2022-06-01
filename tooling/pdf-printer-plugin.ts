@@ -5,6 +5,8 @@ import { Document, ExternalDocument, type DocumentProperties } from 'pdfjs';
 import Puppeteer, { type Browser, type PDFOptions } from 'puppeteer';
 import { type Compiler, type WebpackPluginInstance } from 'webpack';
 
+type Concrete<T> = { [P in keyof T]-?: NonNullable<T[P]> };
+
 export type PDFPrinterConfig = {
   scheme?: 'http' | 'file';
   host?: string;
@@ -19,7 +21,7 @@ export class PDFPrinter implements WebpackPluginInstance {
 
   private static readonly PLUGIN_ID = 'pdf-printer';
 
-  private browser: Browser;
+  private browser?: Browser;
 
   public constructor(private config: PDFPrinterConfig) {}
 
@@ -45,7 +47,7 @@ export class PDFPrinter implements WebpackPluginInstance {
   }
 
   private async launch(): Promise<void> {
-    this.browser ||= await Puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disabled-setuid-sandbox'] });
+    this.browser ??= await Puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disabled-setuid-sandbox'] });
   }
 
   private async close(): Promise<void> {
@@ -57,6 +59,9 @@ export class PDFPrinter implements WebpackPluginInstance {
       await this.launch();
     }
 
+    // TODO: prefer simple block-scoped type-narrowing when implemented in TS
+    // See https://github.com/microsoft/TypeScript/issues/10421
+    this.assertBrowser();
     const { output, options, properties } = this.config;
     const page = await this.browser.newPage();
     await page.goto(this.uri, { waitUntil: 'networkidle0' });
@@ -74,6 +79,14 @@ export class PDFPrinter implements WebpackPluginInstance {
   private get uri(): string {
     const { scheme = 'http', host = 'localhost', port = '80', path = '' } = this.config;
     return `${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path}`;
+  }
+
+  // @ts-expect-error 'browser' isn't `keyof PDFPrinter` because it is a private property.
+  // See https://github.com/microsoft/TypeScript/issues/46802
+  private assertBrowser(): asserts this is PDFPrinter & Concrete<Pick<PDFPrinter, 'browser'>> {
+    if (!this.browser) {
+      throw new Error('Assertion failed: Browser is not ready');
+    }
   }
 
 }
