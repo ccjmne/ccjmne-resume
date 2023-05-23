@@ -21,11 +21,10 @@ aside {
 
   @include rasterize-background(
     linear-gradient(
-      transparentize($primary, .2),
-      transparentize(darken($primary, 10%), .2) 45%,
-      $dark-bg
+      transparentize(darken($verdigris, 25%), .15),
+      transparentize(darken($yinmn-blue, 20%), .15),
     ),
-    url('src/assets/circuit-board.svg')
+    url('src/assets/caustics.png')
   );
 
   .watermark {
