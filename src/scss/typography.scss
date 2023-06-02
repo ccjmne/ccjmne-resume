@@ -51,6 +51,19 @@ p {
   }
 }
 
+br {
+  content: '';
+  display: block;
+
+  section#summary & {
+    margin-top: .5em;
+  }
+
+  section#experience & {
+    margin-top: .3em;
+  }
+}
+
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
   text-underline-offset: .1em;
