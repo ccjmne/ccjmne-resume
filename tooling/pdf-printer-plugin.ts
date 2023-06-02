@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
-import { resolve } from 'path';
+import { dirname, resolve } from 'path';
 
+import { mkdirp } from 'mkdirp';
 import { Document, ExternalDocument, type DocumentProperties } from 'pdfjs';
 import Puppeteer, { type Browser, type PDFOptions } from 'puppeteer';
 import { type Compiler, type WebpackPluginInstance } from 'webpack';
@@ -25,7 +26,7 @@ export class PDFPrinter implements WebpackPluginInstance {
 
   private browser?: Browser;
 
-  public constructor(private config: PDFPrinterConfig) {}
+  public constructor(private readonly config: PDFPrinterConfig) {}
 
   public apply(compiler: Compiler): void {
     const logger = compiler.getInfrastructureLogger(PDFPrinter.PLUGIN_ID);
@@ -72,6 +73,8 @@ export class PDFPrinter implements WebpackPluginInstance {
     const doc = new Document({ properties, font: null as unknown as Font });
     doc.addPagesOf(new ExternalDocument(content));
     const buffer = await doc.asBuffer();
+
+    await mkdirp(dirname(resolve(output)));
     await fs.writeFile(resolve(output), buffer);
   }
 
