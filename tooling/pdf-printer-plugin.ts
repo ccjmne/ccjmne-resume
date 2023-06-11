@@ -47,7 +47,7 @@ export class PDFPrinter implements WebpackPluginInstance {
   }
 
   private async launch(): Promise<void> {
-    this.browser ??= await Puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disabled-setuid-sandbox'] });
+    this.browser ??= await Puppeteer.launch({ headless: 'new', args: ['--no-sandbox', '--disabled-setuid-sandbox'] });
   }
 
   private async close(): Promise<void> {
