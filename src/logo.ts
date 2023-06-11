@@ -1,17 +1,17 @@
-import type EasyHTMLElement from 'utils/easy-htmlelement';
-import { elementSVG } from 'utils/easy-htmlelement';
+import type EasyHTMLElement from 'utils/easy-htmlelement'
+import { elementSVG } from 'utils/easy-htmlelement'
 
-import caustics from './assets/caustics.jpg?dataURI';
+import caustics from './assets/caustics.jpg?dataURI'
 
 export default function logo(): EasyHTMLElement {
-  const stroke = 5;
-  const size = 30;
-  const gap = 3;
+  const stroke = 5
+  const size = 30
+  const gap = 3
 
-  const [w, h] = [(size + stroke) * 3 + gap * 2, (size + stroke) * 2 + gap]; // bounding box of "ccj-mne"
-  const [maskID, gradientID] = ['logo-mask', 'logo-gradient'];
+  const [w, h] = [(size + stroke) * 3 + gap * 2, (size + stroke) * 2 + gap] // bounding box of "ccj-mne"
+  const [maskID, gradientID] = ['logo-mask', 'logo-gradient']
 
-  const span = Math.sqrt((w + stroke * 2) ** 2 * 2); // dimensions of the entire logo
+  const span = Math.sqrt((w + stroke * 2) ** 2 * 2) // dimensions of the entire logo
 
   return elementSVG()
     .attrs({ viewBox: `${-span / 2} ${-span / 2} ${span} ${span}` })
@@ -84,11 +84,12 @@ export default function logo(): EasyHTMLElement {
           x2: span / 4,
           y2: span / 4,
         }).content(
+          // TODO: export colours from scss
           elementSVG('stop').attrs({ 'offset': 0, 'stop-color': '#2c7f87', 'stop-opacity': .75 }),
           elementSVG('stop').attrs({ 'offset': 1, 'stop-color': '#213d5a', 'stop-opacity': .75 }),
         ),
       ), // </defs>
       elementSVG('image').attrs({ href: caustics, x: -380, y: -380, mask: `url(#${maskID})` }),
       elementSVG('rect').attrs({ x: -span / 2, y: -span / 2, width: span, height: span, fill: `url(#${gradientID})`, mask: `url(#${maskID})` }),
-    );
+    )
 }

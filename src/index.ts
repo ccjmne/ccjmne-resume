@@ -1,14 +1,14 @@
-import pkg from '../package.json';
+import pkg from '../package.json'
 
-import logo from './logo';
-import profile from './profile.json';
-import { RegExpWGroups } from './types';
+import logo from './logo'
+import profile from './profile.json'
+import { type RegExpWGroups } from './types'
 
-import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement';
-import { h2bg, hr, rhombus } from './utils/svg-elements';
+import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement'
+import { h2bg, hr, rhombus } from './utils/svg-elements'
 
-const { name, homepage } = pkg;
-const { experience, identity, links, skills, education, endorsments } = profile;
+const { name, homepage } = pkg
+const { experience, identity, links, skills, education, endorsments } = profile
 
 element(document.body).content(
   element('header').content(
@@ -57,7 +57,7 @@ element(document.body).content(
         .content(
           element('h3').at('title').content(title, ' ', element('small')
             .content(lightest('at'), ' ', lighter(company))
-            .content(notabene ? lightest(` (${String(notabene)})`) : '')),
+            .content(notabene !== undefined ? lightest(` (${String(notabene)})`) : '')),
           element().at('when').content(`${dates} (${duration})`),
           element().at('where').content(location),
           element('p').at('summary').content(
@@ -69,4 +69,4 @@ element(document.body).content(
         )),
     ),
   ),
-);
+)

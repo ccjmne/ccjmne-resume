@@ -3,5 +3,5 @@ export default function templateElementLoader(content: string | Buffer): string 
     const template = document.createElement('template');
     template.innerHTML = ${JSON.stringify(content)};
     export default template;
-  `;
+  `
 }
