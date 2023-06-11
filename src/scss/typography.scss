@@ -67,7 +67,7 @@ br {
 
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
-  text-underline-offset: .1em;
+  text-underline-offset: 2px;
   text-decoration-color: $light-fg-2;
 
   .inverse & {
