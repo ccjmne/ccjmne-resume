@@ -7,10 +7,10 @@ const SVGNS = 'http://www.w3.org/2000/svg';
 
 export default class EasyHTMLElement {
 
-  private readonly e!: HTMLElement | SVGElement;
+  private readonly elem!: HTMLElement | SVGElement;
 
   constructor(base: string | HTMLElement | SVGElement) {
-    this.e = typeof base === 'string' ? document.createElement(base) : base;
+    this.elem = typeof base === 'string' ? document.createElement(base) : base;
   }
 
   public static anchor({ href, text }: { href: string, text: string }): EasyHTMLElement {
@@ -18,17 +18,20 @@ export default class EasyHTMLElement {
   }
 
   public cls(...classes: string[]): this {
-    this.e.classList.add(...classes.filter(c => !!c));
+    this.elem.classList.add(...classes.filter(cls => !!cls));
+
     return this;
   }
 
   public attrs(attributes: Record<string, { toString: () => string }>): this {
-    Object.entries(attributes).forEach(([k, v]) => this.e.setAttribute(k, String(v)));
+    Object.entries(attributes).forEach(([k, v]) => this.elem.setAttribute(k, String(v)));
+
     return this;
   }
 
   public styles(styles: Record<string, { toString: () => string }>): this {
-    Object.entries(styles).forEach(([k, v]) => this.e.style.setProperty(k, String(v)));
+    Object.entries(styles).forEach(([k, v]) => this.elem.style.setProperty(k, String(v)));
+
     return this;
   }
 
@@ -40,22 +43,21 @@ export default class EasyHTMLElement {
    * Parses contents and:
    * - discard empty strings
    * - automatically mark for hyphenation (for `en-gb`) with `\u00AD` (soft hyphen),
-   * - replace linefeeds (literal `\n`) with `<br />` tags
-   * - replace markdown-style links with `<a href="...">...</a>` tags
+   * - replace linefeeds (literal `\n`) with `<br />` elements
+   * - replace markdown-style hyperlinks with `<a href="...">...</a>` elements
    * - replace `&nbsp;` with `\u00A0` (non-breaking space)
    */
   public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
-    const anchors: EasyHTMLElement[] = [];
-    this.e.append(...contents.filter(c => !!c).flatMap(c => (typeof c !== 'string' ? c.e : c
-      .replace(/&nbsp;/g, '\u00A0') // non-breaking spaces
-      .replace(
-        /\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)/g,
-        (...args) => anchors.push(EasyHTMLElement.anchor(args.pop() as RegExpGroups<'text' | 'href'>)) as 1 && ':~:',
-      )
-      .split(':~:')
-      .flatMap((s, i) => (!i ? s : [(anchors.shift() as EasyHTMLElement).e, s]))
-      .flatMap(t => (typeof t !== 'string' ? t : t.split(/\n/g).flatMap(s => [new EasyHTMLElement('br').e, hyphenate(s)]).slice(1)))
-    )));
+    this.elem.append(...contents
+      .filter(content => content !== '')
+      .flatMap(content => (typeof content !== 'string' ? content.elem : content
+        .replace(/&nbsp;/g, '\u00A0')
+        .split(/(?<=\[[^\]]+\]\([^)]+\))|(?=\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks
+        .map(fragment => fragment.match(/^\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)$/)?.groups as RegExpGroups<'text' | 'href'> | undefined ?? fragment)
+        .flatMap(fragment => (typeof fragment === 'string'
+          ? fragment.split(/\n/g).flatMap(t => [new EasyHTMLElement('br').elem, hyphenate(t)]).slice(1)
+          : EasyHTMLElement.anchor(fragment).elem))
+      )));
 
     return this;
   }
