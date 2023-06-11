@@ -41,7 +41,7 @@ The PDF output (and the pre-compiled HTML-CSS-JS assets in dev. mode) will be ge
 
 There is nothing to do, this process is automated.
 
-When pushing commits to the `master` Git branch:
+With each newly published release on GitHub,
 1. a [GitHub Action](https://docs.github.com/en/actions) will use [Webpack](https://webpack.js.org/) to:
    - compile and generate the static HTML webpage,
    - print it out to PDF through my own [PDF-Printer Webpack Plugin](./tooling/pdf-printer-plugin.ts) (using [Puppeteer](https://github.com/GoogleChrome/puppeteer)),
