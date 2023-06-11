@@ -40,6 +40,10 @@ export default (
       use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
     }, {
+      test: /\.(png|jpe?g|gif)$/i,
+      resourceQuery: /dataURI/,
+      use: { loader: 'url-loader', options: { limit: true } },
+    }, {
       test: /\.svg$/,
       enforce: 'pre',
       use: 'svgo-loader',

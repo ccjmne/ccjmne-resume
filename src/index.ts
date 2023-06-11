@@ -1,6 +1,6 @@
 import pkg from '../package.json';
 
-import logo from './assets/ccjmne-logo.svg';
+import logo from './logo';
 import profile from './profile.json';
 import { RegExpWGroups } from './types';
 
@@ -16,7 +16,7 @@ element(document.body).content(
       element('h1').cls('name').content(identity.name),
       element('h1').cls('title', 'lighter').content(identity.title),
     ),
-    element('img').cls('logo').attrs({ src: logo }),
+    logo().cls('logo'),
   ),
   element('aside').cls('inverse').content(
     section('links').content(
