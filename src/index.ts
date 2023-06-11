@@ -1,11 +1,11 @@
-import { RegExpWGroups } from 'types';
-
 import pkg from '../package.json';
 
 import logo from './assets/ccjmne-logo.svg';
 import profile from './profile.json';
+import { RegExpWGroups } from './types';
+
 import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement';
-import { diamond, h2bg, hr } from './utils/svg-elements';
+import { h2bg, hr, rhombus } from './utils/svg-elements';
 
 const { name, homepage } = pkg;
 const { experience, identity, links, skills, education, endorsments } = profile;
@@ -28,7 +28,7 @@ element(document.body).content(
     ),
     section('top-skills').content(
       element('h3').cls('hr').content('Top Skills', hr()),
-      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => [diamond(8), skill]).slice(1)))),
+      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => [rhombus(8), skill]).slice(1)))),
     ),
     section('education').content(
       element('h3').cls('hr').content('Education', hr()),
@@ -49,9 +49,9 @@ element(document.body).content(
     element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
-    element('h2').content('Summary', h2bg()),
+    element('h2').content('Summary', h2bg(2017 - 3 - 10)),
     section('summary').content(element('p').content(identity.summary)),
-    element('h2').content('Experience', h2bg()),
+    element('h2').content('Experience', h2bg(42)),
     section('experience').content(
       ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')
         .content(

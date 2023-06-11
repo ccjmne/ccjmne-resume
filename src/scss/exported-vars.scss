@@ -1,5 +1,4 @@
 @use 'sass:string';
-
 @import './colours';
 
 @function hsl-str($color) {
@@ -8,5 +7,5 @@
 
 :export {
   // stylelint-disable property-no-unknown
-  primary: hsl-str($primary);
+  light-bg: hsl-str($light-bg);
 }

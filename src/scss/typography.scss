@@ -1,10 +1,11 @@
+@use 'sass:color';
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap');
 
 @import './spacing';
 @import './colours';
 
 body {
-  background-color: $light-bg;
   color: $light-fg;
   font-family: 'Raleway', 'Montserrat', 'HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
   font-size: 10pt;
@@ -12,7 +13,6 @@ body {
 }
 
 .inverse {
-  background-color: $dark-bg;
   color: $dark-fg;
 }
 
@@ -24,10 +24,10 @@ aside h3 {
 
 h2 {
   position: relative;
-  margin: 0 -#{$default-padding};
+  margin: 0;
   padding: 5px $default-padding;
   overflow: hidden;
-  border-top: 1px solid $primary;
+  border-top: 1px solid color.adjust($yinmn-blue, $lightness: -20%);
   color: $light-bg;
   letter-spacing: .2ch;
 }

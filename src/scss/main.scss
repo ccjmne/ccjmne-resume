@@ -4,8 +4,12 @@ main {
   display: flex;
   grid-area: main;
   flex-direction: column;
-  padding: 0 $default-padding;
   hyphens: none;
+
+  section {
+    padding: $default-padding;
+    background-color: $light-bg;
+  }
 }
 
 section#experience {
@@ -13,7 +17,6 @@ section#experience {
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
-  margin: $default-padding 0;
 }
 
 article.experience {
