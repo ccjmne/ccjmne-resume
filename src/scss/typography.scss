@@ -1,13 +1,11 @@
 @use 'sass:color';
-
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap');
-
+@import 'https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap';
 @import './spacing';
 @import './colours';
 
 body {
   color: $light-fg;
-  font-family: 'Raleway', 'Montserrat', 'HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
+  font-family: Raleway, Montserrat, HelveticaNeue, Helvetica, Arial, sans-serif;
   font-size: 10pt;
   letter-spacing: .5px;
 }
@@ -19,7 +17,7 @@ body {
 h1,
 h2,
 aside h3 {
-  font-family: 'Cinzel', serif;
+  font-family: Cinzel, serif;
 }
 
 h2 {
