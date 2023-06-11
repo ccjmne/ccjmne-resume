@@ -41,8 +41,14 @@
       "location": "Leipzig, Germany",
       "title": "Software Architect",
       "notabene": "remote position",
-      "abstract": "Supporting the complete reinvention of a B2B e-procurement platform grossing 500 million euros in a year.",
-      "tags": ["*Software Architecture", "*DevOps", "AWS Platform", "Java"]
+      "abstract": "Supporting the complete reinvention of a B2B e-procurement platform grossing 500 million euros a year.",
+      "tags": [
+        "*Software Architecture",
+        "*DevOps",
+        "AWS Platform",
+        "Java",
+        "Spring Framework"
+      ]
     },
     {
       "dates": "Dec. 2014 – Present",
@@ -81,7 +87,7 @@
     {
       "dates": "Sep. 2012 – Mar. 2013",
       "duration": "7 months",
-      "company": "[Gaspard Monge Institute, Gustave Eiffel University](https://igm.univ-gustave-eiffel.fr/)",
+      "company": "[Gaspard Monge Institute](https://igm.univ-gustave-eiffel.fr/)",
       "location": "Paris area, France",
       "title": "Project Manager",
       "abstract": "Lead a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute.",
