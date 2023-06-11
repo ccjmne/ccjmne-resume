@@ -21,16 +21,13 @@
     "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["DOM", "ESNext"],
-    "typeRoots": [
-      "src/*.d.ts",
-      "node_modules/@types",
-    ]
+    "typeRoots": ["src/*.d.ts", "node_modules/@types"]
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
   },
-  "include": [".eslintrc.js", "**/*"],
+  "include": [".eslintrc.js", ".stylelintrc.js", "**/*"],
   "exclude": ["node_modules", "dist"]
 }
