@@ -32,8 +32,8 @@ Install with `npm install`.
 
 ### Build
 
-Continuously watch-rebuild with `npm run start:dev` (or `webpack serve --mode development`) during development;<br />
-Perform a one-off compilation with `npm run compile:pdf` (or `webpack --mode production`).
+Continuously watch-rebuild with `npm start` (or `webpack serve --mode development`) during development;<br />
+Perform a one-off compilation with `npm run build` (or `webpack --mode production`).
 
 The PDF output (and the pre-compiled HTML-CSS-JS assets in dev. mode) will be generated under `dist/`.
 

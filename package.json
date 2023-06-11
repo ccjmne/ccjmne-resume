@@ -5,8 +5,8 @@
   "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
   "main": "src/index.ts",
   "scripts": {
-    "start:dev": "webpack serve --mode development --port 8042 --open",
-    "compile:pdf": "webpack --mode production"
+    "start": "webpack serve --mode development --port 8042 --open",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
