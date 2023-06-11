@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/ccjmne/ccjmne-resume#readme",
   "dependencies": {
-    "hyphen": "^1.6.4",
-    "pdfjs": "^2.4.7",
-    "puppeteer": "^14.1.2"
+    "hyphen": "^1.6.6",
+    "pdfjs": "^2.5.0",
+    "puppeteer": "^20.5.0"
   },
   "devDependencies": {
     "@types/html-webpack-plugin": "^3.2.6",
