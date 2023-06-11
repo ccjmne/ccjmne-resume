@@ -1,5 +1,3 @@
-<img src="./src/assets/ccjmne-logo.svg" alt="ccjmne-logo" width="200"/>
-
 # ccjmne-resume
 
 [![Compile and Publish Resume](https://github.com/ccjmne/ccjmne-resume/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/ccjmne/ccjmne-resume/actions/workflows/build-deploy.yml)

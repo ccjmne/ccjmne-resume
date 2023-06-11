@@ -4,14 +4,12 @@ main {
   display: flex;
   grid-area: main;
   flex-direction: column;
-  padding: 0 $default-padding;
   hyphens: none;
-}
 
-section#summary br {
-  content: '';
-  display: block;
-  margin-top: .5em;
+  section {
+    padding: $default-padding;
+    background-color: $light-bg;
+  }
 }
 
 section#experience {
@@ -19,7 +17,6 @@ section#experience {
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
-  margin: $default-padding 0;
 }
 
 article.experience {
@@ -33,7 +30,7 @@ article.experience {
 }
 
 ol.tags {
-  margin: .75em 0 0 0;
+  margin: .75em 0 0;
   padding: 0;
   float: right;
   color: $light-fg;
@@ -45,6 +42,7 @@ ol.tags {
     padding: 0 3px;
     border: 1px solid hsl(0deg 0% 83%);
     border-radius: 1em;
+
     &.star {
       border: 1px solid grey;
     }

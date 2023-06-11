@@ -1,11 +1,18 @@
+@use 'sass:color';
 @import './main';
 @import './header';
 @import './aside';
 
 body {
   display: grid;
-  grid-template: 'aside header' auto 'aside main' 1fr / 33% 1fr;
+  grid-template: 'aside header' auto 'aside main' 1fr / 34% 1fr;
   width: 100vw;
   height: 100vh;
   margin: 0;
+  background-image: linear-gradient(
+    color.adjust(color.adjust($verdigris, $lightness: -25%), $alpha: -.15),
+    color.adjust(color.adjust($yinmn-blue, $lightness: -15%), $alpha: -.15) 80%,
+    color.adjust($yinmn-blue, $lightness: -25%)
+  ),
+  url('src/assets/caustics.jpg');
 }

@@ -1,3 +1,4 @@
+@import './colours';
 @import './spacing';
 
 header {
@@ -7,6 +8,7 @@ header {
   justify-content: space-around;
   padding: 15px $default-padding;
   padding-left: 0;
+  background: $light-bg;
 
   h1 {
     margin: 0;
@@ -23,7 +25,7 @@ header {
     }
   }
 
-  img.logo {
+  .logo {
     max-width: 100px;
   }
 }

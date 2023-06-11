@@ -1,33 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap');
-
+@use 'sass:color';
+@import 'https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap';
 @import './spacing';
 @import './colours';
 
 body {
-  background-color: $light-bg;
   color: $light-fg;
-  font-family: 'Raleway', 'Montserrat', 'HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
+  font-family: Raleway, Montserrat, HelveticaNeue, Helvetica, Arial, sans-serif;
   font-size: 10pt;
   letter-spacing: .5px;
 }
 
 .inverse {
-  background-color: $dark-bg;
   color: $dark-fg;
 }
 
 h1,
 h2,
 aside h3 {
-  font-family: 'Cinzel', serif;
+  font-family: Cinzel, serif;
 }
 
 h2 {
   position: relative;
-  margin: 0 -#{$default-padding};
+  margin: 0;
   padding: 5px $default-padding;
   overflow: hidden;
-  border-top: 1px solid $primary;
+  border-top: 1px solid color.adjust($yinmn-blue, $lightness: -20%);
   color: $light-bg;
   letter-spacing: .2ch;
 }
@@ -43,6 +41,7 @@ h4 {
 }
 
 p {
+  margin: 0;
   color: $light-fg-0;
   text-align: justify;
 
@@ -51,9 +50,22 @@ p {
   }
 }
 
+br {
+  content: '';
+  display: block;
+
+  section#aboutme & {
+    margin-top: 1em;
+  }
+
+  section#experience & {
+    margin-top: .5em;
+  }
+}
+
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
-  text-underline-offset: .1em;
+  text-underline-offset: 2px;
   text-decoration-color: $light-fg-2;
 
   .inverse & {

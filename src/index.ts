@@ -1,14 +1,14 @@
-import { RegExpWGroups } from 'types';
+import pkg from '../package.json'
 
-import pkg from '../package.json';
+import logo from './logo'
+import profile from './profile.json'
+import { type RegExpWGroups } from './types'
 
-import logo from './assets/ccjmne-logo.svg';
-import profile from './profile.json';
-import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement';
-import { diamond, h2bg, hr } from './utils/svg-elements';
+import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement'
+import { h2bg, hr, rhombus } from './utils/svg-elements'
 
-const { name, homepage } = pkg;
-const { experience, identity, links, skills, education, endorsments } = profile;
+const { name, homepage } = pkg
+const { experience, identity, links, skills, education, endorsments } = profile
 
 element(document.body).content(
   element('header').content(
@@ -16,7 +16,7 @@ element(document.body).content(
       element('h1').cls('name').content(identity.name),
       element('h1').cls('title', 'lighter').content(identity.title),
     ),
-    element('img').cls('logo').attrs({ src: logo }),
+    logo().cls('logo'),
   ),
   element('aside').cls('inverse').content(
     section('links').content(
@@ -28,7 +28,7 @@ element(document.body).content(
     ),
     section('top-skills').content(
       element('h3').cls('hr').content('Top Skills', hr()),
-      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => [diamond(8), skill]).slice(1)))),
+      article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => [rhombus(8), skill]).slice(1)))),
     ),
     section('education').content(
       element('h3').cls('hr').content('Education', hr()),
@@ -49,15 +49,15 @@ element(document.body).content(
     element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
-    element('h2').content('Summary', h2bg()),
-    section('summary').content(element('p').content(identity.summary)),
-    element('h2').content('Experience', h2bg()),
+    element('h2').content('About Me', h2bg(2017 - 3 - 10)),
+    section('aboutme').content(element('p').content(identity.aboutme)),
+    element('h2').content('Experience', h2bg(42)),
     section('experience').content(
       ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')
         .content(
           element('h3').at('title').content(title, ' ', element('small')
             .content(lightest('at'), ' ', lighter(company))
-            .content(notabene ? lightest(` (${String(notabene)})`) : '')),
+            .content(notabene !== undefined ? lightest(` (${String(notabene)})`) : '')),
           element().at('when').content(`${dates} (${duration})`),
           element().at('where').content(location),
           element('p').at('summary').content(
@@ -69,4 +69,4 @@ element(document.body).content(
         )),
     ),
   ),
-);
+)

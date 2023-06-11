@@ -1,18 +1,18 @@
-import { resolve } from 'path';
+import { resolve } from 'path'
 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import svgToMiniDataURI from 'mini-svg-data-uri';
-import { Configuration } from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import svgToMiniDataURI from 'mini-svg-data-uri'
+import { type Configuration } from 'webpack'
 
-import 'webpack-dev-server'; // Augment "Configuration" type
-import { author, description, homepage, keywords, name, repository, title } from './package.json';
-import { PDFPrinter } from './tooling/pdf-printer-plugin';
+import 'webpack-dev-server' // Augment "Configuration" type
+import { author, description, homepage, keywords, name, repository, title } from './package.json'
+import { PDFPrinter } from './tooling/pdf-printer-plugin'
 
-const src = resolve(__dirname, 'src');
-const dist = resolve(__dirname, 'dist');
-const tools = resolve(__dirname, 'tooling');
-const out = 'ccjmne-resume';
+const src = resolve(__dirname, 'src')
+const dist = resolve(__dirname, 'dist')
+const tools = resolve(__dirname, 'tooling')
+const out = 'ccjmne-resume'
 
 export default (
   _env: string,
@@ -39,6 +39,10 @@ export default (
       test: /(?<!exported-vars)\.scss?$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
+    }, {
+      test: /\.(png|jpe?g|gif)$/i,
+      resourceQuery: /dataURI/,
+      use: { loader: 'url-loader', options: { limit: true } },
     }, {
       test: /\.svg$/,
       enforce: 'pre',
@@ -87,4 +91,4 @@ export default (
       blocking: mode === 'production',
     }),
   ],
-});
+})
