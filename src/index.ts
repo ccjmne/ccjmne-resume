@@ -49,8 +49,8 @@ element(document.body).content(
     element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
-    element('h2').content('Summary', h2bg(2017 - 3 - 10)),
-    section('summary').content(element('p').content(identity.summary)),
+    element('h2').content('About Me', h2bg(2017 - 3 - 10)),
+    section('aboutme').content(element('p').content(identity.aboutme)),
     element('h2').content('Experience', h2bg(42)),
     section('experience').content(
       ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')

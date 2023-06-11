@@ -30,7 +30,7 @@
     "identity": {
       "$id": "#/properties/identity",
       "type": "object",
-      "required": ["name", "title", "summary"],
+      "required": ["name", "title", "aboutme"],
       "properties": {
         "name": {
           "$id": "#/properties/identity/properties/name",
@@ -40,8 +40,8 @@
           "$id": "#/properties/identity/properties/title",
           "type": "string"
         },
-        "summary": {
-          "$id": "#/properties/identity/properties/summary",
+        "aboutme": {
+          "$id": "#/properties/identity/properties/aboutme",
           "type": "string"
         }
       }
@@ -114,7 +114,15 @@
       "items": {
         "$id": "#/properties/experience/items",
         "type": "object",
-        "required": ["dates", "duration", "company", "location", "title", "abstract", "tags"],
+        "required": [
+          "dates",
+          "duration",
+          "company",
+          "location",
+          "title",
+          "abstract",
+          "tags"
+        ],
         "properties": {
           "dates": {
             "$id": "#/properties/experience/items/properties/dates",

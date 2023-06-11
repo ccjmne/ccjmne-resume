@@ -24,7 +24,7 @@
   "identity": {
     "name": "Éric NICOLAS",
     "title": "Solutions Architect",
-    "summary": "Analytical tinkerer by nature, I like to constantly challenge myself and experiment with technologies beyond my comfort zone.\nI am a detail-oriented problem solver who thinks critically and aims for infallible, simple and reusable solutions: in my experience, the secret often lies in the savvy design of scalable microservices."
+    "aboutme": "Analytical tinkerer by nature, I like to constantly challenge myself and experiment with technologies beyond my comfort zone.\nI am a detail-oriented problem solver who thinks critically and aims for infallible, simple and reusable solutions: in my experience, the secret often lies in the savvy design of scalable microservices."
   },
   "skills": [
     ["AWS Platform", "Arch. Design"],
