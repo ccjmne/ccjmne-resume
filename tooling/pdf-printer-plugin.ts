@@ -9,15 +9,15 @@ import { type Compiler, type WebpackPluginInstance } from 'webpack'
 type Concrete<T> = { [P in keyof T]-?: NonNullable<T[P]> }
 
 export type PDFPrinterConfig = {
-  output: string;
-  scheme?: 'http' | 'file';
-  host?: string;
-  port?: string;
-  paths?: string[];
-  options?: PDFOptions;
-  properties?: DocumentProperties;
+  output: string
+  scheme?: 'http' | 'file'
+  host?: string
+  port?: string
+  paths?: string[]
+  options?: PDFOptions
+  properties?: DocumentProperties
   /** Whether the rest of the compilation should wait for PDF compilation to go through */
-  blocking?: boolean;
+  blocking?: boolean
 }
 
 export class PDFPrinter implements WebpackPluginInstance {
@@ -26,7 +26,7 @@ export class PDFPrinter implements WebpackPluginInstance {
 
   private browser?: Browser
 
-  public constructor(private readonly config: PDFPrinterConfig) {}
+  public constructor(private readonly config: PDFPrinterConfig) { }
 
   public apply(compiler: Compiler): void {
     const logger = compiler.getInfrastructureLogger(PDFPrinter.PLUGIN_ID)
