@@ -11,7 +11,7 @@ body {
   margin: 0;
   background-image: linear-gradient(
     color.adjust(color.adjust($verdigris, $lightness: -25%), $alpha: -.15),
-    color.adjust(color.adjust($yinmn-blue, $lightness: -15%), $alpha: -.15) 80%,
+    color.adjust(color.adjust($yinmn-blue, $lightness: -15%), $alpha: -.15) 70%,
     color.adjust($yinmn-blue, $lightness: -25%)
   ),
   url('src/assets/caustics.jpg');
