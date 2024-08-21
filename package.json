@@ -2,7 +2,7 @@
   "name": "ccjmne-resume",
   "title": "Éric NICOLAS :: Resume",
   "version": "2.0.0",
-  "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
+  "description": "My simple static HTML resume meant to be printed out into an A4 portrait PDF document",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack serve --mode development --port 8042 --open",
