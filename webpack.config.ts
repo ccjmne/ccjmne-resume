@@ -44,7 +44,7 @@ export default (
         { loader: 'sass-loader' },
       ],
     }, {
-      test: /(?<!\.module)\.scss?$/,
+      test: /(?<!\.module)\.scss$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
     }, {
