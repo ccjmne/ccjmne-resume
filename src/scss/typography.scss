@@ -25,7 +25,7 @@ h2 {
   margin: 0;
   padding: 5px $default-padding;
   overflow: hidden;
-  border-top: 1px solid color.adjust($yinmn-blue, $lightness: -20%);
+  border-block-start: 1px solid color.adjust($yinmn-blue, $lightness: -20%);
   color: $light-bg;
   letter-spacing: .2ch;
 }
@@ -55,11 +55,11 @@ br {
   display: block;
 
   section#aboutme & {
-    margin-top: 1em;
+    margin-block-start: 1em;
   }
 
   section#experience & {
-    margin-top: .5em;
+    margin-block-start: .5em;
   }
 }
 

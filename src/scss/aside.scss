@@ -55,13 +55,13 @@ aside {
   }
 
   h3 {
-    margin-top: 0;
+    margin-block-start: 0;
     font-size: 1.3em;
     letter-spacing: .3ch;
   }
 
   article + article {
-    margin-top: 20px;
+    margin-block-start: 20px;
   }
 
   article.top-skills > * {
@@ -75,7 +75,7 @@ aside {
     grid-template: 'degree dates' 'field field' 'highlight highlight' / 1fr auto;
 
     [grid-area='field'] {
-      margin-bottom: .3em;
+      margin-block-end: .3em;
       font-size: .9em;
       text-align: right;
     }
@@ -86,7 +86,7 @@ aside {
     grid-template: 'from' 'title' 'excerpt' / auto;
 
     [grid-area='title'] {
-      margin-bottom: .3em;
+      margin-block-end: .3em;
       font-size: .9em;
       text-align: right;
     }
