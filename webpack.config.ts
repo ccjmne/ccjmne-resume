@@ -14,6 +14,16 @@ const dist = resolve(__dirname, 'dist')
 const tools = resolve(__dirname, 'tooling')
 const out = 'ccjmne-resume'
 
+class TypedScssModulesPlugin {
+  apply(compiler) {
+    compiler.hooks.afterPlugins.tap('TypedScssModulesPlugin', () => {
+      require('child_process').spawn(
+        'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', '--watch'], { stdio: 'inherit' }
+      )
+    })
+  }
+}
+
 export default (
   _env: string,
   { mode = 'production', port = '8042' }: { mode?: 'production' | 'development', port?: string } = {},
@@ -28,15 +38,13 @@ export default (
       use: 'ts-loader',
       exclude: /node_modules/,
     }, {
-      test: /exported-vars\.scss$/,
+      test: /\.module\.scss$/,
       use: [
-        'style-loader',
-        'css-modules-typescript-loader',
         { loader: 'css-loader', options: { modules: 'icss' } },
-        'sass-loader',
+        { loader: 'sass-loader' },
       ],
     }, {
-      test: /(?<!exported-vars)\.scss?$/,
+      test: /(?<!\.module)\.scss?$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
     }, {
@@ -78,6 +86,7 @@ export default (
   },
   plugins: [
     ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
+    new TypedScssModulesPlugin(),
     new HtmlWebpackPlugin({
       title: name,
       meta: { author, description, repository, keywords: keywords.join(', ') },

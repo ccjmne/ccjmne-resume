@@ -1,4 +1,4 @@
-import css from '../scss/exported-vars.scss'
+import * as css from '../scss/exported-vars.module.scss'
 
 import type EasyHTMLElement from './easy-htmlelement'
 import { elementSVG } from './easy-htmlelement'
