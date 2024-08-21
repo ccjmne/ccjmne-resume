@@ -13,7 +13,7 @@ export type PDFPrinterConfig = {
   scheme?: 'http' | 'file';
   host?: string;
   port?: string;
-  path?: string;
+  paths?: string[];
   options?: PDFOptions;
   properties?: DocumentProperties;
   /** Whether the rest of the compilation should wait for PDF compilation to go through */
@@ -30,7 +30,7 @@ export class PDFPrinter implements WebpackPluginInstance {
 
   public apply(compiler: Compiler): void {
     const logger = compiler.getInfrastructureLogger(PDFPrinter.PLUGIN_ID)
-    logger.info('Reading contents from', this.uri)
+    this.uris.map(uri => logger.info('Reading contents from', uri))
     logger.info('Compiling PDF at', this.config.output)
 
     compiler.hooks.done[this.config.blocking === true ? 'tapPromise' : 'tap'](`${PDFPrinter.PLUGIN_ID}:compile`, async () => {
@@ -63,24 +63,27 @@ export class PDFPrinter implements WebpackPluginInstance {
     // See https://github.com/microsoft/TypeScript/issues/10421
     this.assertBrowser()
     const { output, options, properties } = this.config
-    const page = await this.browser.newPage()
-    await page.goto(this.uri, { waitUntil: 'networkidle0' })
-    const content = await page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options })
-    await page.close()
+    const contents = await Promise.all(this.uris.map(async uri => {
+      const page = await this.browser.newPage()
+      await page.goto(uri, { waitUntil: 'networkidle0' })
+      const content = await page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options })
+      await page.close()
+      return content
+    }))
 
     // TODO: maybe simply use an EXIF editor and drop pdfjs
     // Unless we need multiple pages and want to merge them into one document eventually.
     const doc = new Document({ properties, font: null as unknown as Font })
-    doc.addPagesOf(new ExternalDocument(content))
+    contents.forEach(content => doc.addPagesOf(new ExternalDocument(content)))
     const buffer = await doc.asBuffer()
 
     await mkdirp(dirname(resolve(output)))
     await fs.writeFile(resolve(output), buffer)
   }
 
-  private get uri(): string {
-    const { scheme = 'http', host = 'localhost', port = '80', path = '' } = this.config
-    return `${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path}`
+  private get uris(): string[] {
+    const { scheme = 'http', host = 'localhost', port = '80', paths = [''] } = this.config
+    return paths.map(path => `${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path}`)
   }
 
   // @ts-expect-error 'browser' isn't `keyof PDFPrinter` because it is a private property.

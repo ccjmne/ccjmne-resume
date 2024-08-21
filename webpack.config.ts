@@ -3,9 +3,11 @@ import { resolve } from 'path'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import svgToMiniDataURI from 'mini-svg-data-uri'
-import { type Configuration } from 'webpack'
+import { WebpackPluginInstance, type Configuration } from 'webpack'
 
-import 'webpack-dev-server' // Augment "Configuration" type
+import { readdirSync } from 'fs'
+import { Compiler } from 'webpack'
+import 'webpack-dev-server'; // Augment "Configuration" type
 import { author, description, homepage, keywords, name, repository, title } from './package.json'
 import { PDFPrinter } from './tooling/pdf-printer-plugin'
 
@@ -14,24 +16,24 @@ const dist = resolve(__dirname, 'dist')
 const tools = resolve(__dirname, 'tooling')
 const out = 'ccjmne-resume'
 
-class TypedScssModulesPlugin {
-  apply(compiler) {
-    compiler.hooks.afterPlugins.tap('TypedScssModulesPlugin', () => {
-      require('child_process').spawn(
-        'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', '--watch'], { stdio: 'inherit' }
-      )
-    })
+class TypedScssModulesPlugin implements WebpackPluginInstance {
+  public apply(compiler: Compiler): void {
+    compiler.hooks.afterPlugins.tap('TypedScssModulesPlugin', () => require('child_process').spawn(
+      'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', '--watch'], { stdio: 'inherit' }
+    ))
   }
 }
+
+const pages = readdirSync(src, { withFileTypes: true })
+  .filter(({ name }) => /\d+[.]ts/.test(name))
+  .map(({ name }) => ({ path: resolve(src, name), name: name.replace(/[.]ts$/, '') }))
+  .reduce((acc, { name, path }) => ({ ...acc, [name]: path }), {})
 
 export default (
   _env: string,
   { mode = 'production', port = '8042' }: { mode?: 'production' | 'development', port?: string } = {},
 ): Configuration => ({
-  entry: {
-    scss: resolve(src, 'index.scss'),
-    main: resolve(src, 'index.ts'),
-  },
+  entry: { scss: resolve(src, 'index.scss'), ...pages },
   module: {
     rules: [{
       test: /\.tsx?$/,
@@ -78,7 +80,7 @@ export default (
   devServer: {
     port,
     devMiddleware: {
-      index: `${out}.html`,
+      index: '1.html',
     },
   },
   output: {
@@ -87,14 +89,17 @@ export default (
   plugins: [
     ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
     new TypedScssModulesPlugin(),
-    new HtmlWebpackPlugin({
-      title: name,
+    ...Object.entries(pages).map(([name, path]) => new HtmlWebpackPlugin({
+      title: `Page ${name}`,
       meta: { author, description, repository, keywords: keywords.join(', ') },
+      chunks: ['scss', name],
       template: resolve(src, 'index.html'),
-      filename: resolve(dist, `${out}.html`),
-    }),
+      filename: resolve(dist, `${name}.html`),
+    })),
     new PDFPrinter({
-      ...mode === 'production' ? { scheme: 'file', path: resolve(dist, `${out}.html`) } : { port },
+      ...mode === 'production'
+        ? { scheme: 'file', paths: Object.keys(pages).map(name => resolve(dist, `${name}.html`)) }
+        : { port, paths: Object.keys(pages).map(name => `${name}.html`) },
       output: resolve(dist, `${out}.pdf`),
       properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
       blocking: mode === 'production',
