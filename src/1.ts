@@ -34,7 +34,7 @@ element(document.body).content(
       element('h3').cls('hr').content('Education', hr()),
       ...education.map(({ degree, field, highlight }) => article('education').content(
         element('h4').at('degree').content(degree),
-        element('h4').at('field').cls('hr').content(lightest(hr(8, true)), lighter('in '), field),
+        element('h4').at('field').cls('hr').content(lightest(hr(7, true)), lighter('in '), field),
         lighter(highlight).at('highlight'),
       )),
     ),
@@ -42,7 +42,7 @@ element(document.body).content(
       element('h3').cls('hr').content('Endorsments', hr()),
       ...endorsments.map(({ from, title, excerpt }) => article('endorsment').content(
         element('h4').at('from').content(from),
-        element('h4').at('title').cls('hr').content(lightest(hr(8, true)), title),
+        element('h4').at('title').cls('hr').content(lightest(hr(7, true)), title),
         lighter().at('excerpt').content(excerpt),
       )),
     ),

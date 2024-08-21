@@ -34,7 +34,7 @@ function smootherstep(e0 = 0, e1 = 1): (x: number) => number {
   }
 }
 
-export function rhombus(height = 10): EasyHTMLElement {
+export function rhombus(height = 9): EasyHTMLElement {
   return elementSVG()
     .cls('lighter')
     .attrs({ viewBox: `${-height / 2 - 1} ${-height / 2 - 1} ${height + 2} ${height + 2}`, height })
@@ -42,20 +42,20 @@ export function rhombus(height = 10): EasyHTMLElement {
     .content(elementSVG('path').attrs({ d: rhombusPath({ x: 0, y: 0, diag: height }) }))
 }
 
-export function hr(height = 10, reverse = false): EasyHTMLElement {
+export function hr(height = 9, reverse = false): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 4, height, height * .75, height * .5]
   return elementSVG()
     .cls('lighter')
     .attrs({ viewBox: `-1 -1 ${height + 2} ${height + 2}`, preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`, height })
-    .styles({ flex: '1', fill: 'none', stroke: 'currentColor', 'shape-rendering': 'crispEdges' })
+    .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
     .content(
-      elementSVG('g').attrs({ 'transform-origin': `${height / 2} ${height / 2}`, transform: `translate(0, ${( reverse ? -height : height ) / 2}) rotate(${reverse ? 180 : 0})` }).content(
+      elementSVG('g').attrs({ 'transform-origin': `${height / 2} ${height / 2}`, transform: `translate(0, ${(reverse ? -height : height) / 2}) rotate(${reverse ? 180 : 0})` }).content(
         elementSVG('path').styles({ 'stroke-width': '1px' }).attrs({
           d: `${rhombusPath({ x: d1 / 2,                     y: 0, diag: d1 })}
               ${rhombusPath({ x: d1 + d2 / 2 + gap,          y: 0, diag: d2 })}
-              ${rhombusPath({ x: d1 + d2 + d3 / 2 + 2 * gap, y: 0, diag: d3 })}`
+              ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.75 * gap, y: 0, diag: d3 })}`
         }),
-        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3 * gap},0 h9999` }),
+        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }),
       ),
     )
 }
