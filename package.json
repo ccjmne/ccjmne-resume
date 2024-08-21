@@ -1,6 +1,6 @@
 {
   "name": "ccjmne-resume",
-  "title": "Eric NICOLAS :: Resume",
+  "title": "Éric NICOLAS :: Resume",
   "version": "1.0.1",
   "description": "My simple static HTML resume meant to be printed out into a A4 portrait PDF document",
   "main": "src/index.ts",
@@ -18,7 +18,7 @@
     "pdf",
     "resume"
   ],
-  "author": "Eric NICOLAS (ccjmne) <ccjmne@gmail.com>",
+  "author": "Éric NICOLAS (ccjmne) <ccjmne@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/ccjmne/ccjmne-resume/issues"
