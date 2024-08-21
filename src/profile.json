@@ -28,6 +28,7 @@
   },
   "skills": [
     ["AWS Platform", "Arch. Design"],
+    ["Git Surgery", "Linux Sys. Admin."],
     ["DevOps", "TypeScript", "Java"],
     ["Documentation", "DB Admin."],
     ["Web Dev.", "Communication"],
