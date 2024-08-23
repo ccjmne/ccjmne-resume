@@ -19,19 +19,16 @@ export default class EasyHTMLElement {
 
   public cls(...classes: string[]): this {
     this.elem.classList.add(...classes.filter(cls => !!cls))
-
     return this
   }
 
   public attrs(attributes: Record<string, { toString: () => string }>): this {
     Object.entries(attributes).forEach(([k, v]) => this.elem.setAttribute(k, String(v)))
-
     return this
   }
 
   public styles(styles: Record<string, { toString: () => string }>): this {
     Object.entries(styles).forEach(([k, v]) => this.elem.style.setProperty(k, String(v)))
-
     return this
   }
 
@@ -83,6 +80,7 @@ export function span(...contents: ReadonlyArray<string | EasyHTMLElement>): Easy
 export function anchor({ href, text }: { href: string, text: string }): EasyHTMLElement {
   return EasyHTMLElement.anchor({ href, text })
 }
+
 export function section(id: string): EasyHTMLElement {
   return new EasyHTMLElement('section').attrs({ id })
 }
