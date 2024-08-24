@@ -56,8 +56,8 @@ element(document.body).content(
       ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')
         .content(
           element('h3').at('title').content(title, ' ', element('small')
-            .content(lightest('at'), ' ', lighter(company))
-            .content(notabene !== undefined ? lightest(` (${String(notabene)})`) : '')),
+            .append(lightest('at'), ' ', lighter(company))
+            .append(notabene !== undefined ? lightest(` (${notabene})`) : '')),
           element().at('when').content(`${dates} (${duration})`),
           element().at('where').content(location),
           element('p').at('summary').content(

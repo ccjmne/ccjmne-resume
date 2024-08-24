@@ -36,6 +36,16 @@ export default class EasyHTMLElement {
     return this.attrs({ 'grid-area': area }).styles({ 'grid-area': area }) // For ease of use with CSS selectors
   }
 
+  public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
+    this.elem.replaceChildren(...EasyHTMLElement.prepare(contents))
+    return this
+  }
+
+  public append(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
+    this.elem.append(...EasyHTMLElement.prepare(contents))
+    return this
+  }
+
   /**
    * Parses contents and:
    * - discard empty strings
@@ -44,8 +54,8 @@ export default class EasyHTMLElement {
    * - replace markdown-style hyperlinks with `<a href="...">...</a>` elements
    * - replace `&nbsp;` with `\u00A0` (non-breaking space)
    */
-  public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
-    this.elem.append(...contents
+  private static prepare(elements: ReadonlyArray<string | EasyHTMLElement>): ReadonlyArray<string | HTMLElement | SVGElement> {
+    return elements
       .filter(content => content !== '')
       .flatMap(content => (typeof content !== 'string' ? content.elem : content
         .replace(/&nbsp;/g, '\u00A0')
@@ -54,9 +64,7 @@ export default class EasyHTMLElement {
         .flatMap(fragment => (typeof fragment === 'string'
           ? fragment.split(/\n/g).flatMap(t => [new EasyHTMLElement('br').elem, hyphenate(t)]).slice(1)
           : EasyHTMLElement.anchor(fragment).elem))
-      )))
-
-    return this
+      ))
   }
 
 }
