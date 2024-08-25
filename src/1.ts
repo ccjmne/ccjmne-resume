@@ -4,11 +4,13 @@ import logo from './logo'
 import profile from './profile.json'
 import { type RegExpWGroups } from './types'
 
-import { anchor, article, div, element, lighter, lightest, section } from './utils/easy-htmlelement'
-import { h2bg, hr, rhombus } from './utils/svg-elements'
+import { anchor, article, div, element, elementSVG, lighter, lightest, section } from './utils/easy-htmlelement'
+import { hr, rhombus, titlebar } from './utils/svg-elements'
 
 const { name, homepage } = pkg
 const { experience, identity, links, skills, education, endorsments } = profile
+
+const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })
 
 element(document.body).content(
   element('header').content(
@@ -49,9 +51,9 @@ element(document.body).content(
     element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
-    element('h2').content('About Me', h2bg(2017 - 3 - 10)),
+    element('h2').content('About Me'),
     section('aboutme').content(element('p').content(identity.aboutme)),
-    element('h2').content('Experience', h2bg(42)),
+    element('h2').content('Experience'),
     section('experience').content(
       ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')
         .content(
@@ -68,5 +70,15 @@ element(document.body).content(
           ),
         )),
     ),
+    elementSVG().attrs({ width: 0, height: 0 }).content(elementSVG('defs').content(mask)),
   ),
 )
+
+document.fonts.ready.then(() => mask.content(
+  elementSVG('rect').attrs({ x: 0, y: 0, width: 9999, height: 9999, fill: '#fff' }),
+  ...([...document.querySelectorAll('main h2')] as HTMLElement[]).map(({ offsetHeight, offsetTop }, i) => titlebar({
+    seed:   i ? 42 : 2017-3-10,
+    at:     offsetTop,
+    height: offsetHeight
+  })),
+))

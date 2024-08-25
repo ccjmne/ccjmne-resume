@@ -60,9 +60,10 @@ export function hr(height = 9, reverse = false): EasyHTMLElement {
     )
 }
 
-export function h2bg(seed?: number): EasyHTMLElement {
-  const HEIGHT = 100
+export function titlebar({ at, height, seed }: { at: number, height: number, seed: number }): EasyHTMLElement {
+  const x = 260 // TODO: Compute from 50% width
   const random = seededRandom(seed)
+  random() // I messed up, I found the perfect seeds... off by 1.
 
   function visible(t: number): boolean {
     return (1 - (t - 1) ** 2) * .7 + .2 > random()
@@ -73,31 +74,23 @@ export function h2bg(seed?: number): EasyHTMLElement {
       throw new Error('Requires at least two rows')
     }
 
-    const size = HEIGHT / ((rows - 1) / 2)
-    const step = smootherstep(size * cols, 0) // steps DOWN over [0, size * cols]
+    const size = height / ((rows - 1) / 2)
+    const step = smootherstep(size * cols, 0) // step DOWN over [0, size * cols]
 
-    return Array.from({ length: rows })
-      .map((_, r) => Array.from({ length: cols })
-        .map((_, c) => ({ x: (c + (r % 2) / 2) * size, y: (r * size) / 2 }))
+    return [...Array(rows).keys()]
+      .map(r => [...Array(cols).keys()]
+        .map(c => ({ x: (c + (r % 2) / 2) * size, y: (r * size) / 2 }))
         .filter(({ x }) => visible(step(x)))
         .map(({ x, y }) => rhombusPath({ x, y, diag: step(x) * size }))
         .join(' '))
       .join(' ')
   }
 
-  const maskId = `h2bg-mask-${Math.floor(random() * 1000)}`
-  return elementSVG()
-    .attrs({ preserveAspectRatio: 'xMinYMid meet', viewBox: `0 0 1 ${HEIGHT}` })
-    .styles({ position: 'absolute', top: 0, right: 0, height: '100%', width: '50%' })
-    .content(
-      elementSVG('defs').content(
-        elementSVG('mask')
-          .attrs({ id: maskId })
-          .content(
-            elementSVG('rect').attrs({ fill: 'white', x: 0, y: 0, width: 9999, height: HEIGHT }),
-            elementSVG('path').attrs({ fill: 'black', d: disintegrate(7, 18) }),
-          ),
-      ),
-      elementSVG('rect').attrs({ x: 0, y: 0, width: 9999, height: HEIGHT, fill: css['light-bg'], mask: `url(#${maskId})` }),
-    )
+  return elementSVG('g').attrs({ transform: `translate(0, ${at})` }).content(
+    elementSVG('path').attrs({ fill:   '#000', transform: `translate(${x})`, d: disintegrate(7, 18) }),
+    elementSVG('rect').attrs({ fill:   '#000', x:  0, y:  0,      width: x,    height }),
+    elementSVG('rect').attrs({ fill:   '#fff', x:  0, y:  -10,    width: 9999, height: 10 }), // clip overflowing rhombuses
+    elementSVG('rect').attrs({ fill:   '#fff', x:  0, y:  height, width: 9999, height: 10 }), // clip overflowing rhombuses
+    elementSVG('line').attrs({ stroke: '#000', x1: 0, y1: -.5,    x2:    9999, y2: -.5 }),    // 1-pixel border at top
+  )
 }
