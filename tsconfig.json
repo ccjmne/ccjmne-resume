@@ -20,7 +20,7 @@
     "resolveJsonModule": true,
     "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "typeRoots": ["src/*.d.ts", "node_modules/@types"]
   },
   "ts-node": {
