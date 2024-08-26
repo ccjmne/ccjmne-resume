@@ -1,5 +1,7 @@
 import pkg from '../package.json'
 
+import './scss/1/1.scss'
+
 import logo from './logo'
 import profile from './profile.json'
 import { type RegExpWGroups } from './types'

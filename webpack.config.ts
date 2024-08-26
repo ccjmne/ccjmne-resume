@@ -33,7 +33,7 @@ export default (
   _env: string,
   { mode = 'production', port = '8042' }: { mode?: 'production' | 'development', port?: string } = {},
 ): Configuration => ({
-  entry: { scss: resolve(src, 'index.scss'), ...pages },
+  entry: pages,
   module: {
     rules: [{
       test: /\.tsx?$/,
@@ -92,7 +92,7 @@ export default (
     ...Object.entries(pages).map(([name, path]) => new HtmlWebpackPlugin({
       title: `Page ${name}`,
       meta: { author, description, repository, keywords: keywords.join(', ') },
-      chunks: ['scss', name],
+      chunks: [name],
       template: resolve(src, 'index.html'),
       filename: resolve(dist, `${name}.html`),
     })),
