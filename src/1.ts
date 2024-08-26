@@ -13,13 +13,6 @@ const { experience, identity, links, skills, education, endorsments } = profile
 const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })
 
 element(document.body).content(
-  element('header').content(
-    div(
-      element('h1').cls('name').content(identity.name),
-      element('h1').cls('title', 'lighter').content(identity.title),
-    ),
-    logo().cls('logo'),
-  ),
   element('aside').cls('inverse').content(
     section('links').content(
       ...links.flatMap(({ icon, text, href }, row) => [
@@ -51,6 +44,13 @@ element(document.body).content(
     element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
   ),
   element('main').content(
+    element('header').content(
+      div(
+        element('h1').cls('name').content(identity.name),
+        element('h1').cls('title', 'lighter').content(identity.title),
+      ),
+      logo().cls('logo'),
+    ),
     element('h2').content('About Me'),
     section('aboutme').content(element('p').content(identity.aboutme)),
     element('h2').content('Experience'),
