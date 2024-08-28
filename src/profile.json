@@ -1,4 +1,24 @@
 {
+  "highlights": [
+    {
+      "dates":    "2023–2024",
+      "headline": "Redesigned the entirety of our credit-card payment procedure upstream of SAP",
+      "content":  "With the recent withdrawal of the United Kingdom from the European Union and our increased focus on expanding our business beyond its historical German core (which culturally seldom uses credit cards), several factors contributed to the urgent need for a sizeable overhaul of our support capabilities regarding this payment method.\nI rethought the design of our legacy system that had been built up over 12 years and put together a working implementation that enabled us to answer our clientele's fast-growing needs for this payment methods.",
+      "numbers":  ["over *100,000* fewer lines of code", "handles *millions of euros* in transactions", "support payments in *9 countries*"]
+    },
+    {
+      "dates":    "2016",
+      "headline": "Innov'Action 2016",
+      "content":  "Lauded by a [digital incubator](https: //beta.gouv.fr/) of the French government for the tailor-made EHS solution I designed during my early self-employed years.",
+      "numbers":  ["used by over *9,000* government employees", "ongoing partnership of nearly *10 years*"]
+    },
+    {
+      "dates":    "2012-2013",
+      "headline": "Identified costly recurring resource waste, designed and drove implementation of optimised procedure",
+      "content":  "",
+      "numbers":  ["over *1,000,000 euros* saved per year"]
+    }
+  ],
   "links": [
     {
       "icon": "mail.svg",
