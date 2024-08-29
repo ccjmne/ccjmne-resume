@@ -1,6 +1,94 @@
+@use 'sass:color';
 @import '../colours.scss';
 @import '../typography.scss';
+@import '../spacing.scss';
 
 body {
+  display:          grid;
+  grid-template:    'main'   1fr
+                    'footer' auto / 1fr;
+  width:            100vw;
+  height:           100vh;
+  margin:           0;
+  background-image:
+    linear-gradient(
+      .25turn,
+      color.adjust(color.adjust($verdigris, $lightness: -25%), $alpha: -.15),
+      color.adjust(color.adjust($yinmn-blue, $lightness: -15%), $alpha: -.15) 70%,
+      color.adjust($yinmn-blue, $lightness: -25%)
+    ),
+    url('src/assets/caustics.jpg');
+}
+
+main {
   background-color: $light-bg;
+  grid-area:        main;
+  padding:          2*$default-padding;
+  background-size:  cover;
+  background-image:
+    linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
+    url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+}
+
+footer {
+  grid-area: footer;
+}
+
+section#highlights {
+  border-left:  1px solid $light-fg-3;
+  padding-left: $default-padding;
+}
+
+article.highlight {
+  position:      relative;
+  display:       grid;
+  grid-template: 'headline' auto
+                 'dates' auto
+                 'content' auto
+                 'numbers' auto / 1fr;
+
+  [grid-area=numbers] {
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-between;
+  }
+
+  .stat {
+    display:       grid;
+    padding:       $default-padding;
+    grid-template: 'pre' auto
+                   'n' 1fr
+                   'post' auto / auto;
+    + .stat {
+      border-inline-start: 1px solid grey;
+    }
+
+    strong {
+      background-image:
+        linear-gradient(
+          .25turn,
+          color.adjust(color.adjust($verdigris, $lightness: -15%), $alpha: -.15),
+          color.adjust(color.adjust($yinmn-blue, $lightness: -05%), $alpha: -.15) 70%,
+          color.adjust($yinmn-blue, $lightness: -15%)
+        ),
+        url('src/assets/caustics.jpg');
+      background-clip: text;
+      color: transparent;
+      font-weight: 900;
+      font-family: system-ui;
+      font-size: 2em;
+    }
+  }
+
+  [grid-area=dates]::before {
+    content:   '◈';
+    position:  absolute;
+    left:      -$default-padding;
+    transform: translate(-50%);
+    color:     color.scale($verdigris, $lightness: -50%);
+  }
+
+  & + & {
+    margin-block-start: $default-padding;
+  }
 }
