@@ -13,6 +13,12 @@
       "numbers":  ["used by over *9,000* government employees", "ongoing partnership of nearly *10 years*"]
     },
     {
+      "dates":    "2014",
+      "headline": "Created a system for museum curators to semantically organise their data",
+      "content":  "While building [Auckland Museum](https://www.aucklandmuseum.com/)'s [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform, I co-designed and implemented a system for collections curator to map out the semantic attributes their ever-growing data bank",
+      "numbers":  ["accumulating data for *160* years", "over *300,000* physical artefacts", "spanning over *20* global [ontologies](https://en.wikipedia.org/wiki/Ontology_%28information_science%29)"]
+    },
+    {
       "dates":    "2012",
       "headline": "Identified and addressed costly, recurring resource waste",
       "content":  "TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO designed and drove implementation of optimised procedure",
