@@ -1,21 +1,21 @@
 {
   "highlights": [
     {
-      "dates":    "2023–2024",
-      "headline": "Redesigned the entirety of our credit-card payment procedure upstream of SAP",
-      "content":  "With the recent withdrawal of the United Kingdom from the European Union and our increased focus on expanding our business beyond its historical German core (which culturally seldom uses credit cards), several factors contributed to the urgent need for a sizeable overhaul of our support capabilities regarding this payment method.\nI rethought the design of our legacy system that had been built up over 12 years and put together a working implementation that enabled us to answer our clientele's fast-growing needs for this payment methods.",
-      "numbers":  ["over *100,000* fewer lines of code", "handles *millions of euros* in transactions", "support payments in *9 countries*"]
+      "dates":    "2024",
+      "headline": "Redesigned unmanageable legacy payment system on a short notice",
+      "content":  "I entirely redesigned and put together a working implementation of the back-end implementing credit card payments for a major e-procurement platform",
+      "numbers":  ["over *100,000* fewer lines of code", "handles *millions of euros* in transactions yearly", "support payments in *9 countries*"]
     },
     {
       "dates":    "2016",
-      "headline": "Innov'Action 2016",
-      "content":  "Lauded by a [digital incubator](https: //beta.gouv.fr/) of the French government for a bespoke EHS solution I designed during my early self-employed years.",
+      "headline": "Awarded by the Innov'Action committee",
+      "content":  "I designed a bespoke [EHS solution](https://en.wikipedia.org/wiki/Environment,_health_and_safety) lauded by a [digital incubator of the French government](https://beta.gouv.fr/) and was funded for its implementation",
       "numbers":  ["used by over *9,000* government employees", "ongoing partnership of nearly *10 years*"]
     },
     {
-      "dates":    "2012-2013",
-      "headline": "Identified costly recurring resource waste, designed and drove implementation of optimised procedure",
-      "content":  "",
+      "dates":    "2012",
+      "headline": "Identified and addressed costly, recurring resource waste",
+      "content":  "TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO designed and drove implementation of optimised procedure",
       "numbers":  ["over *1,000,000 euros* saved per year"]
     }
   ],
