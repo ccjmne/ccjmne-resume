@@ -7,6 +7,12 @@
       "numbers":  ["over *100,000* fewer lines of code", "handles *millions of euros* in transactions yearly", "support payments in *9 countries*"]
     },
     {
+      "dates":    "2020",
+      "headline": "Addressed performance issues for the statistics-computing engine of a customer",
+      "content":  "TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO",
+      "numbers":  ["From ~15 seconds down to *150 milliseconds*"]
+    },
+    {
       "dates":    "2016",
       "headline": "Awarded by the Innov'Action committee",
       "content":  "I designed a bespoke [EHS solution](https://en.wikipedia.org/wiki/Environment,_health_and_safety) lauded by a [digital incubator of the French government](https://beta.gouv.fr/) and was funded for its implementation",
