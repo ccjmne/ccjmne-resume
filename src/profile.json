@@ -81,7 +81,7 @@
       "company":  "[Propellerhead](https://www.propellerhead.co.nz/)",
       "location": "Auckland, New Zealand",
       "title":    "Software Engineer",
-      "abstract": "Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://twitter.com/w3c/status/826454510902136834) as a foremost example for their [Data&nbsp;on&nbsp;the&nbsp;Web&nbsp;Best&nbsp;Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.",
+      "abstract": "Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://web.archive.org/web/20210419091526/https://twitter.com/w3c/status/826454510902136834) as a foremost example for their [Data&nbsp;on&nbsp;the&nbsp;Web&nbsp;Best&nbsp;Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.",
       "readmore": "https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630",
       "tags":     ["*AWS Platform", "*Java", "*Semantic Web", "*Atlassian Suite", "RDF DBMS", "DevOps"]
     },
