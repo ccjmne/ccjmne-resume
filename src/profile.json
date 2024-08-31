@@ -1,4 +1,12 @@
 {
+  "discarded-highlights": [
+    {
+      "dates":    "2019",
+      "headline": "Built a cross-filtering dashboard for insurance analytics",
+      "content":  "I created a system that makes clever use of data sampling and visualisation for a government-affiliated organisation to analyse trends in unemployment insurance contributions",
+      "numbers":  ["loads over *170 million* records (as of 2019)", "in less than *300ms*"]
+    }
+  ],
   "highlights": [
     {
       "dates":    "2024",
