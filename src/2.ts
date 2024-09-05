@@ -153,8 +153,9 @@ document.fonts.ready.then(function() {
 
   function draw({ col, events}: B): EasyHTMLElement {
     const [ first, last ] = [events.at(0)!, events.at(-1)!]
+    const colour = Math.floor(Math.random() * (1 << 6) + (1 << 7))
     return elementSVG('g').attrs({ transform: `translate(${-col * unitX})` }).content(
-      elementSVG('path').attrs({ fill: 'none', stroke: 'black', 'stroke-width': '5px', d: `
+      elementSVG('path').attrs({ fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '5px', d: `
 M0,${scale(first.at)}`
         + ( first.type === '┐' ? `m${unitX},0 h${-(unitX - 10)} a10,10 0 0,1 ${-10}, -10` : 'v10' )
         + `V${scale(last.at) + 10}` + ( last.type === '┘' ? `a10,10 0 0,1 ${10},-10 h${(unitX - 10)} ` : 'v-10' )
