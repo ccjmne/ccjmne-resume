@@ -162,7 +162,7 @@ M0,${scale(first.at)}`
       }),
       ...events.filter(e => /[☆★]/.test(e.type)).map(({ at, type }) => elementSVG('circle')
         .attrs({ r: 5, cx: 0, cy: scale(at), fill: type === '★' ? 'red' : 'black' })),
-      ...events.map(({ at, what }) => elementSVG('text').attrs({ x: -unitX / 2, y: scale(at), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(what)),
+      ...events.map(({ at, what }) => elementSVG('text').styles({ 'font-size': 'smaller' }).attrs({ x: -unitX / 2, y: scale(at), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(what)),
     )
   }
 
