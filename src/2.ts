@@ -161,8 +161,11 @@ M0,${scale(first.at)}`
         + `V${scale(last.at) + 10}` + ( last.type === '┘' ? `a10,10 0 0,1 ${10},-10 h${(unitX - 10)} ` : 'v-10' )
       }),
       ...events.filter(e => /[☆★]/.test(e.type)).map(({ at, type }) => elementSVG('circle')
-        .attrs({ r: 5, cx: 0, cy: scale(at), fill: type === '★' ? 'red' : 'black' })),
-      ...events.map(({ at, what }) => elementSVG('text').styles({ 'font-size': 'smaller' }).attrs({ x: -unitX / 2, y: scale(at), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(what)),
+        .attrs({ r: 7, cx: 0, cy: scale(at), fill: 'white', 'stroke-width': '5', stroke: type === '★' ? 'hsl(185 52% 33% / 1)' : `rgb(${colour}, ${colour}, ${colour})` })),
+      ...events.map(({ at, what }) => elementSVG('text')
+        .styles({ 'font-size': 'smaller' })
+        .attrs({ x: -unitX / 2, y: scale(at), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
+        .content(what)),
     )
   }
 
