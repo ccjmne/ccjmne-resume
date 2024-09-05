@@ -149,7 +149,7 @@ document.fonts.ready.then(function() {
 
   console.log(asdf2)
 
-  const unitX = 30;
+  const unitX = 20;
 
   function draw({ col, events}: B): EasyHTMLElement {
     const [ first, last ] = [events.at(0)!, events.at(-1)!]
