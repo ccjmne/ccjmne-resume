@@ -9,19 +9,19 @@ const { highlights } = profile
 
 const w = .2
 const commits = [
-  '2008 ☆     Switch daily driver to Debian                                               ',
+  '2008 ☆     Switch to Debian                                                            ',
   '2008 ├┐                                                                                ',
   '2008 │☆    Join Site Alpha                                                             ',
   '2008 ├┘                                                                                ',
   '2010 ├┐                                                                                ',
   '2010 │☆    Join Safran Aircraft Engines                                                ',
   '2010 │├┐                                                                               ',
-  '2011 ││☆   Begin mentorship of a university apprentice                                 ',
+  '2011 ││☆   Begin mentorship                                                            ',
   '2012 │★│                                                                               ',
   '2013 ├┘│                                                                               ',
   '2013 ├┐│                                                                               ',
   '2013 │☆│   Join Propellerhead                                                          ',
-  '2013 ☆││   Switch daily driver to Ubuntu                                               ',
+  '2013 ☆││   Switch to Ubuntu                                                            ',
   '2014 │★│                                                                               ',
   '2014 ││☆   Graduation of my apprentice                                                 ',
   '2014 ││╵                                                                               ',
@@ -34,8 +34,8 @@ const commits = [
   '2020 │★                                                                                ',
   '2022 │├┐                                                                               ',
   '2022 ││☆   Join Unite                                                                  ',
-  '2023 │☆│   Switch most of my services to IPv6                                          ',
-  '2023 ☆││   Switch daily driver to Arch                                                 ',
+  '2023 │☆│   Migrate services to IPv6                                                    ',
+  '2023 ☆││   Switch to Arch                                                              ',
   '2024 ││★                                                                               ',
   '2024 ╵╵╵                                                                               ',
 ].slice(0, 999)
