@@ -177,7 +177,7 @@ M0,${scale(first.at)}`
     elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(
       //elementSVG('path').attrs({ d: `M0,0 v${height}`, stroke: '#bbb', 'stroke-width': 5 }),
       //...highlights.map(({ height, top }) => elementSVG('circle').attrs({ fill: '#bbb', cy: top + height / 2, r: height / 2 })),
-      ...branches.map(draw)
+      ...branches.map(draw).toReversed()
     )
   ))
 })
