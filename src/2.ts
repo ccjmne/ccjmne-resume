@@ -39,7 +39,7 @@ const commits = [
   '2024 ││★                                                                               ',
   '2024 ╵╵╵                                                                               ',
 ].slice(0, 999)
-const parser = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<what>.*)\s*$/v
+const parser = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<what>.*?)\s*$/v
 
 type B = {
   col: number, // 0 is main
