@@ -4,38 +4,7 @@ import './scss/2/2.scss'
 import profile from './profile.json'
 import { RegExpWGroups } from "types";
 
-const { highlights } = profile
-
-const commits = [
-  '2008 ☆     Switch to Debian                                                            ',
-  '2008 ├┐                                                                                ',
-  '2008 │☆    Join Site Alpha                                                             ',
-  '2008 ├┘                                                                                ',
-  '2010 ├┐                                                                                ',
-  '2010 │☆    Join Safran Aircraft Engines                                                ',
-  '2010 │├┐                                                                               ',
-  '2011 ││☆   Begin mentorship                                                            ',
-  '2012 │★│                                                                               ',
-  '2013 ├┘│                                                                               ',
-  '2013 ├┐│                                                                               ',
-  '2013 │☆│   Join Propellerhead                                                          ',
-  '2013 ☆││   Switch to Ubuntu                                                            ',
-  '2014 │★│                                                                               ',
-  '2014 ││☆   Graduation of my apprentice                                                 ',
-  '2014 ││╵                                                                               ',
-  '2014 ├┘                                                                                ',
-  '2014 ├┐                                                                                ',
-  '2014 │☆    Start of my self-employed activity                                          ',
-  '2016 │★                                                                                ',
-  '2019 ☆│    Start contributing to TC39                                                  ',
-  '2020 │★                                                                                ',
-  '2022 │├┐                                                                               ',
-  '2022 ││☆   Join Unite                                                                  ',
-  '2023 │☆│   Migrate services to IPv6                                                    ',
-  '2023 ☆││   Switch to Arch                                                              ',
-  '2024 ││★                                                                               ',
-  '2024 ╵╵╵                                                                               ',
-]
+const { highlights, milestones: commits } = profile
 
 const parser = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<what>.*?)\s*$/v
 
