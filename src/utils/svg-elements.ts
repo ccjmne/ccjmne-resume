@@ -60,6 +60,20 @@ export function hr(height = 9, reverse = false): EasyHTMLElement {
     )
 }
 
+export function straight(width: number): EasyHTMLElement {
+  return elementSVG().attrs({ viewBox: `0 0 1 1` }).content(
+    elementSVG('rect').attrs({ width, height: 1, x: .5 - width / 2, y: 0, fill: 'black' })
+  )
+}
+
+export function turn(width: number): EasyHTMLElement {
+  return elementSVG().attrs({ viewBox: `0 0 1 1` }).content(
+    elementSVG('rect').attrs({ width, height: .5,        x: .5 - width / 2, y: 0, fill: 'black' }),
+    elementSVG('rect').attrs({ width: .5, height: width, x: 0, y: .5 - width / 2, fill: 'black' }),
+    //elementSVG('circle').attrs({ r: .5, fill: 'none', stroke: 'black', 'stroke-width': width })
+  )
+}
+
 export function titlebar({ at, height, seed }: { at: number, height: number, seed: number }): EasyHTMLElement {
   const x = 260 // TODO: Compute from 50% width
   const random = seededRandom(seed)
