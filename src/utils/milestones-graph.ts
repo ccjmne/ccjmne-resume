@@ -3,41 +3,38 @@ import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 
 export type Range = number[]
 export function draw(milestones: string[], range: Range): EasyHTMLElement[] {
-  const domain = milestones.map((c, i) => [c, i] as const).filter(([c]) => c.includes('★')).map(([, i]) => i)
+  const domain = milestones.map((c, i) => [c, i] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i)
   return compute(milestones).map(contextualise([0, ...domain, milestones.length], range))
 }
 
 type Branch = {
   depth: number,
-  events: Array<{
-    at: number, // position in list of all milestones,
-    type: string, // TODO: better typing?
-    what: string,
-  }>,
+  events: Array<{ pos: number, type: string, label: string }>,
 }
 
 // TODO: Do I need the years?
 // TODO: Also, wouldn't I rather have the milestones in reverse chronological order in profile.json?
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<what>.*?)\s*$/v
+const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<label>.*?)\s*$/v
+const [NEW, MILESTONE, HIGHLIGHT, MERGE, END] = ['┐', '☆', '★', '┘', '╵']
 
 function compute(milestones: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
   const ongoing: Branch[] = [branches[0]]
 
   // TODO: I don't like mutating arrays
-  milestones.map(c => (MILESTONE_PARSER.exec(c) as RegExpWGroups<'pipes' | 'what'>).groups).forEach(({ year, pipes, what }, at) => {
+  milestones.map(c => (MILESTONE_PARSER.exec(c) as RegExpWGroups<'pipes' | 'label'>).groups).forEach(({ year, pipes, label }, pos) => {
     [...pipes.matchAll(/[^│├]/g)!].forEach(({ 0: type, index: c }) => {
-      if (type === '┐') { // new
-        const branch = { depth: c!, events: [{ at, type, what: '' }] }
+      if (type === NEW) {
+        const branch = { depth: c!, events: [{ pos, type, label: '' }] }
         branches.push(branch)
         ongoing.push(branch)
         return
       }
 
       const branch = ongoing.find(({ depth: col }) => col === c)!
-      branch.events.push({ at, type, what })
+      branch.events.push({ pos, type, label: label })
 
-      if (['┘', '╵'].includes(type)) { // merge or end
+      if ([MERGE, END].includes(type)) {
         ongoing.splice(ongoing.indexOf(branch), 1)
       }
     })
@@ -56,16 +53,16 @@ function contextualise(domain: Range, range: Range): (branch: Branch) => EasyHTM
 
     return elementSVG('g').attrs({ transform: `translate(${-col * unitX})` }).content(
       elementSVG('path').attrs({
-        fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '5px', d: `M0,${scale(first.at)}`
-          + (first.type === '┐' ? `m${unitX},0 h${-(unitX - 10)} a10,10 0 0,1 ${-10}, -10` : 'v10')
-          + `V${scale(last.at) + 10}` + (last.type === '┘' ? `a10,10 0 0,1 ${10},-10 h${(unitX - 10)} ` : 'v-10') // TODO: fizzle out at end
+        fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '5px', d: `M0,${scale(first.pos)}`
+          + (first.type === NEW ? `m${unitX},0 h${-(unitX - 10)} a10,10 0 0,1 ${-10}, -10` : 'v10')
+          + `V${scale(last.pos) + 10}` + (last.type === MERGE ? `a10,10 0 0,1 ${10},-10 h${(unitX - 10)} ` : 'v-10') // TODO: fizzle out at end
       }),
-      ...events.filter(e => /[☆★]/.test(e.type)).map(({ at, type }) => elementSVG('circle')
-        .attrs({ r: 7, cx: 0, cy: scale(at), fill: 'white', 'stroke-width': '5', stroke: type === '★' ? 'hsl(185 52% 33% / 1)' : `rgb(${colour}, ${colour}, ${colour})` })),
-      ...events.map(({ at, what }) => elementSVG('text')
+      ...events.filter(({ type }) => [MILESTONE, HIGHLIGHT].includes(type)).map(({ pos: at, type }) => elementSVG('circle')
+        .attrs({ r: 7, cx: 0, cy: scale(at), fill: 'white', 'stroke-width': '5', stroke: type === HIGHLIGHT ? 'hsl(185 52% 33% / 1)' : `rgb(${colour}, ${colour}, ${colour})` })),
+      ...events.map(({ pos: at, label: label }) => elementSVG('text')
         .styles({ 'font-size': 'smaller' })
         .attrs({ x: -unitX / 2, y: scale(at), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
-        .content(what)),
+        .content(label)),
     )
   }
 }
