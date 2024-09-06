@@ -1,4 +1,4 @@
-import { MatchArrayWGroups } from "types"
+import { MatcherWGroups } from "types"
 import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 
 export type Range = number[]
@@ -14,30 +14,25 @@ type Branch = {
 
 // TODO: Do I need the years?
 // TODO: Also, wouldn't I rather have the milestones in reverse chronological order in profile.json?
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<label>.*?)\s*$/v
+const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [NEW, MILESTONE, HIGHLIGHT, MERGE, END] = ['┐', '☆', '★', '┘', '╵']
 
 function compute(milestones: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
-  const ongoing: Branch[] = [branches[0]]
+  const ongoing:  Branch[] = [branches[0]]
 
-  // TODO: I don't like mutating arrays
-  milestones.map(c => (MILESTONE_PARSER.exec(c) as MatchArrayWGroups<'pipes' | 'label'>).groups).forEach(({ year, pipes, label }, pos) => {
-    [...pipes.matchAll(/[^│├]/g)!].forEach(({ 0: type, index: c }) => {
+  milestones.map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos) => {
+    for (const { 0: type, index: depth } of pipes.matchAll(/[^│├]/g)!) {
       if (type === NEW) {
-        const branch = { depth: c!, events: [{ pos, type, label: '' }] }
-        branches.push(branch)
-        ongoing.push(branch)
-        return
+        const branch = { depth, events: [{ pos, type, label: '' }] }
+        branches.push(branch), ongoing.push(branch)
+        continue
       }
 
-      const branch = ongoing.find(({ depth: col }) => col === c)!
-      branch.events.push({ pos, type, label: label })
-
-      if ([MERGE, END].includes(type)) {
-        ongoing.splice(ongoing.indexOf(branch), 1)
-      }
-    })
+      const branch = ongoing.find(({ depth: d }) => d === depth)!
+      branch.events.push({ pos, type, label })
+      ongoing.splice(ongoing.indexOf(branch), +[MERGE, END].includes(type))
+    }
   })
 
   return branches
