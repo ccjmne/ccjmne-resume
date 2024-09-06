@@ -13,9 +13,8 @@ type Branch = {
 }
 
 // TODO: Do I need the years?
-// TODO: Also, wouldn't I rather have the milestones in reverse chronological order in profile.json?
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[☆★│├┐┘╵]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
-const [HIGHLIGHT, MILESTONE, NEW, MERGE, END] = ['★', '☆', '┐', '┘', '╵']
+const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┘┐╷]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
+const [HIGHLIGHT, MILESTONE, NEW, MERGE, END] = ['★', '☆', '┘', '┐', '╷']
 
 function compute(milestones: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
