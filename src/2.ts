@@ -2,7 +2,7 @@ import EasyHTMLElement, { article, div, element, elementSVG, section, span } fro
 
 import './scss/2/2.scss'
 import profile from './profile.json'
-import { RegExpWGroups } from "types"
+import { MatchArrayWGroups } from "types"
 import { draw } from "utils/milestones-graph"
 
 const { highlights, milestones } = profile
@@ -21,7 +21,7 @@ element(document.body).content(
           span(dates).at('dates'),
           element('p').content(content).at('content'),
           div(...numbers
-            .map(num => (/^(?<pre>.*)[*](?<n>.*)[*](?<post>.*)$/.exec(num) as RegExpWGroups<'pre' | 'n' | 'post'>).groups)
+            .map(num => (/^(?<pre>.*)[*](?<n>.*)[*](?<post>.*)$/.exec(num) as MatchArrayWGroups<'pre' | 'n' | 'post'>).groups)
             .map(({ pre, n, post }) => div(pre, element('strong').content(n), div(post)).cls('stat'))
           ).at('numbers'),
         ))

@@ -1,4 +1,4 @@
-import { RegExpWGroups } from "types"
+import { MatchArrayWGroups } from "types"
 import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 
 export type Range = number[]
@@ -22,7 +22,7 @@ function compute(milestones: string[]): Branch[] {
   const ongoing: Branch[] = [branches[0]]
 
   // TODO: I don't like mutating arrays
-  milestones.map(c => (MILESTONE_PARSER.exec(c) as RegExpWGroups<'pipes' | 'label'>).groups).forEach(({ year, pipes, label }, pos) => {
+  milestones.map(c => (MILESTONE_PARSER.exec(c) as MatchArrayWGroups<'pipes' | 'label'>).groups).forEach(({ year, pipes, label }, pos) => {
     [...pipes.matchAll(/[^│├]/g)!].forEach(({ 0: type, index: c }) => {
       if (type === NEW) {
         const branch = { depth: c!, events: [{ pos, type, label: '' }] }

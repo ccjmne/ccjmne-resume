@@ -4,7 +4,7 @@ import './scss/1/1.scss'
 
 import logo from './logo'
 import profile from './profile.json'
-import { type RegExpWGroups } from './types'
+import { type MatchArrayWGroups } from './types'
 
 import { anchor, article, div, element, elementSVG, lighter, lightest, section } from './utils/easy-htmlelement'
 import { hr, rhombus, titlebar } from './utils/svg-elements'
@@ -67,7 +67,7 @@ element(document.body).content(
           element('p').at('summary').content(
             abstract,
             element('ol').cls('tags').content(...tags
-              .map(tag => (/^(?<star>\*)?(?<tag>.+)/.exec(tag) as RegExpWGroups<'star' | 'tag'>).groups)
+              .map(tag => (/^(?<star>\*)?(?<tag>.+)/.exec(tag) as MatchArrayWGroups<'star' | 'tag'>).groups)
               .map(({ tag, star }) => element('li').cls(star ? 'star' : '').content(tag))),
           ),
         )),
