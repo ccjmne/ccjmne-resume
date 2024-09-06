@@ -21,16 +21,14 @@ body {
 }
 
 main {
-  background-color: $light-bg;
+  display: grid;
+  grid-template: 'git highlights' 1fr / 30% 1fr;
   grid-area:        main;
   padding:          2 * $default-padding;
   background-size:  cover;
   background-image:
     linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
     url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-
-  display: grid;
-  grid-template: 'git highlights' 1fr / 30% 1fr;
 }
 
 footer {
@@ -38,17 +36,16 @@ footer {
 }
 
 section#highlights {
-  // border-inline-start:  1px solid $light-fg-3;
   padding-inline-start: $default-padding;
 }
 
 article.highlight {
   position:      relative;
   display:       grid;
-  grid-template: 'dates' auto
+  grid-template: 'dates'    auto
                  'headline' auto
-                 'content' auto
-                 'numbers' auto / 1fr;
+                 'content'  auto
+                 'numbers'  auto / 1fr;
 
   &:nth-child(2n) {
     background: #9b9b9b2b;
@@ -70,13 +67,9 @@ article.highlight {
 
   .stat {
     display:       grid;
-    // padding:       calc($default-padding / 2);
-    grid-template: 'pre' auto
-                   'n' 1fr
+    grid-template: 'pre'  auto
+                   'n'    1fr
                    'post' auto / auto;
-    // + .stat {
-    //   border-inline-start: 1px solid grey;
-    // }
 
     strong {
       background-image:
@@ -88,20 +81,12 @@ article.highlight {
         ),
         url('src/assets/caustics.jpg');
       background-clip: text;
-      color: transparent;
-      font-weight: 900;
-      font-family: system-ui;
-      font-size: 1.2em;
+      color          : transparent;
+      font-weight    : 900;
+      font-family    : system-ui;
+      font-size      : 1.2em;
     }
   }
-
-  // [grid-area=dates]::before {
-  //   content:   '◈';
-  //   position:  absolute;
-  //   left:      -$default-padding;
-  //   transform: translate(-50%);
-  //   color:     color.scale($verdigris, $lightness: -50%);
-  // }
 
   & + & {
     margin-block-start: $default-padding;
