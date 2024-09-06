@@ -1,9 +1,9 @@
-import EasyHTMLElement, { article, div, element, elementSVG, section, span } from "utils/easy-htmlelement";
+import EasyHTMLElement, { article, div, element, elementSVG, section, span } from "utils/easy-htmlelement"
 
 import './scss/2/2.scss'
 import profile from './profile.json'
-import { RegExpWGroups } from "types";
-import { draw } from "utils/milestones-graph";
+import { RegExpWGroups } from "types"
+import { draw } from "utils/milestones-graph"
 
 const { highlights, milestones } = profile
 

@@ -7,7 +7,7 @@ import { WebpackPluginInstance, type Configuration } from 'webpack'
 
 import { readdirSync } from 'fs'
 import { Compiler } from 'webpack'
-import 'webpack-dev-server'; // Augment "Configuration" type
+import 'webpack-dev-server' // Augment "Configuration" type
 import { author, description, homepage, keywords, name, repository, title } from './package.json'
 import { PDFPrinter } from './tooling/pdf-printer-plugin'
 

@@ -44,7 +44,7 @@ function compute(milestones: string[]): Branch[] {
 }
 
 function contextualise(domain: Range, range: Range): (branch: Branch) => EasyHTMLElement {
-  const unitX = 20; // TODO: get from scss
+  const unitX = 20 // TODO: get from scss
   const scale = piecewise(domain, range)
 
   return function draw({ depth: col, events }: Branch): EasyHTMLElement {
