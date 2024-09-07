@@ -28,8 +28,7 @@ function compute(timeline: string[]): Branch[] {
 }
 
 export function render(timeline: string[], range: number[]): EasyHTMLElement[] {
-  const domain = [timeline.length, ...timeline.map((c, i) => [c, timeline.length - i] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i), 0]
-
+  const domain   = [timeline.length, ...timeline.map((c, i) => [c, timeline.length - i - 1] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i), 0]
   const map      = zip(domain, range).toReversed()
   const segments = zip(map.slice(0, -1), map.slice(1))
 
