@@ -9,7 +9,7 @@ type Branch = {
 // TODO: Do I need the years?
 const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┘┐╷]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, END] = ['★', '☆', '┘', '┐', '╷']
-const unitX = 20 // TODO: get from scss
+const UNIT_X = 20 // TODO: get from scss
 
 function compute(milestones: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
@@ -42,21 +42,21 @@ export function render(milestones: string[], range: number[]): EasyHTMLElement[]
     const [first, last] = [events.at(0)!, events.at(-1)!]
     const colour = Math.floor(Math.random() * (1 << 6) + (1 << 7)) // TODO: make deterministic (also do in scss)
 
-    return elementSVG('g').attrs({ transform: `translate(${-depth * unitX})` }).content(
+    return elementSVG('g').attrs({ transform: `translate(${-depth * UNIT_X})` }).content(
       elementSVG('path').attrs({
         fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '5px', d: `M0,${scale(first.pos)}`
-          + (first.type === NEW ? `m${unitX},0 h${-(unitX - 10)} a10,10 0 0,1 ${-10}, -10` : 'v10')
-          + `V${scale(last.pos) + 10}` + (last.type === MERGE ? `a10,10 0 0,1 ${10},-10 h${(unitX - 10)} ` : 'v-10') // TODO: fizzle out at end
+          + (first.type === NEW ? `m${UNIT_X},0 h${-(UNIT_X - 10)} a10,10 0 0,1 ${-10}, -10` : 'v10')
+          + `V${scale(last.pos) + 10}` + (last.type === MERGE ? `a10,10 0 0,1 ${10},-10 h${(UNIT_X - 10)} ` : 'v-10') // TODO: fizzle out at end
       }),
       ...events.filter(({ type }) => [MILESTONE, HIGHLIGHT].includes(type)).map(({ pos, type }) => elementSVG('circle')
         .attrs({ r: 7, cx: 0, cy: scale(pos), fill: 'white', 'stroke-width': '5', stroke: type === HIGHLIGHT ? 'hsl(185 52% 33% / 1)' : `rgb(${colour}, ${colour}, ${colour})` })),
       ...events.filter(({ label }) => !!label).flatMap(({ pos, label, xsection }) => [
         elementSVG('line').attrs({
-          stroke: `red`, 'stroke-dasharray': '5 3', 'stroke-width': '1px', x2: 0 - unitX / 2, x1: unitX / 8 + unitX * (depth - xsection), y2: scale(pos), y1: scale(pos)
+          stroke: `red`, 'stroke-dasharray': '5 3', 'stroke-width': '1px', x2: 0 - UNIT_X / 2, x1: UNIT_X / 8 + UNIT_X * (depth - xsection), y2: scale(pos), y1: scale(pos)
         }),
         elementSVG('text')
           .styles({ 'font-size': 'smaller' })
-          .attrs({ x: unitX * (depth - xsection), y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
+          .attrs({ x: UNIT_X * (depth - xsection), y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
           .content(label)
       ]),
     )
