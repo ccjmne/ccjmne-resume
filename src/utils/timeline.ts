@@ -11,11 +11,11 @@ const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┘┐╷]+)\s*(
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, END] = ['★', '☆', '┘', '┐', '╷']
 const UNIT_X = 20 // TODO: get from scss
 
-function compute(milestones: string[]): Branch[] {
+function compute(timeline: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
   const ongoing:  Branch[] = [branches[0]]
 
-  milestones.map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos) => {
+  timeline.map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos) => {
     for (const { 0: type, index: depth } of pipes.matchAll(/[^│├]/g)!) {
       const branch = ongoing.find(({ depth: d }) => d === depth) ?? { depth, events: [] }
       branch.events.push({ pos, type, label, xsection: pipes.length })
@@ -27,8 +27,8 @@ function compute(milestones: string[]): Branch[] {
   return branches
 }
 
-export function render(milestones: string[], range: number[]): EasyHTMLElement[] {
-  const domain = [milestones.length, ...milestones.map((c, i) => [c, milestones.length - i] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i), 0]
+export function render(timeline: string[], range: number[]): EasyHTMLElement[] {
+  const domain = [timeline.length, ...timeline.map((c, i) => [c, timeline.length - i] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i), 0]
 
   const map      = zip(domain, range).toReversed()
   const segments = zip(map.slice(0, -1), map.slice(1))
@@ -38,7 +38,7 @@ export function render(milestones: string[], range: number[]): EasyHTMLElement[]
     return (at - x0) * ((y1 - y0) / (x1 - x0)) + y0
   }
 
-  return compute(milestones.toReversed()).map(function({ depth, events }: Branch): EasyHTMLElement {
+  return compute(timeline.toReversed()).map(function({ depth, events }: Branch): EasyHTMLElement {
     const [first, last] = [events.at(0)!, events.at(-1)!]
     const colour = Math.floor(Math.random() * (1 << 6) + (1 << 7)) // TODO: make deterministic (also do in scss)
 

@@ -3,9 +3,9 @@ import EasyHTMLElement, { article, div, element, elementSVG, section, span } fro
 import './scss/2/2.scss'
 import profile from './profile.json'
 import { MatchArrayWGroups } from "types"
-import { render } from "utils/milestones-graph"
+import { render } from "utils/timeline"
 
-const { highlights, milestones } = profile
+const { highlights, timeline } = profile
 
 const git = element().at('git')
 
@@ -41,6 +41,6 @@ document.fonts.ready.then(function() {
   git.content(elementSVG()
     .attrs({ height, width: '100%', viewBox: `0 0 10 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
     .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(
-      ...render(milestones, [0, ...highlights.map(({ y, h }) => y + h / 2), height])
+      ...render(timeline, [0, ...highlights.map(({ y, h }) => y + h / 2), height])
     )))
 })
