@@ -9,7 +9,7 @@ export function draw(milestones: string[], range: Range): EasyHTMLElement[] {
 
 type Branch = {
   depth:  number,
-  events: Array<{ pos: number, type: string, label: string }>,
+  events: Array<{ pos: number, type: string, label: string, xsection: number }>,
 }
 
 // TODO: Do I need the years?
@@ -55,10 +55,15 @@ function contextualise(domain: Range, range: Range): (branch: Branch) => EasyHTM
       }),
       ...events.filter(({ type }) => [MILESTONE, HIGHLIGHT].includes(type)).map(({ pos, type }) => elementSVG('circle')
         .attrs({ r: 7, cx: 0, cy: scale(pos), fill: 'white', 'stroke-width': '5', stroke: type === HIGHLIGHT ? 'hsl(185 52% 33% / 1)' : `rgb(${colour}, ${colour}, ${colour})` })),
-      ...events.map(({ pos, label: label }) => elementSVG('text')
-        .styles({ 'font-size': 'smaller' })
-        .attrs({ x: -unitX / 2, y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
-        .content(label)),
+      ...events.filter(({ label }) => !!label).flatMap(({ pos, label, xsection }) => [
+        elementSVG('line').attrs({
+          stroke: `red`, 'stroke-dasharray': '5 3', 'stroke-width': '1px', x2: 0 - unitX / 2, x1: unitX / 8 + unitX * (depth - xsection), y2: scale(pos), y1: scale(pos)
+        }),
+        elementSVG('text')
+          .styles({ 'font-size': 'smaller' })
+          .attrs({ x: unitX * (depth - xsection), y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
+          .content(label)
+      ]),
     )
   }
 }
