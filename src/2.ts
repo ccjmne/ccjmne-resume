@@ -3,7 +3,7 @@ import EasyHTMLElement, { article, div, element, elementSVG, section, span } fro
 import './scss/2/2.scss'
 import profile from './profile.json'
 import { MatchArrayWGroups } from "types"
-import { draw } from "utils/milestones-graph"
+import { render } from "utils/milestones-graph"
 
 const { highlights, milestones } = profile
 
@@ -41,6 +41,6 @@ document.fonts.ready.then(function() {
   git.content(elementSVG()
     .attrs({ height, width: '100%', viewBox: `0 0 10 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
     .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(
-      ...draw(milestones.toReversed(), [0, ...highlights.map(({ y, h }) => y + h / 2), height].toReversed())
+      ...render(milestones, [0, ...highlights.map(({ y, h }) => y + h / 2), height])
     )))
 })

@@ -1,12 +1,6 @@
 import { MatcherWGroups } from "types"
 import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 
-export type Range = number[]
-export function draw(milestones: string[], range: Range): EasyHTMLElement[] {
-  const domain = milestones.map((c, i) => [c, i] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i)
-  return compute(milestones).map(contextualise([0, ...domain, milestones.length], range))
-}
-
 type Branch = {
   depth:  number,
   events: Array<{ pos: number, type: string, label: string, xsection: number }>,
@@ -15,6 +9,7 @@ type Branch = {
 // TODO: Do I need the years?
 const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┘┐╷]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, END] = ['★', '☆', '┘', '┐', '╷']
+const unitX = 20 // TODO: get from scss
 
 function compute(milestones: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
@@ -32,10 +27,10 @@ function compute(milestones: string[]): Branch[] {
   return branches
 }
 
-function contextualise(domain: Range, range: Range): (branch: Branch) => EasyHTMLElement {
-  const unitX = 20 // TODO: get from scss
+export function render(milestones: string[], range: number[]): EasyHTMLElement[] {
+  const domain = [milestones.length, ...milestones.map((c, i) => [c, milestones.length - i] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i), 0]
 
-  const map      = zip(domain, range)
+  const map      = zip(domain, range).toReversed()
   const segments = zip(map.slice(0, -1), map.slice(1))
 
   function scale(at: number): number { // Piecewise linear scale
@@ -43,7 +38,7 @@ function contextualise(domain: Range, range: Range): (branch: Branch) => EasyHTM
     return (at - x0) * ((y1 - y0) / (x1 - x0)) + y0
   }
 
-  return function draw({ depth, events }: Branch): EasyHTMLElement {
+  return compute(milestones.toReversed()).map(function({ depth, events }: Branch): EasyHTMLElement {
     const [first, last] = [events.at(0)!, events.at(-1)!]
     const colour = Math.floor(Math.random() * (1 << 6) + (1 << 7)) // TODO: make deterministic (also do in scss)
 
@@ -65,7 +60,7 @@ function contextualise(domain: Range, range: Range): (branch: Branch) => EasyHTM
           .content(label)
       ]),
     )
-  }
+  })
 }
 
 function zip<A, B>(a: A[], b: B[]): Array<[A, B]> {
