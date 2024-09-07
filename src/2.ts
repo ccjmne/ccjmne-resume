@@ -41,6 +41,6 @@ document.fonts.ready.then(function() {
   git.content(elementSVG()
     .attrs({ height, width: '100%', viewBox: `0 0 10 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
     .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(
-      ...draw(milestones.toReversed(), [0, ...highlights.map(({ y, h }) => y + h / 2), height].toReversed()).toReversed() // Draw nested first
+      ...draw(milestones.toReversed(), [0, ...highlights.map(({ y, h }) => y + h / 2), height].toReversed())
     )))
 })

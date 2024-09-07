@@ -22,15 +22,10 @@ function compute(milestones: string[]): Branch[] {
 
   milestones.map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos) => {
     for (const { 0: type, index: depth } of pipes.matchAll(/[^│├]/g)!) {
-      if (type === NEW) {
-        const branch = { depth, events: [{ pos, type, label: '' }] }
-        branches.push(branch), ongoing.push(branch)
-        continue
-      }
-
-      const branch = ongoing.find(({ depth: d }) => d === depth)!
-      branch.events.push({ pos, type, label })
-      ongoing.splice(ongoing.indexOf(branch), +[MERGE, END].includes(type))
+      const branch = ongoing.find(({ depth: d }) => d === depth) ?? { depth, events: [] }
+      branch.events.push({ pos, type, label, xsection: pipes.length })
+      ongoing.splice(ongoing.indexOf(branch), +[MERGE, END].includes(type), ...type === NEW ? [branch] : [])
+      branches.splice(0, 0, ...type === NEW ? [branch] : [])
     }
   })
 
