@@ -17,9 +17,11 @@ const tools = resolve(__dirname, 'tooling')
 const out = 'ccjmne-resume'
 
 class TypedScssModulesPlugin implements WebpackPluginInstance {
+  public constructor(private readonly config: { watch: boolean } = { watch: false }) { }
+
   public apply(compiler: Compiler): void {
     compiler.hooks.afterPlugins.tap('TypedScssModulesPlugin', () => require('child_process').spawn(
-      'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', '--watch'], { stdio: 'inherit' }
+      'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', this.config.watch ? '--watch' : ''], { stdio: 'inherit' }
     ))
   }
 }
@@ -88,7 +90,7 @@ export default (
   },
   plugins: [
     ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
-    new TypedScssModulesPlugin(),
+    new TypedScssModulesPlugin({ watch: mode === 'development' }),
     ...Object.entries(pages).map(([name, path]) => new HtmlWebpackPlugin({
       title: `Page ${name}`,
       meta: { author, description, repository, keywords: keywords.join(', ') },
