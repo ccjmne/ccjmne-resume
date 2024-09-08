@@ -25,7 +25,7 @@ class TypedScssModulesPlugin implements WebpackPluginInstance {
 }
 
 const pages = readdirSync(src, { withFileTypes: true })
-  .filter(({ name }) => /\d+[.]ts/.test(name))
+  .filter(({ name }) => /\d+[.]ts$/.test(name))
   .map(({ name }) => ({ path: resolve(src, name), name: name.replace(/[.]ts$/, '') }))
   .reduce((acc, { name, path }) => ({ ...acc, [name]: path }), {})
 
