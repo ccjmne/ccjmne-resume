@@ -46,9 +46,5 @@ document.fonts.ready.then(async function() {
     // TODO: self.top + parent.top - parent.parent.top?!
     .map(({ offsetHeight: h, offsetTop: y, parentElement: p }, i) => ({ y: i ? y + p!.offsetTop - p!.parentElement!.offsetTop : y, h }))
 
-  git.content(elementSVG()
-    .attrs({ height, width: '100%', viewBox: `0 0 10 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
-    .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(
-      ...render(timeline, [0, ...highlights.map(({ y, h }) => y + h / 2), height])
-    )))
+  git.content(render(timeline, highlights.map(({ y, h }) => y + h / 2), height))
 })
