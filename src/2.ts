@@ -2,12 +2,14 @@ import EasyHTMLElement, { article, div, element, elementSVG, section, span } fro
 
 import './scss/2/2.scss'
 import profile from './profile.json'
+import qrcode from 'qrcode'
 import { MatchArrayWGroups } from "types"
 import { render } from "utils/timeline"
 
 const { highlights, timeline } = profile
 
 const git = element().at('git')
+const qcode = element('img').attrs({ height: '100px' })
 
 element(document.body).content(
   element('main').content(
@@ -29,11 +31,17 @@ element(document.body).content(
     ),
   ),
   element('footer').cls('inverse').content(
-    element('h1').content('Footer')
+    //element('h1').at('title').content('Footer'),
+    span('find latest at:').at('qrcode-hint'),
+    qcode.at('qrcode'),
   )
 )
 
-document.fonts.ready.then(function() {
+document.fonts.ready.then(async function() {
+  // TODO: prefix with https://, move/rename project to github.com/ccjmne/resume (drop ccjmne- prefix in project name)
+  const data = await qrcode.toString('ccjmne.github.io/ccjmne-resume', { type: 'svg', errorCorrectionLevel: 'L', version: 2, margin: 0 })
+  qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${(data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#eee')))}` })
+
   const [{ h: height }, ...highlights] = ([document.querySelector('section#highlights'), ...document.querySelectorAll('[grid-area=dates]')] as HTMLElement[])
     // TODO: self.top + parent.top - parent.parent.top?!
     .map(({ offsetHeight: h, offsetTop: y, parentElement: p }, i) => ({ y: i ? y + p!.offsetTop - p!.parentElement!.offsetTop : y, h }))

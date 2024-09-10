@@ -32,7 +32,21 @@ main {
 }
 
 footer {
+  display:   grid;
   grid-area: footer;
+  padding:   calc( $default-padding / 1 );
+  grid-gap:  calc( $default-padding / 4 );
+  grid-template:
+    'title qrcode-hint qrcode' auto
+    'title qrcode-hint qrcode'      1fr / 1fr auto 100px;
+
+  [grid-area=qrcode-hint] {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: small;
+    margin: calc($default-padding / -1) 0;
+    text-align: center;
+  }
 }
 
 section#highlights {
