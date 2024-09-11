@@ -3,7 +3,7 @@ import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 
 // TODO: return HTML elements correctly positioned instead of SVG Text nodes for labels
 export function render(timeline: string[], pivots: number[], height: number): EasyHTMLElement {
-  const domain   = [0, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => s.includes(HIGHLIGHT)).map(([, i]) => i), timeline.length - 1]
+  const domain   = [-1, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => s.includes(HIGHLIGHT)).map(([, i]) => i), timeline.length]
   const range    = [0, ...pivots, height]
   const map      = zip(domain, range)
   const segments = zip(map.slice(0, -1), map.slice(1))
