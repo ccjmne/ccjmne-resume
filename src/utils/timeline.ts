@@ -24,7 +24,7 @@ type Branch = {
 }
 
 // TODO: Do I need the years?
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┘┐╷]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
+const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, END] = ['★', '☆', '┘', '┐', '╷']
 const UNIT_X = 20 // TODO: get from scss
 
@@ -33,11 +33,11 @@ function compute(timeline: string[]): Branch[] {
   const ongoing:  Branch[] = [branches[0]]
 
   timeline.toReversed().map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos, { length }) => {
-    for (const { 0: type, index: depth } of pipes.matchAll(/[^│├]/g)!) {
-      const branch = ongoing.find(({ depth: d }) => d === depth) ?? { depth, events: [] }
+    for (const { 0: type, index } of pipes.matchAll(/┼*[^│├]/g)!) {
+      const branch = ongoing.find(({ depth: d }) => d === index + type.length - 1) ?? { depth: index + type.length - 1, events: [] }
       branch.events.push({ pos: length - pos - 1, type, label, xsection: pipes.length })
-      ongoing.splice(ongoing.indexOf(branch), +[MERGE, END].includes(type), ...type === NEW ? [branch] : [])
-      branches.splice(0, 0, ...type === NEW ? [branch] : [])
+      ongoing.splice(ongoing.indexOf(branch), +[MERGE, END].includes(type), ...type.endsWith(NEW) ? [branch] : [])
+      branches.splice(0, 0, ...type.endsWith(NEW) ? [branch] : [])
     }
   })
 
@@ -48,6 +48,13 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
   const colours = branches.map(() => Math.floor(Math.random() * (1 << 6) + (1 << 7))) // TODO: make deterministic (also do in scss)
   const mask = elementSVG('mask').attrs({ id: 'timeline-mask' }).content(
     elementSVG('rect').attrs({ x: -10000, y: 0, width: 20000, height: 10000, fill: '#fff' }),
+    ...branches.flatMap(({ events, depth }) => events.map(e => ({ depth, ...e }))
+      .filter(({ type }) => type.match(/^┼+/)?.[0].length)
+      .flatMap(({ pos, type }) => [
+        elementSVG('rect').attrs({ x: 10+ -depth * UNIT_X, y: -5 - 2 + scale(pos), width: -20 + ( type.match(/^┼*/)![0].length + 1 ) * UNIT_X, height: 5, fill: '#000' }),
+        elementSVG('rect').attrs({ x: 10+ -depth * UNIT_X, y: 2 + scale(pos), width: -20 + ( type.match(/^┼*/)![0].length + 1 ) * UNIT_X, height: 5, fill: '#000' }),
+      ])
+    ),
     ...branches.flatMap(({ events, depth }) => events.map(e => ({ depth, ...e }))
       .filter(({ type }) => [MILESTONE, HIGHLIGHT].includes(type))
       .flatMap(({ pos, type }) => [
@@ -62,7 +69,7 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     return [elementSVG('path').attrs({
       'stroke-linecap': 'round', fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '4px',
       d: `M${-depth * UNIT_X},${scale(first.pos)}`
-        + (first.type === NEW ? `m${UNIT_X},0 h${-(UNIT_X - 10)} a10,10 0 0,1 ${-10},-10` : '')
+        + (first.type.endsWith(NEW) ? `m${UNIT_X * first.type.length},0 h${-(UNIT_X * first.type.length - 10)} a10,10 0 0,1 ${-10},-10` : '')
         + `V${scale(last.pos) + 10}` + (last.type === MERGE ? `a10,10 0 0,1 ${10},-10 h${(UNIT_X - 10)} ` : 'v-10') // TODO: fizzle out at end
     }),
     ...events.filter(({ type }) => [MILESTONE, HIGHLIGHT].includes(type)).map(({ pos, type }) => elementSVG('circle')
