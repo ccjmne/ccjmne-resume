@@ -3,19 +3,19 @@ import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 
 // TODO: return HTML elements correctly positioned instead of SVG Text nodes for labels
 export function render(timeline: string[], pivots: number[], height: number): EasyHTMLElement {
-  const domain   = [timeline.length, ...timeline.map((c, i) => [c, timeline.length - i - 1] as const).filter(([c]) => c.includes(HIGHLIGHT)).map(([, i]) => i), 0]
+  const domain   = [0, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => s.includes(HIGHLIGHT)).map(([, i]) => i), timeline.length - 1]
   const range    = [0, ...pivots, height]
-  const map      = zip(domain, range).toReversed()
+  const map      = zip(domain, range)
   const segments = zip(map.slice(0, -1), map.slice(1))
 
   function scale(at: number): number { // Piecewise linear scale
-    const [[x0, y0], [x1, y1]] = segments.findLast(([[a]]) => at >= a)!
+    const [[x0, y0], [x1, y1]] = segments.find(([, [a]]) => at <= a)!
     return (at - x0) * ((y1 - y0) / (x1 - x0)) + y0
   }
 
   return elementSVG()
     .attrs({ height, width: '100%', viewBox: `0 0 10 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
-    .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(...graph(compute(timeline.toReversed()), scale)))
+    .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(...graph(compute(timeline), scale)))
 }
 
 type Branch = {
@@ -32,10 +32,10 @@ function compute(timeline: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
   const ongoing:  Branch[] = [branches[0]]
 
-  timeline.map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos) => {
+  timeline.toReversed().map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos, { length }) => {
     for (const { 0: type, index: depth } of pipes.matchAll(/[^│├]/g)!) {
       const branch = ongoing.find(({ depth: d }) => d === depth) ?? { depth, events: [] }
-      branch.events.push({ pos, type, label, xsection: pipes.length })
+      branch.events.push({ pos: length - pos - 1, type, label, xsection: pipes.length })
       ongoing.splice(ongoing.indexOf(branch), +[MERGE, END].includes(type), ...type === NEW ? [branch] : [])
       branches.splice(0, 0, ...type === NEW ? [branch] : [])
     }
