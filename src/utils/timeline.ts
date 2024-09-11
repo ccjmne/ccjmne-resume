@@ -62,7 +62,7 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     return [elementSVG('path').attrs({
       'stroke-linecap': 'round', fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '4px',
       d: `M${-depth * UNIT_X},${scale(first.pos)}`
-        + (first.type === NEW ? `m${UNIT_X},0 h${-(UNIT_X - 10)} a10,10 0 0,1 ${-10},-10` : 'v10')
+        + (first.type === NEW ? `m${UNIT_X},0 h${-(UNIT_X - 10)} a10,10 0 0,1 ${-10},-10` : '')
         + `V${scale(last.pos) + 10}` + (last.type === MERGE ? `a10,10 0 0,1 ${10},-10 h${(UNIT_X - 10)} ` : 'v-10') // TODO: fizzle out at end
     }),
     ...events.filter(({ type }) => [MILESTONE, HIGHLIGHT].includes(type)).map(({ pos, type }) => elementSVG('circle')
