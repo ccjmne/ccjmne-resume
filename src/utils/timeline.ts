@@ -24,76 +24,65 @@ type Branch = {
 }
 
 // TODO: Do I need the years?
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
-const [HIGHLIGHT, MILESTONE, NEW, MERGE, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╷/, /^┼$/]
+const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
+const [HIGHLIGHT, MILESTONE, NEW, MERGE, SPAWN, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╵/, /╷/, /^┼$/]
 const UNIT_X = 20 // TODO: get from scss
 
 function compute(timeline: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
   const ongoing:  Branch[] = [branches[0]]
 
-  timeline.toReversed().map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos, { length }) => {
-    for (const { 0: type, index } of [...pipes.matchAll(/┼*[^│├┼]/g)!, ...pipes.matchAll(/┼/g)!]) {
-      const branch = ongoing.find(({ depth }) => depth === index + type.length - 1) ?? { depth: index + type.length - 1, events: [] }
-      branch.events.push({ pos: length - pos - 1, type, label, xsection: pipes.length })
-      ongoing.splice(ongoing.indexOf(branch), +(MERGE.test(type) || END.test(type)), ...NEW.test(type) ? [branch] : [])
-      branches.splice(0, 0, ...NEW.test(type) ? [branch] : [])
-    }
-  })
+  timeline.toReversed()
+    //.map(entry => entry.replace(/\S+(?=★)|(?<=☆)\S+/, ({ length }) => '┼'.repeat(length))) // TODO: Cross to the right for highlights?
+    .map(entry => entry.replace(/(?<=☆)\S+/, ({ length }) => '┼'.repeat(length))) // "Cross" for the label pin arm
+    .map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos, { length }) => {
+      for (const { 0: type, index } of [...pipes.matchAll(/┼*[^│├┼]/g)!, ...pipes.matchAll(/┼/g)!]) {
+        const branch = ongoing.find(({ depth }) => depth === index + type.length - 1) ?? { depth: index + type.length - 1, events: [] }
+        branch.events.push({ pos: length - pos - 1, type, label, xsection: pipes.length })
+        ongoing.splice(ongoing.indexOf(branch), +(MERGE.test(type) || END.test(type)), ...NEW.test(type) ? [branch] : [])
+        branches.splice(0, 0, ...NEW.test(type) ? [branch] : [])
+      }
+    })
 
   return branches
 }
 
 function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
-  const colours = branches.map(() => Math.floor(Math.random() * (1 << 6) + (1 << 7))) // TODO: make deterministic (also do in scss)
-  const mask = elementSVG('mask').attrs({ id: 'timeline-mask' }).content(
-    elementSVG('rect').attrs({ x: -10000, y: 0, width: 20000, height: 10000, fill: '#fff' }),
-    ...branches.flatMap(({ events, depth }) => events.map(e => ({ depth, ...e }))
-      .filter(({ type }) => CROSS.test(type))
-      .flatMap(({ pos }) => [
-        elementSVG('rect').attrs({ x: -depth * UNIT_X - 10, y: -5 - 2 + scale(pos), width: 2 * UNIT_X - 20, height: 5, fill: '#000' }),
-        elementSVG('rect').attrs({ x: -depth * UNIT_X - 10, y:      2 + scale(pos), width: 2 * UNIT_X - 20, height: 5, fill: '#000' }),
-      ])
-    ),
-    ...branches.flatMap(({ events, depth }) => events.map(e => ({ depth, ...e }))
-      .filter(({ type }) => MILESTONE.test(type) || HIGHLIGHT.test(type))
-      .flatMap(({ pos, type }) => [
-        elementSVG('circle').attrs({ r: 2.5, cx: -depth * UNIT_X, cy: scale(pos), fill: '#000' }),
-        ...HIGHLIGHT.test(type) ? [] : [elementSVG('path').attrs({ d: `M${-depth * UNIT_X - 10},${scale(pos)} h-200`, stroke: '#000', 'stroke-width': '10px' })],
-      ])
-    ),
-  )
+  const LINEWIDTH = 4 // TODO: Should maybe be in SCSS?
+  const TURNSIZE = 10
+  const GAPSIZE = 8
 
-  const g = elementSVG('g').attrs({ mask: `url(#timeline-mask)` }).content(...branches.flatMap(function({ depth, events }: Branch, i): EasyHTMLElement[] {
-    const [first, last] = [events.at(0)!, events.at(-1)!]
-    const colour = colours[i]
-    return [elementSVG('path').attrs({
-      'stroke-linecap': 'round', fill: 'none', stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-width': '4px',
-      d: `M${-depth * UNIT_X},${scale(first.pos)}`
-        + (NEW.test(first.type) ? `m${UNIT_X * first.type.length},0 h${-(UNIT_X * first.type.length - 10)} a10,10 0 0,1 ${-10},-10` : '')
-        + `V${scale(last.pos) + 10}`
-        + (MERGE.test(last.type) ? `a10,10 0 0,1 ${10},-10 h${(UNIT_X * last.type.length - 10)}` : 'v-10') // TODO: fizzle out at end
-    }),
-    ...events.filter(({ type }) => MILESTONE.test(type) || HIGHLIGHT.test(type)).map(({ pos, type }) => elementSVG('circle')
-      .attrs({ r: 7, cx: -depth * UNIT_X, cy: scale(pos), fill: HIGHLIGHT.test(type) ? 'hsl(185 52% 33% / 1)' : `rgb(${colour}, ${colour}, ${colour})` })),
-    ]
-  }))
+  function handleEvent({ type, pos }: Branch['events'][0]): string {
+    switch (true) {
+      case NEW.test(type):
+        return `m${UNIT_X * type.length},0 h${-(UNIT_X * type.length - TURNSIZE)} a${TURNSIZE},${TURNSIZE} 0 0,1 ${-TURNSIZE},${-TURNSIZE}`
+      case MERGE.test(type):
+        return `V${scale(pos) + 10} a${TURNSIZE},${TURNSIZE} 0 0,1 ${+TURNSIZE},${-TURNSIZE} h${+(UNIT_X * type.length - TURNSIZE)}`
+      case HIGHLIGHT.test(type):
+      case MILESTONE.test(type):
+      case CROSS.test(type):
+        return `V${scale(pos) + GAPSIZE / 2} m0,${-GAPSIZE}`
+      case END.test(type):
+        return `V${scale(pos)} h5h-10m5,0` // TODO: fizzle out
+      case SPAWN.test(type):               // TODO: fizzle in
+      default:
+        return `h5h-10m5,0`
+    }
+  }
 
-  const labels = branches.flatMap(function({ depth, events }: Branch, i): EasyHTMLElement[] {
-    const colour = colours[i]
-    return events.filter(({ label }) => !!label).flatMap(({ pos, label, xsection }) => [
-      elementSVG('path').attrs({
-        d: `M${-depth * UNIT_X - UNIT_X / 2},${scale(pos)} h${(depth - xsection) * UNIT_X + 1.5 * UNIT_X / 2}`,
-        stroke: `rgb(${colour}, ${colour}, ${colour})`, 'stroke-dasharray': '5 0', 'stroke-width': '2px',
-      }),
-      elementSVG('text')
-        .styles({ 'font-size': 'smaller' })
-        .attrs({ x: UNIT_X * -xsection, y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' })
-        .content(label)
-    ])
+  return branches.flatMap(({ depth, events }) => {
+    const colour = (c => `rgb(${c} ${c} ${c})` as const)(Math.floor(Math.random() * (1 << 6) + (1 << 7))) // TODO: make deterministic (also do in scss)
+
+    // TODO: Try with *rhombuses*
+    // TODO: Possibly draw the milestones within the "line" (two `a` commands) if they're to remain the same colour
+    // TODO: Use a different style for highlights
+    const commits = events.filter(({ type }) => MILESTONE.test(type) || HIGHLIGHT.test(type)).map(({ pos }) => elementSVG('circle').attrs({ cx: -UNIT_X * depth, cy: scale(pos), r: 5, stroke: colour, fill: 'none', 'stroke-width': LINEWIDTH }))
+    const pin     = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection })               => elementSVG('path').attrs({ d: `M${-UNIT_X * depth - UNIT_X / 2},${scale(pos)} H${-UNIT_X * xsection + UNIT_X / 2}`, stroke: colour, 'stroke-width': LINEWIDTH / 2 }))
+    const labels  = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection, label })        => elementSVG('text').attrs({ 'font-size': 'smaller', x: -UNIT_X * xsection + 8, y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(label))
+    const line    = elementSVG('path').attrs({ transform2: `translate(${- UNIT_X * depth})`, d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join(''), stroke: colour, fill: 'none', 'stroke-width': LINEWIDTH })
+
+    return [line, ...commits, ...pin, ...labels]
   })
-
-  return [mask, g, ...labels]
 }
 
 function zip<A, B>(a: A[], b: B[]): Array<[A, B]> {
