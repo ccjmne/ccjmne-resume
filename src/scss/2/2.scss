@@ -50,7 +50,7 @@ footer {
 }
 
 section#highlights {
-  padding-inline-start: $default-padding;
+  padding-inline-start: calc($default-padding / 2);
 }
 
 article.highlight {

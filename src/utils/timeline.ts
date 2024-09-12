@@ -14,7 +14,7 @@ export function render(timeline: string[], pivots: number[], height: number): Ea
   }
 
   return elementSVG()
-    .attrs({ height, width: '100%', viewBox: `0 0 10 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
+    .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
     .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(...graph(compute(timeline), scale)))
 }
 
@@ -33,8 +33,7 @@ function compute(timeline: string[]): Branch[] {
   const ongoing:  Branch[] = [branches[0]]
 
   timeline.toReversed()
-    //.map(entry => entry.replace(/\S+(?=★)|(?<=☆)\S+/, ({ length }) => '┼'.repeat(length))) // TODO: Cross to the right for highlights?
-    .map(entry => entry.replace(/(?<=☆)\S+/, ({ length }) => '┼'.repeat(length))) // "Cross" for the label pin arm
+    .map(entry => entry.replace(/\S+(?=★)|(?<=☆)\S+/, ({ length }) => '┼'.repeat(length))) // "Cross" for the label pin arm
     .map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos, { length }) => {
       for (const { 0: type, index } of [...pipes.matchAll(/┼*[^│├┼]/g)!, ...pipes.matchAll(/┼/g)!]) {
         const branch = ongoing.find(({ depth }) => depth === index + type.length - 1) ?? { depth: index + type.length - 1, events: [] }
@@ -76,12 +75,13 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     // TODO: Try with *rhombuses*
     // TODO: Possibly draw the milestones within the "line" (two `a` commands) if they're to remain the same colour
     // TODO: Use a different style for highlights
-    const commits = events.filter(({ type }) => MILESTONE.test(type) || HIGHLIGHT.test(type)).map(({ pos }) => elementSVG('circle').attrs({ cx: -UNIT_X * depth, cy: scale(pos), r: 5, stroke: colour, fill: 'none', 'stroke-width': LINEWIDTH }))
-    const pin     = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection })               => elementSVG('path').attrs({ d: `M${-UNIT_X * depth - UNIT_X / 2},${scale(pos)} H${-UNIT_X * xsection + UNIT_X / 2}`, stroke: colour, 'stroke-width': LINEWIDTH / 2 }))
-    const labels  = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection, label })        => elementSVG('text').attrs({ 'font-size': 'smaller', x: -UNIT_X * xsection + 8, y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(label))
+    const commits = events.filter(({ type }) => MILESTONE.test(type) || HIGHLIGHT.test(type)).map(({ type, pos }) => elementSVG('circle').attrs({ cx: -UNIT_X * depth, cy: scale(pos), r: 5, stroke: HIGHLIGHT.test(type) ? 'hsl(185 52% 33% / 1)' : colour, fill: 'none', 'stroke-width': LINEWIDTH }))
+    const pinsL   = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection })                     => elementSVG('path').attrs({ d: `M${-UNIT_X * depth - UNIT_X / 2},${scale(pos)} H${-UNIT_X * xsection + UNIT_X / 2}`, stroke: colour, 'stroke-width': LINEWIDTH / 2 }))
+    const pinsR   = events.filter(({ type }) => HIGHLIGHT.test(type)).map(({ pos })                               => elementSVG('path').attrs({ d: `M${-(UNIT_X * depth - UNIT_X / 2)},${scale(pos)} H20`, stroke: 'hsl(185 52% 33% / 1)', 'stroke-width': 2 }))
+    const labels  = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection, label })              => elementSVG('text').attrs({ 'font-size': 'smaller', x: -UNIT_X * xsection + 8, y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(label))
     const line    = elementSVG('path').attrs({ transform2: `translate(${- UNIT_X * depth})`, d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join(''), stroke: colour, fill: 'none', 'stroke-width': LINEWIDTH })
 
-    return [line, ...commits, ...pin, ...labels]
+    return [line, ...commits, ...pinsL, ...pinsR, ...labels]
   })
 }
 
