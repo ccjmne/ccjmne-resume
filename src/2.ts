@@ -42,7 +42,7 @@ document.fonts.ready.then(async function() {
   const data = await qrcode.toString('ccjmne.github.io/ccjmne-resume', { type: 'svg', errorCorrectionLevel: 'L', version: 2, margin: 0 })
   qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${(data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#eee')))}` })
 
-  const [{ h: height }, ...highlights] = ([document.querySelector('section#highlights'), ...document.querySelectorAll('[grid-area=dates]')] as HTMLElement[])
+  const [{ h: height }, ...highlights] = ([document.querySelector('section#highlights'), ...document.querySelectorAll('[grid-area=headline]')] as HTMLElement[])
     // TODO: self.top + parent.top - parent.parent.top?!
     .map(({ offsetHeight: h, offsetTop: y, parentElement: p }, i) => ({ y: i ? y + p!.offsetTop - p!.parentElement!.offsetTop : y, h }))
 
