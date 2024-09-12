@@ -4,12 +4,13 @@
 @import '../spacing.scss';
 
 body {
-  display:          grid;
-  grid-template:    'main'   1fr
-                    'footer' auto / 1fr;
-  width:            100vw;
-  height:           100vh;
-  margin:           0;
+  display: grid;
+  width:   100vw;
+  height:  100vh;
+  margin:  0;
+  grid-template:
+    'main'   1fr
+    'footer' auto / 1fr;
   background-image:
     linear-gradient(
       .25turn,
@@ -21,10 +22,10 @@ body {
 }
 
 main {
-  display:          grid;
-  grid-template:    'git highlights' 1fr / 34% 1fr;
-  grid-area:        main;
-  padding:          $default-padding;
+  display:       grid;
+  grid-template: 'git highlights' 1fr / 34% 1fr;
+  grid-area:     main;
+  padding:       $default-padding;
   background-size:  cover;
   background-image:
     linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
@@ -41,11 +42,10 @@ footer {
     'title qrcode-hint qrcode'      1fr / 1fr auto 100px;
 
   [grid-area=qrcode-hint] {
+    transform:    rotate(180deg);
+    font-size:    small;
+    text-align:   center;
     writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-size: small;
-    margin: calc($default-padding / -1) 0;
-    text-align: center;
   }
 }
 
@@ -54,16 +54,13 @@ section#highlights {
 }
 
 article.highlight {
-  position:      relative;
-  display:       grid;
-  grid-template: 'dates'    auto
-                 'headline' auto
-                 'content'  auto
-                 'numbers'  auto / 1fr;
-
-  &:nth-child(2n) {
-    background: #9b9b9b2b;
-  }
+  position: relative;
+  display:  grid;
+  grid-template:
+    'dates'    auto
+    'headline' auto
+    'content'  auto
+    'numbers'  auto / 1fr;
 
   [grid-area=numbers] {
     display:         flex;
@@ -80,12 +77,18 @@ article.highlight {
   }
 
   .stat {
-    display:       grid;
-    grid-template: 'pre'  auto
-                   'n'    1fr
-                   'post' auto / auto;
+    display: grid;
+    grid-template:
+      'pre'  auto
+      'n'    1fr
+      'post' auto / auto;
 
     strong {
+      background-clip: text;
+      color:           transparent;
+      font-weight:     900;
+      font-family:     system-ui; // TODO: Probably not that.
+      font-size:       1.2em;
       background-image:
         linear-gradient(
           .25turn,
@@ -94,11 +97,6 @@ article.highlight {
           color.adjust($yinmn-blue, $lightness: -15%)
         ),
         url('src/assets/caustics.jpg');
-      background-clip: text;
-      color          : transparent;
-      font-weight    : 900;
-      font-family    : system-ui;
-      font-size      : 1.2em;
     }
   }
 
