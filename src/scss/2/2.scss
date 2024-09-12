@@ -21,10 +21,10 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template: 'git highlights' 1fr / 30% 1fr;
+  display:          grid;
+  grid-template:    'git highlights' 1fr / 34% 1fr;
   grid-area:        main;
-  padding:          2 * $default-padding;
+  padding:          $default-padding;
   background-size:  cover;
   background-image:
     linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
