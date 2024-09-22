@@ -41,9 +41,10 @@ main {
   display:   grid;
   grid-area: main;
   padding:   $default-padding;
+  padding-inline-start: 0;
   hyphens:   none;
   grid-template:
-    'graph highlights' 1fr / 31% 1fr;
+    'graph highlights' 1fr / 34% 1fr;
 
   h2 {
     margin:             0;
