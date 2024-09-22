@@ -16,7 +16,7 @@ export function render(timeline: string[], pivots: number[], height: number): Ea
 
   return elementSVG()
     .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
-    .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(...graph(compute(timeline), scale)))
+    .content(elementSVG('g').attrs({ mask: 'url(#git-clip)' }).content(...graph(compute(timeline), scale)))
 }
 
 type Event = { pos: number, type: string, label: string, xsection: number }
@@ -80,18 +80,21 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     return ({ depth, events: events.map(e => ({ ...e, λ: MILESTONE.test(e.type), Λ: HIGHLIGHT.test(e.type) })) })
   }
 
-  return branches.map(preprocess).flatMap(({ depth, events }, i) => {
-    const commits = events
-      .filter(({ λ, Λ }) => λ || Λ)
-      .map(({ Λ, pos }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`)
-        .attrs({ d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12 }) }))
+  return branches.map(preprocess).flatMap(({ depth, events }, i) => [
+    // line
+    elementSVG('path').cls(`colour-${i}`)
+      .attrs({ d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join('') }),
 
-    const pins = events
-      .filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ)
-      .map(({ Λ, pos, xsection }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`, 'thin')
-        .attrs({ d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}` }))
+    // commits
+    ...events.filter(({ λ, Λ }) => λ || Λ).map(({ Λ, pos }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`)
+      .attrs({ d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12 }) })),
 
-    const labels = events // TODO: Probably use *HTML* elements
+    // pins
+    ...events.filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ).map(({ Λ, pos, xsection }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`, 'thin')
+      .attrs({ d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}` })),
+
+    // labels
+    ...events
       .filter(({ λ }) => λ)
       .map(({ pos, xsection, label }) => elementSVG('text').attrs({
         x: -UNIT_X * xsection + 8,
@@ -100,13 +103,8 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
         'font-size': 'smaller',
         'text-anchor': 'end',
         'dominant-baseline': 'middle'
-      }).content(label))
-
-    const line = elementSVG('path').cls(`colour-${i}`)
-      .attrs({ d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join('') })
-
-    return [line, ...commits, ...pins, ...labels]
-  })
+      }).content(label)),
+  ])
 }
 
 function zip<A, B>(a: A[], b: B[]): Array<[A, B]> {

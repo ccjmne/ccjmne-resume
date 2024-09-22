@@ -32,10 +32,6 @@ export default class EasyHTMLElement {
     return this
   }
 
-  public atCoords(row: string | number, col: string | number): this {
-    return this.styles({ 'grid-row': row, 'grid-column': col })
-  }
-
   public at(area: string): this {
     return this.attrs({ 'grid-area': area }).styles({ 'grid-area': area }) // For ease of use with CSS selectors
   }
