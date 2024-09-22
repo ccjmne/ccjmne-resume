@@ -84,6 +84,10 @@ article.highlight {
       'post' auto / auto;
 
     strong {
+      // address Chromium issue that may render a line of pixels of the background
+      padding: .1em;
+      margin: -.1em;
+
       background-clip: text;
       color:           transparent;
       font-weight:     900;

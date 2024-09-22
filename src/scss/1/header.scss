@@ -9,7 +9,9 @@ header {
   padding-left: 0;
 
   h1 {
-    margin: 0;
+    // address Chromium issue that may render a line of pixels of the background
+    padding: 1px;
+    margin: -2px;
 
     &.name {
       background-image:
