@@ -52,6 +52,34 @@ footer {
 
 [grid-area=graph] {
   display: contents;
+
+  path {
+    fill:         none;
+    stroke-width: 4px;
+
+    &.thin {
+      stroke-width: 2px;
+    }
+
+    $branch-colours: (
+      hsl(0 0% 45-05%),
+      hsl(0 0% 45+20%),
+      hsl(0 0% 45+25%),
+      hsl(0 0% 45+10%),
+      hsl(0 0% 45-05%),
+      hsl(0 0% 45+05%),
+    );
+
+    @for $i from 0 through length($branch-colours) - 1 {
+      &.colour-#{$i} {
+        stroke: nth($branch-colours, $i + 1);
+      }
+
+      &.colour-accent {
+        stroke: color.adjust($verdigris, $lightness: -20%),
+      }
+    }
+  }
 }
 
 [grid-area=highlights] {

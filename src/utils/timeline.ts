@@ -53,10 +53,9 @@ function compute(timeline: string[]): Branch[] {
 }
 
 function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
-  const UNIT_X = 20 // TODO: get from scss
-  const LINEWIDTH = 4 // TODO: Should maybe be in SCSS?
+  const UNIT_X   = 18 // TODO: get from scss
   const TURNSIZE = 10
-  const GAPSIZE = 8
+  const GAPSIZE  = 8
 
   function handleEvent({ type, pos }: Event): string {
     switch (true) {
@@ -76,38 +75,23 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     }
   }
 
+  // λ is MILESTONE, Λ is HIGHLIGHT
   function preprocess({ events, depth }: Branch): { depth: number, events: (Event & { λ: boolean, Λ: boolean })[] } {
     return ({ depth, events: events.map(e => ({ ...e, λ: MILESTONE.test(e.type), Λ: HIGHLIGHT.test(e.type) })) })
   }
 
-  return branches.map(preprocess).flatMap(({ depth, events }) => {
-    const colour = (c => `rgb(${c} ${c} ${c})` as const)(Math.floor(Math.random() * (1 << 6) + (1 << 7))) // TODO: make deterministic (also do in scss)
+  return branches.map(preprocess).flatMap(({ depth, events }, i) => {
+    const commits = events
+      .filter(({ λ, Λ }) => λ || Λ)
+      .map(({ Λ, pos }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`)
+        .attrs({ d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12 }) }))
 
-    // TODO: Use a different style for highlights
-    function commits(): EasyHTMLElement[] {
-      return events
-        .filter(({ λ, Λ }) => λ || Λ)
-        .map(({ Λ, pos }) => elementSVG('path').attrs({
-          d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12 }),
-          // TODO: Use a CSS class for the following attributes:
-          stroke: Λ ? 'hsl(185 52% 33% /1)' : colour,
-          'stroke-width': LINEWIDTH,
-          fill: 'none'
-        }))
-    }
+    const pins = events
+      .filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ)
+      .map(({ Λ, pos, xsection }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`, 'thin')
+        .attrs({ d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}` }))
 
-    function pins() {
-      return events
-        .filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ)
-        .map(({ Λ, pos, xsection }) => elementSVG('path').attrs({
-          d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 /* fuse by removing the +2 here */ + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}`,
-          // TODO: Use a CSS class for the following attributes:
-          stroke: Λ ? 'hsl(185 52% 33% / 1)' : colour,
-          'stroke-width': LINEWIDTH / 2
-        }))
-    }
-
-    const labels = events
+    const labels = events // TODO: Probably use *HTML* elements
       .filter(({ λ }) => λ)
       .map(({ pos, xsection, label }) => elementSVG('text').attrs({
         x: -UNIT_X * xsection + 8,
@@ -118,15 +102,10 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
         'dominant-baseline': 'middle'
       }).content(label))
 
-    const line = elementSVG('path').attrs({
-      d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join(''),
-      // TODO: Use a CSS class for the following attributes:
-      stroke: colour,
-      fill: 'none',
-      'stroke-width': LINEWIDTH
-    })
+    const line = elementSVG('path').cls(`colour-${i}`)
+      .attrs({ d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join('') })
 
-    return [line, ...commits(), ...pins(), ...labels]
+    return [line, ...commits, ...pins, ...labels]
   })
 }
 
