@@ -19,6 +19,22 @@ body {
       color.adjust($yinmn-blue, $lightness: -25%)
     ),
     url('src/assets/caustics.jpg');
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    mask-image: url('#main-background-mask');
+    background-size: cover;
+    background-image:
+      linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
+      // url('https://plus.unsplash.com/premium_photo-1671650125917-4cef01cd7574?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  }
 }
 
 main {
@@ -28,10 +44,15 @@ main {
   hyphens:   none;
   grid-template:
     'graph highlights' 1fr / 31% 1fr;
-  background-size: cover;
-  background-image:
-    linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
-    url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+
+  h2 {
+    margin:             0;
+    padding:            5px $default-padding;
+    padding-inline-end: 0;
+    text-align:         right;
+    letter-spacing:     .2ch;
+    color:              $light-bg;
+  }
 }
 
 footer {
