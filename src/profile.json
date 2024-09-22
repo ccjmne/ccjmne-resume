@@ -5,6 +5,7 @@
     "2024 ││★                                     ",
     "2023 ☆││   Switch to Arch Linux              ",
     "2023 │☆│   Migrate Cloud resources to ARM    ",
+    "2024 ││★                                     ",
     "2019 ☆││   Mastery of Git                    ",
     "2022 ││☆   Join Unite                        ",
     "2022 ├┼┘                                     ",
@@ -83,6 +84,12 @@
       "headline": "Redesigned unmanageable legacy payment system on a short notice",
       "content":  "I entirely redesigned and put together a working implementation of the back-end implementing credit card payments for a major e-procurement platform",
       "numbers":  ["over *100,000* fewer lines of code", "handles *millions of euros* in transactions yearly", "support payments in *9 countries*"]
+    },
+    {
+      "dates":    "2023",
+      "headline": "Appropriated and patched legacy system under tight deadline",
+      "content":  "I stepped up to acclimate to a crucial piece of our system and amend it to address the threat of its imminent inoperability, in response to the unanticipated termination of a longstanding partner's business operation.",
+      "numbers":  ["under *2 weeks*\nof lead time", "over *17 years*\nof history"]
     },
     {
       "dates":    "2020",
