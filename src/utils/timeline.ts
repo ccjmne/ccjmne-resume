@@ -3,7 +3,7 @@ import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
 import { rhombusPath } from "./svg-elements"
 
 // TODO: return HTML elements correctly positioned instead of SVG Text nodes for labels
-export function render(timeline: string[], pivots: number[], height: number): EasyHTMLElement {
+export function render(timeline: string[], pivots: number[], height: number): [graph: EasyHTMLElement, labels: Array<EasyHTMLElement>] {
   const domain   = [-1, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length]
   const range    = [0, ...pivots, height]
   const map      = zip(domain, range)
@@ -14,9 +14,12 @@ export function render(timeline: string[], pivots: number[], height: number): Ea
     return (at - x0) * ((y1 - y0) / (x1 - x0)) + y0
   }
 
-  return elementSVG()
-    .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
-    .content(elementSVG('g').attrs({ mask: 'url(#git-clip)' }).content(...graph(compute(timeline), scale)))
+  return [
+    elementSVG()
+      .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
+      .content(elementSVG('g').attrs({ mask: 'url(#git-clip)' }).content(...graph(compute(timeline), scale))),
+    []
+  ]
 }
 
 type Event = { pos: number, type: string, label: string, xsection: number }

@@ -54,7 +54,8 @@ document.fonts.ready.then(async function () {
     .map(e => e.getBoundingClientRect())
     .map(({ top: t, height: h }) => t - top + h / 2)
 
-  graph.content(render(timeline, highlights, height))
+  const [svg, labels] = render(timeline, highlights, height)
+  graph.content(svg, ...labels)
   mask.content(
     elementSVG('rect').attrs({ x: 0, y: 0,    width: 9999, height: 9999, fill: '#fff' }),
     elementSVG('rect').attrs({ x: 0, y: ftop, width: 9999, height: 9999, fill: '#000' }),
