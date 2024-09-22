@@ -19,15 +19,20 @@ export function render(timeline: string[], pivots: number[], height: number): Ea
     .content(elementSVG('g').attrs({ 'mask': 'url(#git-clip)' }).content(...graph(compute(timeline), scale)))
 }
 
+type Event = { pos: number, type: string, label: string, xsection: number }
 type Branch = {
   depth:  number,
-  events: Array<{ pos: number, type: string, label: string, xsection: number }>,
+  events: Event[],
 }
 
 // TODO: Do I need the years?
+// TODO: Support the following (allowing whitespace characters in the pipes):
+//   ★
+// ☆ │
+// │☆│
+// ││★
 const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, SPAWN, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╵/, /╷/, /^┼$/]
-const UNIT_X = 20 // TODO: get from scss
 
 function compute(timeline: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
@@ -48,11 +53,12 @@ function compute(timeline: string[]): Branch[] {
 }
 
 function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
+  const UNIT_X = 20 // TODO: get from scss
   const LINEWIDTH = 4 // TODO: Should maybe be in SCSS?
   const TURNSIZE = 10
   const GAPSIZE = 8
 
-  function handleEvent({ type, pos }: Branch['events'][0]): string {
+  function handleEvent({ type, pos }: Event): string {
     switch (true) {
       case NEW.test(type):
         return `m${UNIT_X * type.length},0 h${-(UNIT_X * type.length - TURNSIZE)} a${TURNSIZE},${TURNSIZE} 0 0,1 ${-TURNSIZE},${-TURNSIZE}`
@@ -70,18 +76,57 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     }
   }
 
-  return branches.flatMap(({ depth, events }) => {
+  function preprocess({ events, depth }: Branch): { depth: number, events: (Event & { λ: boolean, Λ: boolean })[] } {
+    return ({ depth, events: events.map(e => ({ ...e, λ: MILESTONE.test(e.type), Λ: HIGHLIGHT.test(e.type) })) })
+  }
+
+  return branches.map(preprocess).flatMap(({ depth, events }) => {
     const colour = (c => `rgb(${c} ${c} ${c})` as const)(Math.floor(Math.random() * (1 << 6) + (1 << 7))) // TODO: make deterministic (also do in scss)
 
-    // TODO: Possibly draw the milestones within the "line" (two `a` commands) if they're to remain the same colour
     // TODO: Use a different style for highlights
-    const commits = events.filter(({ type }) => MILESTONE.test(type) || HIGHLIGHT.test(type)).map(({ type, pos })               => elementSVG('path').attrs({ d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12}), stroke: HIGHLIGHT.test(type) ? 'hsl(185 52% 33% /1)' : colour, 'stroke-width': LINEWIDTH, fill: 'none' }))
-    const pinsL   = events.filter(({ type, xsection }) => MILESTONE.test(type) && depth < xsection - 1).map(({ pos, xsection }) => elementSVG('path').attrs({ d: `M${-UNIT_X * depth - UNIT_X / 2 - 2},${scale(pos)} H${-UNIT_X * xsection + UNIT_X / 2 + 2}`, stroke: colour, 'stroke-width': LINEWIDTH / 2 }))
-    const pinsR   = events.filter(({ type }) => HIGHLIGHT.test(type)).map(({ pos })                                             => elementSVG('path').attrs({ d: `M${-(UNIT_X * depth - UNIT_X / 2 - 2)},${scale(pos)} H20`, stroke: 'hsl(185 52% 33% / 1)', 'stroke-width': 2 }))
-    const labels  = events.filter(({ type }) => MILESTONE.test(type)).map(({ pos, xsection, label })                            => elementSVG('text').attrs({ 'font-size': 'smaller', x: -UNIT_X * xsection + 8, y: scale(pos), 'text-anchor': 'end', 'dominant-baseline': 'middle' }).content(label))
-    const line    = elementSVG('path').attrs({ transform2: `translate(${- UNIT_X * depth})`, d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join(''), stroke: colour, fill: 'none', 'stroke-width': LINEWIDTH })
+    function commits(): EasyHTMLElement[] {
+      return events
+        .filter(({ λ, Λ }) => λ || Λ)
+        .map(({ Λ, pos }) => elementSVG('path').attrs({
+          d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12 }),
+          // TODO: Use a CSS class for the following attributes:
+          stroke: Λ ? 'hsl(185 52% 33% /1)' : colour,
+          'stroke-width': LINEWIDTH,
+          fill: 'none'
+        }))
+    }
 
-    return [line, ...commits, ...pinsL, ...pinsR, ...labels]
+    function pins() {
+      return events
+        .filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ)
+        .map(({ Λ, pos, xsection }) => elementSVG('path').attrs({
+          d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 /* fuse by removing the +2 here */ + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}`,
+          // TODO: Use a CSS class for the following attributes:
+          stroke: Λ ? 'hsl(185 52% 33% / 1)' : colour,
+          'stroke-width': LINEWIDTH / 2
+        }))
+    }
+
+    const labels = events
+      .filter(({ λ }) => λ)
+      .map(({ pos, xsection, label }) => elementSVG('text').attrs({
+        x: -UNIT_X * xsection + 8,
+        y: scale(pos),
+        // TODO: Use a CSS class for the following attributes:
+        'font-size': 'smaller',
+        'text-anchor': 'end',
+        'dominant-baseline': 'middle'
+      }).content(label))
+
+    const line = elementSVG('path').attrs({
+      d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join(''),
+      // TODO: Use a CSS class for the following attributes:
+      stroke: colour,
+      fill: 'none',
+      'stroke-width': LINEWIDTH
+    })
+
+    return [line, ...commits(), ...pins(), ...labels]
   })
 }
 
