@@ -1,4 +1,4 @@
-import EasyHTMLElement, { article, div, element, elementSVG, section, span } from "utils/easy-htmlelement"
+import { article, div, element, lightest, section, span } from "utils/easy-htmlelement"
 
 import './scss/2/2.scss'
 import profile from './profile.json'
@@ -8,12 +8,12 @@ import { render } from "utils/timeline"
 
 const { highlights, timeline } = profile
 
-const git = element().at('git')
-const qcode = element('img').attrs({ height: '100px' })
+const graph = element()
+const qcode = element('img')
 
 element(document.body).content(
   element('main').content(
-    git,
+    graph.at('graph'),
     element().at('highlights').content(
       //element('h1').content('Page Header!'),
       //element('h2').content('Career Highlights'),
@@ -31,10 +31,9 @@ element(document.body).content(
     ),
   ),
   element('footer').cls('inverse').content(
-    //element('h1').at('title').content('Footer'),
     span('find latest at:').at('qrcode-hint'),
     qcode.at('qrcode'),
-  )
+  ),
 )
 
 document.fonts.ready.then(async function() {
@@ -42,9 +41,11 @@ document.fonts.ready.then(async function() {
   const data = await qrcode.toString('ccjmne.github.io/ccjmne-resume', { type: 'svg', errorCorrectionLevel: 'L', version: 2, margin: 0 })
   qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${(data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#eee')))}` })
 
-  const [{ h: height }, ...highlights] = ([document.querySelector('section#highlights'), ...document.querySelectorAll('[grid-area=headline]')] as HTMLElement[])
-    // TODO: self.top + parent.top - parent.parent.top?!
-    .map(({ offsetHeight: h, offsetTop: y, parentElement: p }, i) => ({ y: i ? y + p!.offsetTop - p!.parentElement!.offsetTop : y, h }))
+document.fonts.ready.then(async function () {
+  const { top, height } = document.querySelector('[grid-area=highlights]')!.getBoundingClientRect()
+  const highlights = [...document.querySelectorAll('[grid-area=headline]')]
+    .map(e => e.getBoundingClientRect())
+    .map(({ top: t, height: h }) => t - top + h / 2)
 
-  git.content(render(timeline, highlights.map(({ y, h }) => y + h / 2), height))
+  graph.content(render(timeline, highlights, height))
 })
