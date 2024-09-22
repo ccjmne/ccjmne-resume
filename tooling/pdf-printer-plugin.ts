@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs'
+import { writeFile } from 'fs/promises'
 import { dirname, resolve } from 'path'
 
 import { mkdirp } from 'mkdirp'
@@ -73,12 +73,12 @@ export class PDFPrinter implements WebpackPluginInstance {
 
     // TODO: maybe simply use an EXIF editor and drop pdfjs
     // Unless we need multiple pages and want to merge them into one document eventually.
-    const doc = new Document({ properties, font: null as unknown as Font })
+    const doc = new Document({ properties, font: null! })
     contents.forEach(content => doc.addPagesOf(new ExternalDocument(content)))
     const buffer = await doc.asBuffer()
 
     await mkdirp(dirname(resolve(output)))
-    await fs.writeFile(resolve(output), buffer)
+    await writeFile(resolve(output), buffer)
   }
 
   private get uris(): string[] {
