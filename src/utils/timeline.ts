@@ -34,7 +34,7 @@ type Branch = {
 // ☆ │
 // │☆│
 // ││★
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/ as MatcherWGroups<'year' | 'pipes' | 'label'>
+const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/s as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, SPAWN, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╵/, /╷/, /^┼$/]
 
 function compute(timeline: string[]): Branch[] {
