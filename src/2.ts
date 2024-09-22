@@ -40,10 +40,9 @@ element(document.body).content(
   ),
 )
 
-document.fonts.ready.then(async function() {
-  // TODO: prefix with https://, move/rename project to github.com/ccjmne/resume (drop ccjmne- prefix in project name)
-  const data = await qrcode.toString('ccjmne.github.io/ccjmne-resume', { type: 'svg', errorCorrectionLevel: 'L', version: 2, margin: 0 })
-  qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${(data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#eee')))}` })
+// TODO: prefix with https://, move/rename project to github.com/ccjmne/resume (drop ccjmne- prefix in project name)
+const data = await qrcode.toString('ccjmne.github.io/ccjmne-resume', { type: 'svg', errorCorrectionLevel: 'L', version: 2, margin: 0 })
+qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${(data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#eee')))}` })
 
 document.fonts.ready.then(async function () {
   const { top, height } = document.querySelector('[grid-area=highlights]')!.getBoundingClientRect()
