@@ -79,8 +79,9 @@ element(document.body).content(
 document.fonts.ready.then(() => mask.content(
   elementSVG('rect').attrs({ x: 0, y: 0, width: 9999, height: 9999, fill: '#fff' }),
   ...([...document.querySelectorAll('main h2')] as HTMLElement[]).map(({ offsetHeight, offsetTop }, i) => titlebar({
-    seed:   i ? 42 : 2017-3-10,
-    at:     offsetTop,
-    height: offsetHeight
+    seed: i ? 42 : 2017-3-10,
+    x:    260,
+    y:    offsetTop,
+    h:    offsetHeight
   })),
 ))

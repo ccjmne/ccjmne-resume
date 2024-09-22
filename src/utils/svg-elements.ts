@@ -58,8 +58,8 @@ export function hr(height = 9, reverse = false): EasyHTMLElement {
     )
 }
 
-export function titlebar({ at, height, seed }: { at: number, height: number, seed: number }): EasyHTMLElement {
-  const x = 260 // TODO: Compute from 50% width
+
+export function titlebar({ x, y, h, seed, align = 'left', separator = true }: { x: number, y: number, h: number, seed: number, align?: 'left' | 'right', separator?: boolean }): EasyHTMLElement {
   const random = seededRandom(seed)
   random() // I messed up, I found the perfect seeds... off by 1.
 
@@ -72,23 +72,23 @@ export function titlebar({ at, height, seed }: { at: number, height: number, see
       throw new Error('Requires at least two rows')
     }
 
-    const size = height / ((rows - 1) / 2)
+    const size = h / ((rows - 1) / 2)
     const step = smootherstep(size * cols, 0) // step DOWN over [0, size * cols]
 
     return [...Array(rows).keys()]
       .map(r => [...Array(cols).keys()]
         .map(c => ({ x: (c + (r % 2) / 2) * size, y: (r * size) / 2 }))
         .filter(({ x }) => visible(step(x)))
-        .map(({ x, y }) => rhombusPath({ x, y, diag: step(x) * size }))
+        .map(({ x, y }) => rhombusPath({ x: align === 'left' ? x : -x, y, diag: step(x) * size }))
         .join(' '))
       .join(' ')
   }
 
-  return elementSVG('g').attrs({ transform: `translate(0, ${at})` }).content(
-    elementSVG('path').attrs({ fill:   '#000', transform: `translate(${x})`, d: disintegrate(7, 18) }),
-    elementSVG('rect').attrs({ fill:   '#000', x:  0, y:  0,      width: x,    height }),
-    elementSVG('rect').attrs({ fill:   '#fff', x:  0, y:  -10,    width: 9999, height: 10 }), // clip overflowing rhombuses
-    elementSVG('rect').attrs({ fill:   '#fff', x:  0, y:  height, width: 9999, height: 10 }), // clip overflowing rhombuses
-    elementSVG('line').attrs({ stroke: '#000', x1: 0, y1: -.5,    x2:    9999, y2: -.5 }),    // 1-pixel border at top
+  return elementSVG('g').attrs({ transform: `translate(0, ${y})` }).content(
+    elementSVG('path').attrs({ fill: '#000', transform: `translate(${x})`, d: disintegrate(7, 18) }),
+    elementSVG('rect').attrs({ fill: '#000', x: align === 'left' ? 0 : x, y: 0,   height: h,  width: align === 'left' ? x : 9999 }),
+    elementSVG('rect').attrs({ fill: '#fff', x: 0,                        y: -10, height: 10, width: 9999 }), // clip overflowing rhombuses
+    elementSVG('rect').attrs({ fill: '#fff', x: 0,                        y: h,   height: 10, width: 9999 }), // clip overflowing rhombuses
+    ...separator ? [elementSVG('line').attrs({ stroke: '#000', x1: 0, y1: -.5, x2: 9999, y2: -.5 })] : [],    // 1-pixel border at top
   )
 }
