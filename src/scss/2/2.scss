@@ -72,9 +72,17 @@ footer {
 }
 
 [grid-area=graph] {
-  display: contents;
+  display: flex;
+  position: relative;
 
-  path {
+  .label {
+    position:   absolute;
+    transform:  translate(-5px, -50%);
+    text-align: right;
+    font-size:  smaller;
+  }
+
+  path:not(.label path) {
     fill:         none;
     stroke-width: 4px;
 

@@ -1,5 +1,5 @@
 import { MatcherWGroups } from "types"
-import EasyHTMLElement, { elementSVG } from "./easy-htmlelement"
+import EasyHTMLElement, { element, elementSVG } from "./easy-htmlelement"
 import { rhombusPath } from "./svg-elements"
 
 // TODO: return HTML elements correctly positioned instead of SVG Text nodes for labels
@@ -18,7 +18,7 @@ export function render(timeline: string[], pivots: number[], height: number): [g
     elementSVG()
       .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
       .content(elementSVG('g').attrs({ mask: 'url(#git-clip)' }).content(...graph(compute(timeline), scale))),
-    []
+    labels(compute(timeline), scale)
   ]
 }
 
@@ -55,11 +55,11 @@ function compute(timeline: string[]): Branch[] {
   return branches
 }
 
-function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
-  const UNIT_X   = 18 // TODO: get from scss
-  const TURNSIZE = 10
-  const GAPSIZE  = 8
+const UNIT_X   = 18 // TODO: get from scss
+const TURNSIZE = 10
+const GAPSIZE  = 8
 
+function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
   function handleEvent({ type, pos }: Event): string {
     switch (true) {
       case NEW.test(type):
@@ -95,19 +95,15 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     // pins
     ...events.filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ).map(({ Λ, pos, xsection }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`, 'thin')
       .attrs({ d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}` })),
-
-    // labels
-    ...events
-      .filter(({ λ }) => λ)
-      .map(({ pos, xsection, label }) => elementSVG('text').attrs({
-        x: -UNIT_X * xsection + 8,
-        y: scale(pos),
-        // TODO: Use a CSS class for the following attributes:
-        'font-size': 'smaller',
-        'text-anchor': 'end',
-        'dominant-baseline': 'middle'
-      }).content(label)),
   ])
+}
+
+function labels(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
+  return branches.flatMap(({ events }) => events
+    .filter(({ type }) => MILESTONE.test(type))
+    .map(({ pos, xsection, label }) => element().content(label).cls('label')
+      .styles({ right: UNIT_X * xsection + 8 + 'px', top: scale(pos) + 'px' }))
+  )
 }
 
 function zip<A, B>(a: A[], b: B[]): Array<[A, B]> {
