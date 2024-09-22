@@ -5,6 +5,7 @@ import profile from './profile.json'
 import qrcode from 'qrcode'
 import { MatchArrayWGroups } from "types"
 import { render } from "utils/timeline"
+import { rhombus } from "utils/svg-elements"
 
 const { highlights, timeline } = profile
 
@@ -22,9 +23,13 @@ element(document.body).content(
           element('h3').content(headline).at('headline'),
           span(dates).at('dates'),
           element('p').content(content).at('content'),
-          div(...numbers
-            .map(num => (/^(?<pre>.*)[*](?<n>.*)[*](?<post>.*)$/.exec(num) as MatchArrayWGroups<'pre' | 'n' | 'post'>).groups)
-            .map(({ pre, n, post }) => div(pre, element('strong').content(n), div(post)).cls('stat'))
+          div(
+            // TODO: Something nicer, with the tail near the *top*
+            // lightest(hr().styles({ transform: 'rotate(180deg)' })),
+            ...numbers
+              .map(num => (/^(?<pre>.*)[*](?<n>.*)[*](?<post>.*)$/s.exec(num) as MatchArrayWGroups<'pre' | 'n' | 'post'>).groups)
+              .map(({ pre, n, post }) => span(pre, element('strong').content(n), post).cls('stat'))
+              .flatMap(n => [lightest(rhombus(6)), n]).slice(1)
           ).at('numbers'),
         ))
       ),
