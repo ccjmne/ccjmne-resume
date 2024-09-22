@@ -65,6 +65,7 @@ export class PDFPrinter implements WebpackPluginInstance {
     const { output, options, properties } = this.config
     const contents = await Promise.all(this.uris.map(async uri => {
       const page = await this.browser.newPage()
+      await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 1 }); // A4 Portrait @ 96 DPI
       await page.goto(uri, { waitUntil: 'networkidle0' })
       const content = await page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options })
       await page.close()
