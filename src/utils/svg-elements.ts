@@ -10,7 +10,7 @@ import { elementSVG } from './easy-htmlelement'
  * @param y ordinate of the rhombus's centre
  * @param diag Diagonal of the rhombus
  */
-function rhombusPath({ x, y, diag }: { x: number, y: number, diag: number }): string {
+export function rhombusPath({ x, y, diag }: { x: number, y: number, diag: number }): string {
   const r = diag / 2
   return `M${x},${y} m0,${-r} l${r},${r} l${-r},${r} l${-r},${-r} l${r},${-r} z`
 }
