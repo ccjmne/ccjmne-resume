@@ -16,8 +16,7 @@ element(document.body).content(
   element('main').content(
     graph.at('graph'),
     element().at('highlights').content(
-      //element('h1').content('Page Header!'),
-      //element('h2').content('Career Highlights'),
+      element('h2').content('Career Highlights').at('title').styles({ 'text-align': 'right', margin: 0 }),
       section('highlights').content(
         ...highlights.map(({ content, dates, numbers, headline }) => article('highlight').content(
           element('h3').content(headline).at('headline'),
