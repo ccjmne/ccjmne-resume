@@ -49,15 +49,14 @@ export function hr(height = 9, reverse = false): EasyHTMLElement {
     .content(
       elementSVG('g').attrs({ 'transform-origin': `${height / 2} ${height / 2}`, transform: `translate(0, ${(reverse ? -height : height) / 2}) rotate(${reverse ? 180 : 0})` }).content(
         elementSVG('path').styles({ 'stroke-width': '1px' }).attrs({
-          d: `${rhombusPath({ x: d1 / 2,                          y: 0, diag: d1 })}
-              ${rhombusPath({ x: d1 + d2 / 2 + gap,               y: 0, diag: d2 })}
-              ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.75 * gap, y: 0, diag: d3 })}`
+          d: `${rhombusPath({ x: d1 / 2,                         y: 0, diag: d1 })}
+              ${rhombusPath({ x: d1 + d2 / 2 + gap,              y: 0, diag: d2 })}
+              ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.5 * gap, y: 0, diag: d3 })}`
         }),
         elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }),
       ),
     )
 }
-
 
 export function titlebar({ x, y, h, seed, align = 'left', separator = true }: { x: number, y: number, h: number, seed: number, align?: 'left' | 'right', separator?: boolean }): EasyHTMLElement {
   const random = seededRandom(seed)
