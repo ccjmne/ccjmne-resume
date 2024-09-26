@@ -17,7 +17,7 @@ export function render(timeline: string[], pivots: number[], height: number): [g
   return [
     elementSVG()
       .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
-      .content(elementSVG('g').attrs({ mask: 'url(#git-clip)' }).content(...graph(compute(timeline), scale))),
+      .content(...graph(compute(timeline), scale)),
     labels(compute(timeline), scale)
   ]
 }

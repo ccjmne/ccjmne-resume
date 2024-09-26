@@ -69,7 +69,7 @@ export default class EasyHTMLElement {
 
 }
 
-export function element(tag: keyof HTMLElementTagNameMap | HTMLElement = 'div'): EasyHTMLElement {
+export function element(tag: keyof HTMLElementTagNameMap | HTMLElement | SVGElement = 'div'): EasyHTMLElement {
   return new EasyHTMLElement(tag)
 }
 
