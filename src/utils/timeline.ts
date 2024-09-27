@@ -4,7 +4,7 @@ import { rhombusPath } from "./svg-elements"
 
 // TODO: return HTML elements correctly positioned instead of SVG Text nodes for labels
 export function render(timeline: string[], pivots: number[], height: number): [graph: EasyHTMLElement, labels: Array<EasyHTMLElement>] {
-  const domain   = [-1, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length]
+  const domain   = [0, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length - 1]
   const range    = [0, ...pivots, height]
   const map      = zip(domain, range)
   const segments = zip(map.slice(0, -1), map.slice(1))
@@ -71,10 +71,10 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
       case CROSS.test(type):
         return `V${scale(pos) + GAPSIZE / 2} m0,${-GAPSIZE}`
       case END.test(type):
-        return `V${scale(pos) - 10} h5h-10m5,0` // TODO: fizzle out
-      case SPAWN.test(type):                    // TODO: fizzle in
+        return `V${scale(pos) + GAPSIZE}`
+      case SPAWN.test(type):
       default:
-        return `m0,10 h5h-10m5,0`
+        return `m0,${-GAPSIZE}`
     }
   }
 
@@ -87,6 +87,11 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     // line
     elementSVG('path').cls(`colour-${i}`)
       .attrs({ d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join('') }),
+
+    // ends
+    ...events.filter(({ type }) => SPAWN.test(type) || END.test(type))
+      .map(({ type, pos }) => ({ pos, dir: END.test(type) ? 1 : -1 })).map(({ pos, dir }) => elementSVG('path').cls(`colour-${i}`, 'fill')
+        .attrs({ d: `M${-UNIT_X * depth - 2},${scale(pos) + (GAPSIZE + 1) * dir} v${-(GAPSIZE - 1) * dir} l2,${-2 * dir} l2,${2 * dir} v${(GAPSIZE - 1) * dir} z` })),
 
     // commits
     ...events.filter(({ λ, Λ }) => λ || Λ).map(({ Λ, pos }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`)

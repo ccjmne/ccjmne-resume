@@ -86,9 +86,15 @@ footer {
   path:not(.label path) {
     fill:         none;
     stroke-width: 4px;
+    stroke: var(--colour);
 
     &.thin {
       stroke-width: 2px;
+    }
+
+    &.fill {
+      fill: var(--colour);
+      stroke: none;
     }
 
     $branch-colours: (
@@ -102,11 +108,11 @@ footer {
 
     @for $i from 0 through length($branch-colours) - 1 {
       &.colour-#{$i} {
-        stroke: nth($branch-colours, $i + 1);
+        --colour: #{nth($branch-colours, $i + 1)};
       }
 
       &.colour-accent {
-        stroke: color.adjust($verdigris, $lightness: -20%),
+        --colour: #{color.adjust($verdigris, $lightness: -20%)};
       }
     }
   }
