@@ -156,6 +156,7 @@ article.highlight {
     'numbers'  auto / 1fr;
 
   [grid-area=numbers] {
+    margin-top:         .2em;
     display:            flex;
     flex-direction:     row;
     justify-content:    end;
