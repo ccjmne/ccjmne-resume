@@ -3,14 +3,17 @@ import { elementSVG } from './easy-htmlelement'
 
 /**
  * Generates the `d` attribute for a `path` SVG element that draws a rhombus.
+ *
+ * The helicity to draw it with may be specified, so as to work with `'nonzero'` `fill-rule`.
+ * See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule#nonzero
+ *
  * Overwrites cursor position.
- * @param x abscissa of the rhombus's centre
- * @param y ordinate of the rhombus's centre
- * @param diag Diagonal of the rhombus
  */
-export function rhombusPath({ x, y, diag }: { x: number, y: number, diag: number }): string {
+export function rhombusPath({ x, y, diag, clockwise = true }: { x: number, y: number, diag: number, clockwise?: boolean }): string {
   const r = diag / 2
-  return `M${x},${y} m0,${-r} l${r},${r} l${-r},${r} l${-r},${-r} l${r},${-r} z`
+  return clockwise
+    ? `M${x},${y} m0,${-r} l${r},${r} l${-r},${r} l${-r},${-r} l${r},${-r} z`
+    : `M${x},${y} m0,${-r} l${-r},${r} l${r},${r} l${r},${-r} l${-r},${-r} z`
 }
 
 // See https://stackoverflow.com/a/19303725
