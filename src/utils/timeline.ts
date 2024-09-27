@@ -57,7 +57,7 @@ function compute(timeline: string[]): Branch[] {
 
 const UNIT_X   = 18 // TODO: get from scss
 const TURNSIZE = 10
-const GAPSIZE  = 8
+const GAPSIZE  = 6
 
 function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
   function handleEvent({ type, pos }: Event): string {
@@ -67,6 +67,7 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
       case MERGE.test(type):
         return `V${scale(pos) + 10} a${TURNSIZE},${TURNSIZE} 0 0,1 ${+TURNSIZE},${-TURNSIZE} h${+(UNIT_X * type.length - TURNSIZE)}`
       case HIGHLIGHT.test(type):
+        return `V${scale(pos) + 10} m0,-20`
       case MILESTONE.test(type):
       case CROSS.test(type):
         return `V${scale(pos) + GAPSIZE / 2} m0,${-GAPSIZE}`
@@ -79,28 +80,43 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
   }
 
   // λ is MILESTONE, Λ is HIGHLIGHT
-  function preprocess({ events, depth }: Branch): { depth: number, events: (Event & { λ: boolean, Λ: boolean })[] } {
-    return ({ depth, events: events.map(e => ({ ...e, λ: MILESTONE.test(e.type), Λ: HIGHLIGHT.test(e.type) })) })
+  function preprocess({ events, depth }: Branch): { depth: number, x: number, events: (Event & { y: number, λ: boolean, Λ: boolean })[] } {
+    return ({ depth, x: -UNIT_X * depth, events: events.map(e => ({ ...e, y: scale(e.pos), λ: MILESTONE.test(e.type), Λ: HIGHLIGHT.test(e.type) })) })
   }
 
-  return branches.map(preprocess).flatMap(({ depth, events }, i) => [
+  return [
+    elementSVG('defs').content(elementSVG('linearGradient').attrs({ id: 'milestone-gradient' }).content(
+      elementSVG('stop').attrs({ offset: '0%' }),
+      elementSVG('stop').attrs({ offset: '30%' }),
+      elementSVG('stop').attrs({ offset: '100%' }),
+    )),
+  ].concat(branches.map(preprocess).flatMap(({ depth, events, x }, i) => [
     // line
-    elementSVG('path').cls(`colour-${i}`)
-      .attrs({ d: `M${-UNIT_X * depth},${scale(events[0]!.pos)}` + events.map(handleEvent).join('') }),
+    elementSVG('path').cls(`colour-${i}`).attrs({ d: `M${x},${events[0].y}` + events.map(handleEvent).join('') }),
 
     // ends
     ...events.filter(({ type }) => SPAWN.test(type) || END.test(type))
-      .map(({ type, pos }) => ({ pos, dir: END.test(type) ? 1 : -1 })).map(({ pos, dir }) => elementSVG('path').cls(`colour-${i}`, 'fill')
-        .attrs({ d: `M${-UNIT_X * depth - 2},${scale(pos) + (GAPSIZE + 1) * dir} v${-(GAPSIZE - 1) * dir} l2,${-2 * dir} l2,${2 * dir} v${(GAPSIZE - 1) * dir} z` })),
+      .map(({ type, y }) => ({ y, dir: END.test(type) ? 1 : -1 }))
+      .map(({ y, dir }) => elementSVG('path').cls(`colour-${i}`, 'fill')
+        .attrs({ d: `M${x - 2},${y + (GAPSIZE + 1) * dir} v${-(GAPSIZE - 1) * dir} l2,${-2 * dir} l2,${2 * dir} v${(GAPSIZE - 1) * dir} z` })),
 
-    // commits
-    ...events.filter(({ λ, Λ }) => λ || Λ).map(({ Λ, pos }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`)
-      .attrs({ d: rhombusPath({ x: -UNIT_X * depth, y: scale(pos), diag: 12 }) })),
+    // milestones
+    ...events.filter(({ λ }) => λ).map(({ y, xsection }) => elementSVG('g').cls(`colour-${i}`).content(
+      elementSVG('path').attrs({ d: rhombusPath({ x, y, diag: 12 }) }),
+      ...depth === xsection - 1 ? [] : [elementSVG('path').cls('thin').attrs({ d: `M${x - (UNIT_X / 2 - 1)},${y} H${-UNIT_X * xsection + UNIT_X / 2}` })],
+    )),
 
-    // pins
-    ...events.filter(({ λ, Λ, xsection }) => (λ && depth < xsection - 1) || Λ).map(({ Λ, pos, xsection }) => elementSVG('path').cls(`colour-${Λ ? 'accent' : i}`, 'thin')
-      .attrs({ d: `M${-UNIT_X * depth + (Λ ? 1 : -1) * (UNIT_X / 2 + 2)},${scale(pos)} H${Λ ? 20 : -UNIT_X * xsection + UNIT_X / 2 + 2}` })),
-  ])
+    // highlights
+    ...events.filter(({ Λ }) => Λ).map(({ y }) => elementSVG('path').cls('colour-accent', 'fill').attrs({
+      d:  rhombusPath({ x, y, diag: 18, clockwise: true })
+        + rhombusPath({ x, y, diag: 6,  clockwise: false })
+        + `M${x + (UNIT_X / 2 - 1)},${y - 1} H20 v2 H${x + (UNIT_X / 2 - 1)} z`
+    })),
+
+    // highlights contouring
+    ...events.filter(({ Λ }) => Λ).map(({ y }) => elementSVG('path').cls(`colour-${i}`, 'fill')
+      .attrs({ d: `M${x - 2},${y - 10} v2 l2,-2 l2,2 v-2 z M${x - 2},${y + 10} v-2 l2,2 l2,-2 v2 z` })),
+  ]))
 }
 
 function labels(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {

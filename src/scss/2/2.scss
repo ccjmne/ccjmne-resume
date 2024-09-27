@@ -83,18 +83,22 @@ footer {
     font-size:  smaller;
   }
 
-  path:not(.label path) {
+  path:not(.label path), g:not(.label g) {
     fill:         none;
+    stroke:       var(--colour);
     stroke-width: 4px;
-    stroke: var(--colour);
 
     &.thin {
       stroke-width: 2px;
     }
 
     &.fill {
-      fill: var(--colour);
+      fill:   var(--colour);
       stroke: none;
+    }
+
+    &.colour-accent {
+      --colour: url(#milestone-gradient);
     }
 
     $branch-colours: (
@@ -110,9 +114,19 @@ footer {
       &.colour-#{$i} {
         --colour: #{nth($branch-colours, $i + 1)};
       }
+    }
+  }
 
-      &.colour-accent {
-        --colour: #{color.adjust($verdigris, $lightness: -20%)};
+  #milestone-gradient {
+    $stops: (
+      color.adjust($verdigris,  $lightness: -10%),
+      color.adjust($yinmn-blue, $lightness: +05%),
+      color.adjust($yinmn-blue, $lightness: -10%),
+    );
+
+    @for $i from 0 through length($stops) - 1 {
+      stop:nth-child(#{$i + 1}) {
+        stop-color: #{nth($stops, $i + 1)};
       }
     }
   }
