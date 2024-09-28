@@ -57,8 +57,9 @@ element(document.body).content(
     section('aboutme').content(element('p').content(identity.aboutme)),
     element('h2').content('Experience'),
     section('experience').content(
-      ...experience.map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience')
-        .content(
+      ...experience
+        .map(({ dates, ...exp }) => ({ ...exp, dates, duration: duration(dates) }))
+        .map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience').content(
           element('h3').at('title').content(title, ' ', element('small')
             .append(lightest('at'), ' ', lighter(company))
             .append(notabene !== undefined ? lightest(` (${notabene})`) : '')),
@@ -85,3 +86,9 @@ document.fonts.ready.then(() => mask.content(
     h:    offsetHeight
   })),
 ))
+
+function duration(dates: string): string {
+  const [from, to] = dates.split(/\s*–\s*/).map(s => /^present$/i.test(s) ? new Date() : new Date(s)).map(d => d.getFullYear() * 12 + d.getMonth())
+  return ([['year', Math.floor((to - from) / 12)], ['month', (to - from) % 12 + 1]] as const)
+    .filter(([, n]) => n).map(([s, n]) => `${n} ${s}${n > 1 ? 's' : ''}`).join(', ')
+}

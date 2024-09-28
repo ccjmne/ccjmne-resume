@@ -154,7 +154,6 @@
   "experience": [
     {
       "dates":    "Nov. 2022 – Present",
-      "duration": "8 months",
       "company":  "[Unite](https://unite.eu/en-global)",
       "location": "Leipzig, Germany",
       "title":    "Software Architect",
@@ -164,7 +163,6 @@
     },
     {
       "dates":    "Dec. 2014 – Present",
-      "duration": "8 years, 6 months",
       "company":  "[NCLS Development](https://www.orca-solution.com/)",
       "location": "Brittany region, France",
       "title":    "Solutions Architect",
@@ -174,7 +172,6 @@
     },
     {
       "dates":    "Dec. 2013 – Dec. 2014",
-      "duration": "1 year, 1 month",
       "company":  "[Propellerhead](https://www.propellerhead.co.nz/)",
       "location": "Auckland, New Zealand",
       "title":    "Software Engineer",
@@ -184,7 +181,6 @@
     },
     {
       "dates":    "Sep. 2012 – Mar. 2013",
-      "duration": "7 months",
       "company":  "[Gaspard Monge Institute](https://igm.univ-gustave-eiffel.fr/)",
       "location": "Paris area, France",
       "title":    "Project Manager",
@@ -193,7 +189,6 @@
     },
     {
       "dates":    "Sep. 2010 – Sep. 2013",
-      "duration": "3 years, 1 month",
       "company":  "[Safran Aircraft Engines](https://www.safran-group.com/companies/safran-aircraft-engines)",
       "location": "Île-de-France, France",
       "title":    "Software Engineer",
@@ -202,7 +197,6 @@
     },
     {
       "dates":    "Sep. 2008 – Sep. 2010",
-      "duration": "2 years, 1 month",
       "company":  "[Site Alpha, Planon group](https://planonsoftware.com/uk/)",
       "location": "Paris area, France",
       "title":    "Assistant Project Manager",
