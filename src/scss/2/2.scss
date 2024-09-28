@@ -170,24 +170,17 @@ article.highlight {
 
   .stat {
     text-align: end;
+
     strong {
       @include bold;
+      @include text-sea;
 
-      // address Chromium issue that may render a line of pixels of the background
-      padding: .1em;
-      margin: -.1em;
+      $font-size: 1.1em;
+      font-size: $font-size;
+      letter-spacing: .3px;
+      line-height: calc(1.0em / $font-size);
 
-      font-family:     Outfit;
-      color:           transparent;
-      background-clip: text;
-      background-image:
-        linear-gradient(
-          .25turn,
-          color.adjust(color.adjust($verdigris, $lightness: -15%), $alpha: -.15),
-          color.adjust(color.adjust($yinmn-blue, $lightness: -05%), $alpha: -.15) 70%,
-          color.adjust($yinmn-blue, $lightness: -15%)
-        ),
-        url('src/assets/caustics.jpg');
+      font-family: Outfit;
     }
   }
 }

@@ -11,19 +11,8 @@ header {
     // address Chromium issue that may render a line of pixels of the background
     padding: 1px;
     margin: -2px;
-
     &.name {
-      background-image:
-        linear-gradient(
-          .60turn,
-          color.adjust(color.adjust($verdigris, $lightness: -15%), $alpha: -.15),
-          color.adjust(color.adjust($yinmn-blue, $lightness: -05%), $alpha: -.15) 70%,
-          color.adjust($yinmn-blue, $lightness: -15%)
-        ),
-        url('src/assets/caustics.jpg');
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 1px;
+      @include text-sea(.60turn);
     }
 
     &.title {
