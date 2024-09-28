@@ -27,13 +27,12 @@ type Branch = {
   events: Event[],
 }
 
-// TODO: Do I need the years?
 // TODO: Support the following (allowing whitespace characters in the pipes):
 //   ★
 // ☆ │
 // │☆│
 // ││★
-const MILESTONE_PARSER = /^(?<year>\d{4}) (?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/s as MatcherWGroups<'year' | 'pipes' | 'label'>
+const MILESTONE_PARSER = /^(?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/s as MatcherWGroups<'year' | 'pipes' | 'label'>
 const [HIGHLIGHT, MILESTONE, NEW, MERGE, SPAWN, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╵/, /╷/, /^┼$/]
 
 function compute(timeline: string[]): Branch[] {
