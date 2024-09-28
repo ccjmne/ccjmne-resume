@@ -4,9 +4,8 @@ header {
   display: flex;
   grid-area: header;
   align-items: center;
-  justify-content: space-around;
-  padding: 15px $default-padding;
-  padding-left: 0;
+  justify-content: space-evenly;
+  padding: 15px 0;
 
   h1 {
     // address Chromium issue that may render a line of pixels of the background

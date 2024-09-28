@@ -6,7 +6,7 @@ import logo from './logo'
 import profile from './profile.json'
 import { type MatchArrayWGroups } from './types'
 
-import { anchor, article, div, element, elementSVG, lighter, lightest, section } from './utils/easy-htmlelement'
+import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
 import { hr, rhombus, titlebar } from './utils/svg-elements'
 
 const { name, homepage } = pkg
@@ -32,7 +32,7 @@ element(document.body).content(
       ...education.map(({ degree, field, highlight }) => article('education').content(
         element('h4').at('degree').content(degree),
         element('h4').at('field').cls('hr').content(lightest(hr({ height: 7, reverse: true })), lighter('in '), field),
-        lighter(highlight).at('highlight'),
+        light(highlight).at('highlight'),
       )),
     ),
     section('endorsments').content(
@@ -40,7 +40,7 @@ element(document.body).content(
       ...endorsments.map(({ from, title, excerpt }) => article('endorsment').content(
         element('h4').at('from').content(from),
         element('h4').at('title').cls('hr').content(lightest(hr({ height: 7, reverse: true })), title),
-        lighter().at('excerpt').content(excerpt),
+        light().at('excerpt').content(excerpt),
       )),
     ),
     element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
@@ -61,10 +61,10 @@ element(document.body).content(
         .map(({ dates, ...exp }) => ({ ...exp, dates, duration: duration(dates) }))
         .map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience').content(
           element('h3').at('title').content(title, ' ', element('small')
-            .append(lightest('at'), ' ', lighter(company))
-            .append(notabene !== undefined ? lightest(` (${notabene})`) : '')),
-          element().at('when').content(`${dates} (${duration})`),
-          element().at('where').content(location),
+            .append(lighter('at'), ' ', light(company).cls('company'))
+            .append(notabene !== undefined ? lighter(` (${notabene})`).cls('notabene') : '')),
+          lighter().at('when').content(`${dates} (${duration})`),
+          lighter().at('where').content(location),
           element('p').at('summary').content(
             abstract,
             element('ol').cls('tags').content(...tags

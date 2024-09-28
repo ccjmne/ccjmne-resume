@@ -12,15 +12,11 @@ aside {
   padding: $default-padding;
   text-align: justify;
   hyphens: auto;
-
-  @media print {
-    & {
-      font-weight: bolder;
-    }
-  }
+  font-weight: 500;
 
   .watermark {
     text-align: center;
+    font-weight: bold;
   }
 
   section#links {
@@ -39,10 +35,7 @@ aside {
     pointer-events: none;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
+  h1, h2, h3, h4 {
     a {
       text-decoration: none;
 

@@ -106,6 +106,10 @@ function make(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElem
   return (content.length === 1 && typeof content[0] !== 'string') ? content[0] : span(...content)
 }
 
+export function light(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return make(...content).cls('light')
+}
+
 export function lighter(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
   return make(...content).cls('lighter')
 }
