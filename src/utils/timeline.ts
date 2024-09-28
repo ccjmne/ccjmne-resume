@@ -83,7 +83,7 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
   }
 
   return [
-    elementSVG('defs').content(elementSVG('linearGradient').attrs({ id: 'milestone-gradient' }).content(
+    elementSVG('defs').content(elementSVG('linearGradient').attrs({ id: 'highlight-gradient' }).content(
       elementSVG('stop').attrs({ offset: '0%' }),
       elementSVG('stop').attrs({ offset: '30%' }),
       elementSVG('stop').attrs({ offset: '100%' }),

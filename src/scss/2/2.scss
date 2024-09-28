@@ -98,7 +98,7 @@ footer {
     }
 
     &.colour-accent {
-      --colour: url(#milestone-gradient);
+      --colour: url(#highlight-gradient);
     }
 
     $branch-colours: (
@@ -117,7 +117,7 @@ footer {
     }
   }
 
-  #milestone-gradient {
+  #highlight-gradient {
     $stops: (
       color.adjust($verdigris,  $lightness: -10%),
       color.adjust($yinmn-blue, $lightness: +05%),
