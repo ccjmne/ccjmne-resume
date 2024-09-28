@@ -46,10 +46,6 @@ export function rhombus(height = 9): EasyHTMLElement {
 export function hr({ height = 9, reverse = false, tail = 'long' }: { height?: number, reverse?: boolean, tail?: 'short' | 'long' } = {}): EasyHTMLElement {
   const [gap, d1, d2, d3] = [height / 4, height, height * .75, height * .5]
 
-  function dasharray(base: number, segments: number): string {
-    return [...Array(segments).keys()].map(x => base - Math.cos(Math.PI / 2 * (x + 1) / (segments + 1)) * base).reverse().join(' 4 ') + ' 9999'
-  }
-
   return elementSVG()
     .cls('lighter')
     .attrs({ viewBox: `-1 -1 ${height + 2} ${height + 2}`, preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`, height })
@@ -61,7 +57,7 @@ export function hr({ height = 9, reverse = false, tail = 'long' }: { height?: nu
               ${rhombusPath({ x: d1 + d2 / 2 + gap,              y: 0, diag: d2 })}
               ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.5 * gap, y: 0, diag: d3 })}`
         }),
-        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }).styles({ 'stroke-dasharray': tail === 'short' ? dasharray(32, 4) : 9999 }),
+        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }).styles({ 'stroke-dasharray': tail === 'short' ? `20 4 10 4 5 4 2 9999` : 9999 }),
       ),
     )
 }

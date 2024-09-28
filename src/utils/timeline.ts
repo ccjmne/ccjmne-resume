@@ -2,7 +2,6 @@ import { MatcherWGroups } from "types"
 import EasyHTMLElement, { element, elementSVG } from "./easy-htmlelement"
 import { rhombusPath } from "./svg-elements"
 
-// TODO: return HTML elements correctly positioned instead of SVG Text nodes for labels
 export function render(timeline: string[], pivots: number[], height: number): [graph: EasyHTMLElement, labels: Array<EasyHTMLElement>] {
   const domain   = [0, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length - 1]
   const range    = [0, ...pivots, height]
@@ -55,24 +54,24 @@ function compute(timeline: string[]): Branch[] {
   return branches
 }
 
-const UNIT_X   = 18 // TODO: get from scss
+const UNIT_X   = 18
 const TURNSIZE = 10
 const GAPSIZE  = 6
 
 function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
-  function handleEvent({ type, pos }: Event): string {
+  function handleEvent({ type, y }: Event & { y: number, λ: boolean, Λ: boolean }): string {
     switch (true) {
       case NEW.test(type):
         return `m${UNIT_X * type.length},0 h${-(UNIT_X * type.length - TURNSIZE)} a${TURNSIZE},${TURNSIZE} 0 0,1 ${-TURNSIZE},${-TURNSIZE}`
       case MERGE.test(type):
-        return `V${scale(pos) + 10} a${TURNSIZE},${TURNSIZE} 0 0,1 ${+TURNSIZE},${-TURNSIZE} h${+(UNIT_X * type.length - TURNSIZE)}`
+        return `V${y + 10} a${TURNSIZE},${TURNSIZE} 0 0,1 ${+TURNSIZE},${-TURNSIZE} h${+(UNIT_X * type.length - TURNSIZE)}`
       case HIGHLIGHT.test(type):
-        return `V${scale(pos) + 10} m0,-20`
+        return `V${y + 10} m0,-20`
       case MILESTONE.test(type):
       case CROSS.test(type):
-        return `V${scale(pos) + GAPSIZE / 2} m0,${-GAPSIZE}`
+        return `V${y + GAPSIZE / 2} m0,${-GAPSIZE}`
       case END.test(type):
-        return `V${scale(pos) + GAPSIZE}`
+        return `V${y + GAPSIZE}`
       case SPAWN.test(type):
       default:
         return `m0,${-GAPSIZE}`
