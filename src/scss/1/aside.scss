@@ -12,11 +12,10 @@ aside {
   padding: $default-padding;
   text-align: justify;
   hyphens: auto;
-  font-weight: 500;
 
   .watermark {
+    @include bold;
     text-align: center;
-    font-weight: bold;
   }
 
   section#links {

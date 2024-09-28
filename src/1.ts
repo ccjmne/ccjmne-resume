@@ -60,8 +60,8 @@ element(document.body).content(
       ...experience
         .map(({ dates, ...exp }) => ({ ...exp, dates, duration: duration(dates) }))
         .map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience').content(
-          element('h3').at('title').content(title, ' ', element('small')
-            .append(lighter('at'), ' ', light(company).cls('company'))
+          element('h3').at('title').content(title, ' ', element('small').cls('thin')
+            .append(lighter('at'), ' ', light(company).cls('bolder'))
             .append(notabene !== undefined ? lighter(` (${notabene})`).cls('notabene') : '')),
           lighter().at('when').content(`${dates} (${duration})`),
           lighter().at('where').content(location),

@@ -171,12 +171,13 @@ article.highlight {
   .stat {
     text-align: end;
     strong {
+      @include bold;
+
       // address Chromium issue that may render a line of pixels of the background
       padding: .1em;
       margin: -.1em;
 
       font-family:     Outfit;
-      font-weight:     800;
       color:           transparent;
       background-clip: text;
       background-image:
