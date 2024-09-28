@@ -38,44 +38,6 @@
     "☆   Start using [Debian](https://www.debian.org/)                                                  ",
     "╵                                                                                                  "
   ],
-  "discarded-milestones": [
-    { "year": 2010, "what": "Begin mentorship of a university apprentice" },
-    { "year": 2014, "what": "Start of my self-employed activity" },
-    { "year": 0, "what": "Contribute code to jOOQ" },
-    { "year": 0, "what": "Contribute code to PolymerElements" },
-    { "year": 0, "what": "Contribute code to Atom" },
-    { "year": 0, "what": "Contribute code to Sass Tools" },
-    { "year": 0, "what": "Contribute code to DefinitelyTyped" },
-    { "year": 0, "what": "Contribute effective bug report to VSCode" },
-    { "year": 0, "what": "Contribute effective bug report to Webpack" },
-    { "year": 0, "what": "Contribute documentation to ReactiveX" },
-    { "year": 0, "what": "Contribute code to magic-regexp" },
-    { "year": 0, "what": "Start contributing to TC39" },
-    { "year": 2023, "what": "Start using Neovim" },
-    { "year": 2014, "what": "Switch daily driver to Ubuntu" },
-    { "year": 2023, "what": "Switch daily driver to Arch" },
-    { "year": 2008, "what": "Switch daily driver to Debian" },
-    { "year": 2022, "what": "Switch most of my services to IPv6" },
-    { "year": 2023, "what": "Switch my containers and cloud resources to ARM architecture" },
-    { "year": 0, "what": "Create visual playground for remarkable properties of triangles" },
-    { "year": 0, "what": "Create PDF generation Web service" },
-    { "year": 0, "what": "Create web-based layout designer for Anno 1800" },
-    { "year": 0, "what": "Create browser extension for enhanced Google Search nagivation" },
-    { "year": 0, "what": "Create app setting artistic live 3D rendering of the Earth as desktop wallpaper" },
-    { "year": 0, "what": "+Java +Tomcat +PostgreSQL +AWS EC2 +AWS RDS +AWS Route53 +AWS Lambda" },
-    { "year": 0, "what": "+AWS API Gateway +AWS IAM +AWS CloudFormation +AWS BeanStalk +AWS SAM +AWS Aurora" },
-    { "year": 0, "what": "+Google Cloud Computing" },
-    { "year": 0, "what": "+AWS SES +AWS SNS +AWS SQS" },
-    { "year": 0, "what": "+C++ +Qt" }
-  ],
-  "discarded-highlights": [
-    {
-      "dates":    "2019",
-      "headline": "Built a cross-filtering dashboard for insurance analytics",
-      "content":  "I created a system that makes clever use of data sampling and visualisation for a government-affiliated organisation to analyse trends in unemployment insurance contributions",
-      "numbers":  ["loads over *170 million* records (as of 2019)", "in less than *300ms*"]
-    }
-  ],
   "highlights": [
     {
       "dates":    "2024",
