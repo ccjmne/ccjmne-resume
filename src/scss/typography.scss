@@ -1,13 +1,19 @@
 @use 'sass:color';
-@import 'https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Cinzel:wght@500&family=Outfit:wght@100..900&display=swap';
-@import './spacing';
+// TODO: Download and embed font
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Outfit:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&display=swap');
 @import './colours';
+
+@font-face {
+  font-family: 'Constantine Regular';
+  src: url('assets/Constantine.ttf') format('woff');
+}
 
 body {
   color: $light-fg;
   font-family: Raleway, Montserrat, HelveticaNeue, Helvetica, Arial, sans-serif;
   font-size: 10pt;
-  letter-spacing: .5px;
+  letter-spacing: .3px;
 }
 
 .inverse {
@@ -15,14 +21,26 @@ body {
   font-weight: 500; // slightly bolder to account for lesser legibility from inversed colours
 }
 
-h1,
-h2,
-aside h3 {
-  font-family: Cinzel, serif;
+h1, h2, h3, h4 {
+  padding: 0;
 }
 
-h4 {
+h1, h2 {
+  font-family: "Constantine Regular", serif;
+}
+
+h3 {
   margin: 0;
+}
+
+.cinzel-smallcaps {
+  font-weight: 600; // force faux-bold, since we only request the native 400
+  font-family: 'Cinzel Decorative';
+  letter-spacing: .15ch;
+
+  .small {
+    font-size: .9em;
+  }
 }
 
 .hr {
@@ -57,10 +75,15 @@ br {
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
   text-underline-offset: 2px;
-  text-decoration-color: $light-fg-2;
 
-  .inverse & {
-    text-decoration-color: $dark-fg-2;
+  &.no-underline, .no-underline & {
+    text-decoration: none;
+
+    > svg {
+      // bump the 'external-link' icon a bit higher to account for the absence of underline
+      position: relative;
+      top: -1px;
+    }
   }
 
   > svg {
@@ -80,9 +103,9 @@ a {
   background-image:
     linear-gradient(
       $turn,
-      color.adjust($verdigris, $lightness: -15%, $alpha: -.15),
-      color.adjust($yinmn-blue, $lightness: -05%, $alpha: -.15) 70%,
-      color.adjust($yinmn-blue, $lightness: -15%)
+      color.adjust($verdigris,  $lightness: -15%, $alpha: -.15)   0%,
+      color.adjust($yinmn-blue, $lightness: -05%, $alpha: -.15)  70%,
+      color.adjust($yinmn-blue, $lightness: -15%)               100%,
     ),
     url('src/assets/caustics.jpg');
 }
