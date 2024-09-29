@@ -175,12 +175,17 @@ article.highlight {
       @include bold;
       @include text-sea;
 
+      position: relative;
+      top: .5px;
+
       $font-size: 1.1em;
       font-size: $font-size;
-      letter-spacing: .3px;
       line-height: calc(1.0em / $font-size);
+      letter-spacing: .3px;
 
-      font-family: Outfit;
+      .num {
+        font-family: Outfit;
+      }
     }
   }
 }

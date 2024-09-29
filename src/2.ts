@@ -1,4 +1,4 @@
-import { article, div, element, elementSVG, lightest, section, span } from "utils/easy-htmlelement"
+import EasyHTMLElement, { article, div, element, elementSVG, lightest, section, span } from "utils/easy-htmlelement"
 
 import './scss/2/2.scss'
 import profile from './profile.json'
@@ -26,10 +26,7 @@ element(document.body).content(
           element('p').content(content).at('content'),
           div(
             lightest(hr({ height: 9, reverse: true, tail: 'short' })),
-            ...numbers
-              .map(num => (/^(?<pre>.*)[*](?<em>.*)[*](?<post>.*)$/s.exec(num) as MatchArrayWGroups<'pre' | 'em' | 'post'>).groups)
-              .map(({ pre, em, post }) => span(pre, element('strong').content(em), post).cls('stat'))
-              .flatMap(em => [lightest(rhombus(6)), em]).slice(1)
+            ...numbers.map(parseStat).flatMap(em => [lightest(rhombus(6)), em]).slice(1)
           ).at('numbers'),
         ))
       ),
@@ -69,3 +66,13 @@ document.fonts.ready.then(async function () {
     titlebar({ seed: 42, x: 500, y: ttop, h: theight, align: 'right', separator: false }),
   )
 })
+
+function parseStat(stat: string): EasyHTMLElement {
+  function strong(num?: string): (string | EasyHTMLElement)[] {
+    const [l, r] = em.split(num!)
+    return num ? [l, span(num).cls('num'), r] : [em]
+  }
+
+  const { pre, em, post } = (/^(?<pre>.*)[*](?<em>.*?)[*](?<post>.*)$/s.exec(stat) as MatchArrayWGroups<'pre' | 'em' | 'post'>)!.groups
+  return span(pre, element('strong').content(...strong(/(?<=\s|^)((?:\d+,)*\d+%?)(?=\s|$)/.exec(em)?.[0])), post).cls('stat')
+}

@@ -70,6 +70,10 @@ a {
 }
 
 @mixin text-sea($turn: .25turn) {
+  // address Chromium issue that may render a line of pixels of the background
+  padding: 1px;
+  margin: -1px;
+
   background-clip: text;
   color: transparent;
   letter-spacing: 1px;

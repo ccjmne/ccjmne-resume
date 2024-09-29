@@ -8,14 +8,12 @@ header {
   padding: 15px 0;
 
   h1 {
-    // address Chromium issue that may render a line of pixels of the background
-    padding: 1px;
-    margin: -2px;
     &.name {
       @include text-sea(.60turn);
     }
 
     &.title {
+      margin: 0;
       @include thin;
       font-size: 1.7em;
       line-height: 80%;
