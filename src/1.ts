@@ -6,7 +6,7 @@ import logo from './logo'
 import profile from './profile.json'
 import { type MatchArrayWGroups } from './types'
 
-import { anchor, article, cinzelify, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
+import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
 import { hr, rhombus, titlebar } from './utils/svg-elements'
 
 const { name, homepage } = pkg
@@ -24,11 +24,11 @@ element(document.body).content(
       ]),
     ),
     section('top-skills').content(
-      element('h2').cls('hr').content(cinzelify('Top Skills'), hr()),
+      element('h2').cls('hr').content('Top Skills', hr()),
       article('top-skills').content(...skills.map(line => div(...line.flatMap(skill => [rhombus(8), skill]).slice(1)))),
     ),
     section('education').content(
-      element('h2').cls('hr').content(cinzelify('Education'), hr()),
+      element('h2').cls('hr').content('Education', hr()),
       ...education.map(({ degree, field, highlight }) => article('education').content(
         element('h3').at('degree').content(degree),
         element('h3').at('field').cls('hr').content(lightest(hr({ height: 7, reverse: true })), lighter('in '), field),
@@ -36,7 +36,7 @@ element(document.body).content(
       )),
     ),
     section('endorsments').content(
-      element('h2').cls('hr').content(cinzelify('Endorsments'), hr()),
+      element('h2').cls('hr').content('Endorsments', hr()),
       ...endorsments.map(({ from, title, excerpt }) => article('endorsment').content(
         element('h3').at('from').cls('no-underline').content(from),
         element('h3').at('title').cls('hr').content(lightest(hr({ height: 7, reverse: true })), title),
@@ -53,9 +53,9 @@ element(document.body).content(
       ),
       logo().cls('logo'),
     ),
-    element('h2').content(cinzelify('About Me')),
+    element('h2').content('About Me'),
     section('aboutme').content(element('p').content(identity.aboutme)),
-    element('h2').content(cinzelify('Experience')),
+    element('h2').content('Experience'),
     section('experience').content(
       ...experience
         .map(({ dates, ...exp }) => ({ ...exp, dates, duration: duration(dates) }))

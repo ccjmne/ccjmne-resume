@@ -13,8 +13,11 @@ aside {
   text-align: justify;
   hyphens: auto;
 
+  a {
+    text-decoration-color: $dark-fg-1;
+  }
+
   .watermark {
-    @include bold;
     text-align: center;
   }
 

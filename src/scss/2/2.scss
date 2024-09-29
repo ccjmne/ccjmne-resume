@@ -4,6 +4,7 @@
 @import '../spacing.scss';
 
 body {
+  @include bg-sea(-90deg);
   display: grid;
   width:   100vw;
   height:  100vh;
@@ -11,14 +12,6 @@ body {
   grid-template:
     'main'   1fr
     'footer' auto / 1fr;
-  background-image:
-    linear-gradient(
-      .75turn,
-      color.adjust(color.adjust($verdigris, $lightness: -25%), $alpha: -.15),
-      color.adjust(color.adjust($yinmn-blue, $lightness: -15%), $alpha: -.15) 70%,
-      color.adjust($yinmn-blue, $lightness: -25%)
-    ),
-    url('src/assets/caustics.jpg');
 
   &::before {
     content: '';
@@ -47,12 +40,11 @@ main {
     'graph highlights' 1fr / 34% 1fr;
 
   h2 {
-    margin:             0;
-    padding:            5px $default-padding;
+    margin:     0;
+    padding:    5px $default-padding;
     padding-inline-end: 0;
-    text-align:         right;
-    letter-spacing:     .2ch;
-    color:              $light-bg;
+    text-align: right;
+    color:      $light-bg;
   }
 }
 
@@ -172,8 +164,8 @@ article.highlight {
     text-align: end;
 
     strong {
-      @include bold;
-      @include text-sea;
+      @include text-sea(90deg, true);
+      font-weight: 800;
 
       position: relative;
       top: .5px;

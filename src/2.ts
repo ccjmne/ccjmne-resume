@@ -1,4 +1,4 @@
-import EasyHTMLElement, { article, cinzelify, div, element, elementSVG, lightest, section, span } from "utils/easy-htmlelement"
+import EasyHTMLElement, { article, div, element, elementSVG, lightest, section, span } from "utils/easy-htmlelement"
 
 import './scss/2/2.scss'
 import profile from './profile.json'
@@ -18,7 +18,7 @@ element(document.body).content(
     graph.at('graph'),
     element().at('highlights').content(
       elementSVG().attrs({ width: 0, height: 0 }).content(elementSVG('defs').content(mask)),
-      element('h2').content(cinzelify('Career Highlights')).at('title'),
+      element('h2').content('Career Highlights').at('title'),
       section('highlights').content(
         ...highlights.map(({ content, dates, numbers, headline }) => article('highlight').content(
           element('h3').content(headline).at('headline'),

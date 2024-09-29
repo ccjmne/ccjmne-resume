@@ -17,3 +17,14 @@ $dark-fg-3:   hsl(0deg 0% 40%);
 // See https://coolors.co/ccbcb1-6b5548-4abbc6-2e5681-595657-e3e2e5
 $verdigris:   hsl(185deg 52% 53% / 100%);
 $yinmn-blue:  hsl(211deg 47% 34% / 100%);
+
+@mixin bg-sea($turn: 180deg, $bright: false) {
+  background-image:
+    linear-gradient(
+      $turn,
+      color.adjust($verdigris,  $lightness: if($bright, -15%, -25%), $alpha: -.15)   0%,
+      color.adjust($yinmn-blue, $lightness: if($bright, -05%, -15%), $alpha: -.15)  80%,
+      color.adjust($yinmn-blue, $lightness: if($bright, -15%, -25%))               100%,
+    ),
+    url('assets/caustics.jpg');
+}

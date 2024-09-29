@@ -1,12 +1,26 @@
 @use 'sass:color';
-// TODO: Download and embed font
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Outfit:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&display=swap');
 @import './colours';
 
 @font-face {
-  font-family: 'Constantine Regular';
-  src: url('assets/Constantine.ttf') format('woff');
+  font-family:  Raleway;
+  src:          url('assets/Raleway-VariableFont_wght.ttf') format('woff');
+  font-weight:  400 500 600 700 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family:  Cinzel;
+  src:          url('assets/Cinzel-VariableFont_wght.ttf') format('woff');
+  font-weight:  400;
+  font-display: swap;
+}
+
+@font-face {
+  // For numbers in career highlights' stats
+  font-family:  Outfit;
+  src:          url('assets/Outfit-ExtraBold.ttf') format('woff');
+  font-weight:  700;
+  font-display: swap;
 }
 
 body {
@@ -21,26 +35,22 @@ body {
   font-weight: 500; // slightly bolder to account for lesser legibility from inversed colours
 }
 
+// Headings --------------------------------------------------------------------
+
 h1, h2, h3, h4 {
   padding: 0;
 }
 
 h1, h2 {
-  font-family: "Constantine Regular", serif;
+  font-family: Cinzel, serif;
+}
+
+h2 {
+  letter-spacing: .2ch;
 }
 
 h3 {
   margin: 0;
-}
-
-.cinzel-smallcaps {
-  font-weight: 600; // force faux-bold, since we only request the native 400
-  font-family: 'Cinzel Decorative';
-  letter-spacing: .15ch;
-
-  .small {
-    font-size: .9em;
-  }
 }
 
 .hr {
@@ -48,6 +58,8 @@ h3 {
   align-items: baseline;
   gap: 0 .5ch;
 }
+
+// Paragraphs ------------------------------------------------------------------
 
 p {
   margin: 0;
@@ -92,22 +104,13 @@ a {
   }
 }
 
-@mixin text-sea($turn: .25turn) {
-  // address Chromium issue that may render a line of pixels of the background
-  padding: 1px;
-  margin: -1px;
+// Miscellaneous ---------------------------------------------------------------
 
+@mixin text-sea($turn: .25turn, $bright: false) {
+  @include bg-sea($turn, $bright);
+  letter-spacing:  1px;
   background-clip: text;
-  color: transparent;
-  letter-spacing: 1px;
-  background-image:
-    linear-gradient(
-      $turn,
-      color.adjust($verdigris,  $lightness: -15%, $alpha: -.15)   0%,
-      color.adjust($yinmn-blue, $lightness: -05%, $alpha: -.15)  70%,
-      color.adjust($yinmn-blue, $lightness: -15%)               100%,
-    ),
-    url('src/assets/caustics.jpg');
+  color:           transparent;
 }
 
 @mixin thin   { font-weight: 400; }
