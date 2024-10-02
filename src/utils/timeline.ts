@@ -2,9 +2,14 @@ import { MatcherWGroups } from "types"
 import EasyHTMLElement, { element, elementSVG } from "./easy-htmlelement"
 import { rhombusPath } from "./svg-elements"
 
+const UNIT_X   = 18
+const TURNSIZE = 10
+const GAPSIZE  = 6
+const PADDING  = 25 // TODO: Obtain from SCSS
+
 export function render(timeline: string[], pivots: number[], height: number): [graph: EasyHTMLElement, labels: Array<EasyHTMLElement>] {
-  const domain   = [0, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length - 1]
-  const range    = [0, ...pivots, height]
+  const domain   = [0, 1, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length - 2, timeline.length - 1]
+  const range    = [0, PADDING + GAPSIZE * 3 / 2, ...pivots, height - (PADDING + GAPSIZE * 3 / 2), height]
   const map      = zip(domain, range)
   const segments = zip(map.slice(0, -1), map.slice(1))
 
@@ -53,12 +58,8 @@ function compute(timeline: string[]): Branch[] {
   return branches
 }
 
-const UNIT_X   = 18
-const TURNSIZE = 10
-const GAPSIZE  = 6
-
 function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLElement[] {
-  function handleEvent({ type, y }: Event & { y: number, λ: boolean, Λ: boolean }): string {
+  function handleEvent({ type, y, pos }: Event & { y: number, λ: boolean, Λ: boolean }): string {
     switch (true) {
       case NEW.test(type):
         return `m${UNIT_X * type.length},0 h${-(UNIT_X * type.length - TURNSIZE)} a${TURNSIZE},${TURNSIZE} 0 0,1 ${-TURNSIZE},${-TURNSIZE}`
@@ -70,10 +71,10 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
       case CROSS.test(type):
         return `V${y + GAPSIZE / 2} m0,${-GAPSIZE}`
       case END.test(type):
-        return `V${y + GAPSIZE}`
+        return `V${y}`
       case SPAWN.test(type):
       default:
-        return `m0,${-GAPSIZE}`
+        return `M${0},${scale(pos - 1) + GAPSIZE / 2}`
     }
   }
 
@@ -92,11 +93,13 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     // line
     elementSVG('path').cls(`colour-${i}`).attrs({ d: `M${x},${events[0].y}` + events.map(handleEvent).join('') }),
 
-    // ends
-    ...events.filter(({ type }) => SPAWN.test(type) || END.test(type))
-      .map(({ type, y }) => ({ y, dir: END.test(type) ? 1 : -1 }))
-      .map(({ y, dir }) => elementSVG('path').cls(`colour-${i}`, 'fill')
-        .attrs({ d: `M${x - 2},${y + (GAPSIZE + 1) * dir} v${-(GAPSIZE - 1) * dir} l2,${-2 * dir} l2,${2 * dir} v${(GAPSIZE - 1) * dir} z` })),
+    // spawn
+    ...events.filter(({ type }) => SPAWN.test(type)).flatMap(({ pos, y }) => [
+      elementSVG('linearGradient').cls(`colour-${i}`)
+        .attrs({ gradientUnits: 'userSpaceOnUse', id: 'branch-spawn', x1: 0, x2: 0, y1: scale(pos - 1), y2: y })
+        .content(elementSVG('stop').attrs({ offset: .25 }), elementSVG('stop').attrs({ offset: 1 })),
+      elementSVG('path').styles({ stroke: 'url(#branch-spawn)' }).attrs({ d: `M${x},${scale(pos - 1) + GAPSIZE / 2} V${y + 1}` })
+    ]),
 
     // milestones
     ...events.filter(({ λ }) => λ).map(({ y, xsection }) => elementSVG('g').cls(`colour-${i}`).content(
@@ -106,8 +109,8 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
 
     // highlights
     ...events.filter(({ Λ }) => Λ).map(({ y }) => elementSVG('path').cls('colour-accent', 'fill').attrs({
-      d:  rhombusPath({ x, y, diag: 18, clockwise: true })
-        + rhombusPath({ x, y, diag: 6,  clockwise: false })
+      d:  rhombusPath({ x, y, diag: GAPSIZE * 3, clockwise: true })
+        + rhombusPath({ x, y, diag: GAPSIZE,     clockwise: false })
         + `M${x + (UNIT_X / 2 - 1)},${y - 1} H20 v2 H${x + (UNIT_X / 2 - 1)} z`
     })),
 
