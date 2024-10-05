@@ -42,7 +42,7 @@
     {
       "dates":    "2024",
       "headline": "Redesigned dysfunctional payment workflow",
-      "content":  "I overhauled the procedure and architecture of the credit card payment system at a [major e-procurement platform](https://unite.eu/) regarded as unmaintainable for its ongoing bugs; and provided a working implementation that purged accidental complexity and addressed vulnerabilities.",
+      "content":  "I overhauled the procedure and architecture of the credit card payment system at a [major e-procurement platform](https://unite.eu/), regarded as unmaintainable for its ongoing bugs; and provided a working implementation that purged accidental complexity and addressed vulnerabilities.",
       "numbers":  ["reduces code base\nby about *96%*", "handles *millions of euros*\nin transactions yearly", "*11,954* fewer\nlines of code"]
     },
     {
@@ -53,20 +53,20 @@
     },
     {
       "dates":    "2020",
-      "headline": "Revamped statistics-computing engine for performance",
+      "headline": "Resolved performance bottleneck in data computation engine",
       "content":  "I proposed to [better leverage a customer's database engine](https://blog.jooq.org/truth-first-or-why-you-should-mostly-implement-database-first-designs/) and pair intricate [SQL queries](https://en.wikipedia.org/wiki/SQL) with savvy and straightforward API design to break the impasse of a solution having far outgrown its original scope.",
       "numbers":  ["from about 15 seconds\ndown to *80 milliseconds*", "entirely eliminated\nthe *reliance on caching*"]
     },
     {
       "dates":    "2016",
-      "headline": "Awarded by the Innov'Action committee",
+      "headline": "Awarded public tender through innovation partnership",
       "content":  "I designed a bespoke [EHS solution](https://en.wikipedia.org/wiki/Environment,_health_and_safety) lauded by a [digital incubator of the French government](https://beta.gouv.fr/) and was funded for its implementation and continuous development.",
-      "numbers":  ["used by over *9,000*\ngovernment employees", "ongoing partnership of\nnearly *9 years*"]
+      "numbers":  ["used by over *9,000*\ngovernment employees", "ongoing partnership\nof nearly *9 years*"]
     },
     {
       "dates":    "2014",
       "headline": "Built data contextualisation protocol for the [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web)",
-      "content":  "I co-designed and implemented a system for [Auckland Museum](https://www.aucklandmuseum.com/)'s collections curator to map out the semantic attributes of the ever-growing data repository of their [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform.",
+      "content":  "I jointly designed as well as implemented the procedure and supporting system by which [Auckland Museum](https://www.aucklandmuseum.com/)'s collections curator could map out the semantic attributes of their [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform's ever-growing digital archive.",
       "numbers":  ["implementing for the *Web 3.0*\nover a decade ago", "highlighted\nby *the W3C*"]
     },
     {
