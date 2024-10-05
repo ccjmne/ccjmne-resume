@@ -43,13 +43,13 @@
       "dates":    "2024",
       "headline": "Redesigned dysfunctional payment workflow",
       "content":  "I overhauled the procedure and architecture of the credit card payment system at a [major e-procurement platform](https://unite.eu/), regarded as unmaintainable for its ongoing bugs; and provided a working implementation that purged accidental complexity and addressed vulnerabilities.",
-      "numbers":  ["reduces code base\nby about *96%*", "handles *millions of euros*\nin transactions yearly", "*11,954* fewer\nlines of code"]
+      "numbers":  ["reduced code base\nby about *96%*", "handles *millions of euros*\nin transactions yearly", "*11,954* fewer\nlines of code"]
     },
     {
       "dates":    "2023",
       "headline": "Appropriated and patched legacy system under tight deadline",
       "content":  "I stepped up to acclimate to a crucial piece of our system and amend it to address the threat of its imminent inoperability, in response to the unanticipated termination of a longstanding partner's business operation.",
-      "numbers":  ["under *2 weeks*\nof lead time", "taking over a project with\nover *17 years* of history"]
+      "numbers":  ["under *2 weeks*\nof lead time", "took over a project with\nover *17 years* of history"]
     },
     {
       "dates":    "2020",
@@ -67,7 +67,7 @@
       "dates":    "2014",
       "headline": "Built data contextualisation protocol for the [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web)",
       "content":  "I jointly designed as well as implemented the procedure and supporting system by which [Auckland Museum](https://www.aucklandmuseum.com/)'s collections curator could map out the semantic attributes of their [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform's ever-growing digital archive.",
-      "numbers":  ["implementing for the *Web 3.0*\nover a decade ago", "highlighted\nby *the W3C*"]
+      "numbers":  ["implemented the *Web 3.0*\nover a decade ago", "highlighted\nby *the W3C*"]
     },
     {
       "dates":    "2012",
