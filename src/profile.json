@@ -119,7 +119,7 @@
       "title":    "Software Architect",
       "notabene": "remote position",
       "abstract": "Supporting the complete reinvention of a B2B e-procurement platform grossing 500 million euros a year.",
-      "tags":     ["*Software Architecture", "*DevOps", "AWS Platform", "Java", "Spring Framework"]
+      "tags":     ["*Software Architecture", "*Large-Scale Refactoring", "*DevOps", "AWS Platform", "Java"]
     },
     {
       "dates":    "Dec. 2014 – Present",
@@ -145,7 +145,7 @@
       "location": "Paris area, France",
       "title":    "Project Manager",
       "abstract": "Led a team of 5 junior IT engineers implementing a proof-of-concept solution for a research project of the institute.",
-      "tags":     ["*Project Management", "Java EE"]
+      "tags":     ["*Project Management", "Java EE", "Embedded Development"]
     },
     {
       "dates":    "Sep. 2010 – Sep. 2013",
