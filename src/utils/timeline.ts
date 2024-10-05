@@ -71,10 +71,10 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
       case CROSS.test(type):
         return `V${y + GAPSIZE / 2} m0,${-GAPSIZE}`
       case END.test(type):
-        return `V${y}`
+        return pos ? '' : `V${y}`
       case SPAWN.test(type):
       default:
-        return `M${0},${scale(pos - 1) + GAPSIZE / 2}`
+        return 'v+1'
     }
   }
 
@@ -83,23 +83,21 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     return ({ depth, x: -UNIT_X * depth, events: events.map(e => ({ ...e, y: scale(e.pos), λ: MILESTONE.test(e.type), Λ: HIGHLIGHT.test(e.type) })) })
   }
 
+  const [[, Ωy], Ωx] = branches // Spawn point's branch (x) and position (y)
+    .map(({ events }, i) => [events.map(({ type, pos }) => [SPAWN.test(type), pos]).find(([spawn]) => spawn), i])
+    .find(([spawn]) => spawn) as [[any, number], number]
+
   return [
-    elementSVG('defs').content(elementSVG('linearGradient').attrs({ id: 'highlight-gradient' }).content(
-      elementSVG('stop').attrs({ offset: '0%' }),
-      elementSVG('stop').attrs({ offset: '30%' }),
-      elementSVG('stop').attrs({ offset: '100%' }),
-    )),
+    elementSVG('defs').content(
+      elementSVG('linearGradient').attrs({ id: 'highlight-gradient' })
+        .content(...[0, .3, 1].map(offset => elementSVG('stop').attrs({ offset }))),
+      elementSVG('linearGradient').cls(`colour-${Ωx}`)
+        .attrs({ gradientUnits: 'userSpaceOnUse', id: 'branch-spawn', x1: 0, x2: 0, y1: scale(Ωy - 1), y2: scale(Ωy) })
+        .content(...[.25, 1].map(offset => elementSVG('stop').attrs({ offset }))),
+    ),
   ].concat(branches.map(preprocess).flatMap(({ depth, events, x }, i) => [
     // line
-    elementSVG('path').cls(`colour-${i}`).attrs({ d: `M${x},${events[0].y}` + events.map(handleEvent).join('') }),
-
-    // spawn
-    ...events.filter(({ type }) => SPAWN.test(type)).flatMap(({ pos, y }) => [
-      elementSVG('linearGradient').cls(`colour-${i}`)
-        .attrs({ gradientUnits: 'userSpaceOnUse', id: 'branch-spawn', x1: 0, x2: 0, y1: scale(pos - 1), y2: y })
-        .content(elementSVG('stop').attrs({ offset: .25 }), elementSVG('stop').attrs({ offset: 1 })),
-      elementSVG('path').styles({ stroke: 'url(#branch-spawn)' }).attrs({ d: `M${x},${scale(pos - 1) + GAPSIZE / 2} V${y + 1}` })
-    ]),
+    elementSVG('path').cls(`colour-${i === Ωx ? 'spawn' : i}`).attrs({ d: `M${x},${events[0].y}` + events.map(handleEvent).join('') }),
 
     // milestones
     ...events.filter(({ λ }) => λ).map(({ y, xsection }) => elementSVG('g').cls(`colour-${i}`).content(

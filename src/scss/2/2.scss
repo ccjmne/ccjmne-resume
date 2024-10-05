@@ -112,6 +112,10 @@ footer {
     }
   }
 
+  .colour-spawn {
+    --colour: url(#branch-spawn);
+  }
+
   // Approximating the colour of the gradient at the point where the 'master' branch merges into the footer
   $meld: color.mix(
     color.mix(color.adjust($verdigris,  $lightness: -25%), color.adjust($yinmn-blue, $lightness: -15%), 12.5%),
