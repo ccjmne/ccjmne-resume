@@ -186,9 +186,6 @@ article.highlight {
       @include text-sea(90deg, true);
       font-weight: 800;
 
-      position: relative;
-      top: .5px;
-
       $font-size: 1.1em;
       font-size: $font-size;
       line-height: calc(1.0em / $font-size);
