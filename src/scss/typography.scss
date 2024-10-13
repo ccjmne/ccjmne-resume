@@ -23,6 +23,14 @@
   font-display: swap;
 }
 
+@font-face {
+  // For small all-caps labels
+  font-family:  Aleo;
+  src:          url('assets/fonts/Aleo-VariableFont_wght.ttf') format('woff');
+  font-weight:  500;
+  font-display: swap;
+}
+
 body {
   color: $light-fg;
   font-family: Raleway, Montserrat, HelveticaNeue, Helvetica, Arial, sans-serif;
