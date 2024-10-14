@@ -22,7 +22,7 @@ element(document.body).content(
       section('highlights').content(
         ...highlights.map(({ content, dates, numbers, headline }) => article('highlight').content(
           element('h3').content(headline).at('headline'),
-          span(dates).at('dates'),
+          element('time').content(dates).at('dates'),
           element('p').content(content).at('content'),
           div(
             lightest(hr({ height: 9, reverse: true, tail: 'short' })),

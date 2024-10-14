@@ -43,7 +43,7 @@ element(document.body).content(
         light().at('excerpt').content(excerpt),
       )),
     ),
-    element('small').cls('watermark').content(`Generated on ${new Date().toISOString().split(/T/)[0]}\nby [${name}](${homepage})`),
+    element('small').cls('watermark').content('Generated on ', element('time').content(new Date().toISOString().split(/T/)[0]), `\nby [${name}](${homepage})`),
   ),
   element('main').content(
     element('header').content(
