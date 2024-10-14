@@ -38,6 +38,13 @@
     "☆   Start using [Debian](https://www.debian.org/)                                                  ",
     "╵                                                                                                  "
   ],
+  "techstack": {
+    "Web":      ["Webpack", "RxJs", "NodeJs", "Angular", "Vite", "Lit", "Tailwind", "GraphQL", "React"],
+    "Database": ["PostgreSQL", "jOOQ", "DynamoDB", "Liquibase", "RDS", "OracleDB", "SQLite"],
+    "Code":     ["Neovim", "TypeScript", "Java", "Visual Studio Code", "JavaScript", "Git", "Lua", "C++"],
+    "Tools":    ["tmux", "Git", "Linux", "ripgrep", "fd", "Zsh", "AWK", "jq", "fzf", "asdf", "powerlevel10k"],
+    "Cloud":    ["AWS", "Google Cloud Platform", "GitHub Actions", "Kubernetes", "Terraform"]
+  },
   "highlights": [
     {
       "dates":    "2024",
