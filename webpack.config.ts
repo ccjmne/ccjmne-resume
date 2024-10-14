@@ -10,6 +10,7 @@ import { Compiler } from 'webpack'
 import 'webpack-dev-server' // Augment "Configuration" type
 import { author, description, homepage, keywords, name, repository, title } from './package.json'
 import { PDFPrinter } from './tooling/pdf-printer-plugin'
+import { DefinePlugin } from 'webpack'
 
 const src = resolve(__dirname, 'src')
 const dist = resolve(__dirname, 'dist')
@@ -32,7 +33,7 @@ const pages = readdirSync(src, { withFileTypes: true })
   .reduce((acc, { name, path }) => ({ ...acc, [name]: path }), {})
 
 export default (
-  _env: string,
+  env: NodeJS.ProcessEnv,
   { mode = 'production', port = '8042' }: { mode?: 'production' | 'development', port?: string } = {},
 ): Configuration => ({
   entry: pages,
@@ -89,9 +90,10 @@ export default (
     path: dist,
   },
   plugins: [
+    new DefinePlugin({ 'process.env': JSON.stringify(env) }),
     ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
     new TypedScssModulesPlugin({ watch: mode === 'development' }),
-    ...Object.entries(pages).map(([name, path]) => new HtmlWebpackPlugin({
+    ...Object.keys(pages).map(name => new HtmlWebpackPlugin({
       title: `Page ${name}`,
       meta: { author, description, repository, keywords: keywords.join(', ') },
       chunks: [name],
@@ -102,7 +104,7 @@ export default (
       ...mode === 'production'
         ? { scheme: 'file', paths: Object.keys(pages).map(name => resolve(dist, `${name}.html`)) }
         : { port, paths: Object.keys(pages).map(name => `${name}.html`) },
-      output: resolve(dist, `${out}.pdf`),
+      output: resolve(dist, env.OUTPUT ?? `${out}.pdf`),
       properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
       blocking: mode === 'production',
     }),

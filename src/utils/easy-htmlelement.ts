@@ -4,6 +4,7 @@ import externalLink from 'src/assets/external-link.svg?template'
 import { type RegExpGroups } from 'src/types'
 
 const SVGNS = 'http://www.w3.org/2000/svg'
+const HYPHENATE = /^y/i.test(process.env.HYPHENATE ?? 'no')
 
 export default class EasyHTMLElement {
 
@@ -49,20 +50,27 @@ export default class EasyHTMLElement {
   /**
    * Parses contents and:
    * - discard empty strings
-   * - automatically mark for hyphenation (for `en-gb`) with `\u00AD` (soft hyphen),
    * - replace linefeeds (literal `\n`) with `<br />` elements
    * - replace markdown-style hyperlinks with `<a href="...">...</a>` elements
    * - replace `&nbsp;` with `\u00A0` (non-breaking space)
+   * - replace `&shy;`  with `\u00AD` (soft hyphen)
+   *
+   * Additionally, while in `development` mode, automatically mark for
+   * hyphenation (for `en-gb`) with `\u00AD` (soft hyphen).
+   *
+   * This isn't done in `production` builds so as to avoid needlessly confusing
+   * crawlers and possible ATSs (Applicant Tracking System).
    */
   private static prepare(elements: ReadonlyArray<string | EasyHTMLElement>): ReadonlyArray<string | HTMLElement | SVGElement> {
     return elements
       .filter(content => content !== '')
       .flatMap(content => (typeof content !== 'string' ? content.elem : content
         .replace(/&nbsp;/g, '\u00A0')
+        .replace(/&shy;/g,  '\u00AD')
         .split(/(?<=\[[^\]]+\]\([^)]+\))|(?=\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks
         .map(fragment => fragment.match(/^\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)$/)?.groups as RegExpGroups<'text' | 'href'> | undefined ?? fragment)
         .flatMap(fragment => (typeof fragment === 'string'
-          ? fragment.split(/\n/g).flatMap(t => [new EasyHTMLElement('br').elem, hyphenate(t)]).slice(1)
+          ? fragment.split(/\n/g).flatMap(t => [new EasyHTMLElement('br').elem, HYPHENATE ? hyphenate(t) : t]).slice(1)
           : EasyHTMLElement.anchor(fragment).elem))
       ))
   }
