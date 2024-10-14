@@ -63,7 +63,7 @@ element(document.body).content(
           element('h3').at('title').content(title, ' ', element('small').cls('thin')
             .append(lighter('at'), ' ', light(company).cls('bolder'))
             .append(notabene !== undefined ? lighter(` (${notabene})`).cls('notabene') : '')),
-          lighter().at('when').content(`${dates} (${duration})`),
+          lighter().at('when').content(element('time').content(dates), `(${duration})`),
           lighter().at('where').content(location),
           element('p').at('summary').content(
             abstract,
