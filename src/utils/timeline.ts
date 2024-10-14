@@ -15,7 +15,7 @@ export function render(timeline: string[], pivots: number[], height: number): [g
 
   function scale(at: number): number { // Piecewise linear scale
     const [[x0, y0], [x1, y1]] = segments.find(([, [a]]) => at <= a)!
-    return (at - x0) * ((y1 - y0) / (x1 - x0)) + y0
+    return (at - x0) * (y1 - y0) / (x1 - x0) + y0
   }
 
   return [

@@ -12,8 +12,8 @@ import { elementSVG } from './easy-htmlelement'
 export function rhombusPath({ x, y, diag, clockwise = true }: { x: number, y: number, diag: number, clockwise?: boolean }): string {
   const r = diag / 2
   return clockwise
-    ? `M${x},${y} m0,${-r} l${r},${r} l${-r},${r} l${-r},${-r} l${r},${-r} z`
-    : `M${x},${y} m0,${-r} l${-r},${r} l${r},${r} l${r},${-r} l${-r},${-r} z`
+    ? `M${x},${y} m0,${-r} ${r},${r} ${-r},${r} ${-r},${-r} ${r},${-r} z`
+    : `M${x},${y} m0,${-r} ${-r},${r} ${r},${r} ${r},${-r} ${-r},${-r} z`
 }
 
 // See https://stackoverflow.com/a/19303725
@@ -30,7 +30,7 @@ function seededRandom(seed?: number): () => number {
  */
 function smootherstep(e0 = 0, e1 = 1): (x: number) => number {
   return (x: number) => {
-    const t = Math.max(0, Math.min(1, ((x - e0) / (e1 - e0))))
+    const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)))
     return t * t * t * (3 * t * (2 * t - 5) + 10)
   }
 }

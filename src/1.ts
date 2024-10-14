@@ -83,7 +83,7 @@ document.fonts.ready.then(() => mask.content(
     seed: i ? 42 : 0x1990_05_15 - 0x2017_3_10,
     x:    260,
     y:    offsetTop,
-    h:    offsetHeight
+    h:    offsetHeight,
   })),
 ))
 
