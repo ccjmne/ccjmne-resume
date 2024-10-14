@@ -51,13 +51,19 @@ footer {
   padding:   calc( $default-padding / 1 );
   grid-gap:  calc( $default-padding / 4 );
   grid-template:
-    'title qrcode-hint qrcode' 1fr / 1fr auto 100px;
+    'techstack-hint techstack qrcode-hint qrcode' 1fr / auto 1fr auto 100px;
 
-  [grid-area=qrcode-hint] {
+  [grid-area$=hint] {
     transform:    rotate(180deg);
+    font-family:  Aleo;
     font-size:    small;
     text-align:   center;
     writing-mode: vertical-lr;
+    margin:       -$default-padding 0;
+  }
+
+  [grid-area=qrcode-hint] {
+    font-size: smaller;
   }
 }
 
@@ -195,5 +201,24 @@ article.highlight {
         font-family: Outfit;
       }
     }
+  }
+}
+
+article.tech-stack {
+  display:               grid;
+  align-items:           baseline;
+  grid-template-columns: auto 1fr;
+  grid-gap:              0 calc( $default-padding / 3 );
+  padding-inline-start:  .5em;
+
+  .section-title {
+    font-family:    Outfit;
+    font-size:      smaller;
+    text-align:     right;
+    letter-spacing: 1px;
+  }
+
+  svg {
+    margin: 0 .3em;
   }
 }

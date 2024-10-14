@@ -1,4 +1,4 @@
-import EasyHTMLElement, { article, div, element, elementSVG, lightest, section, span } from "utils/easy-htmlelement"
+import EasyHTMLElement, { article, div, element, elementSVG, light, lighter, lightest, section, span } from "utils/easy-htmlelement"
 
 import './scss/2/2.scss'
 import profile from './profile.json'
@@ -7,7 +7,7 @@ import { MatchArrayWGroups } from "types"
 import { render } from "utils/timeline"
 import { hr, rhombus, titlebar } from "utils/svg-elements"
 
-const { highlights, timeline } = profile
+const { highlights, techstack, timeline } = profile
 
 const graph = element()
 const qcode = element('img')
@@ -33,7 +33,12 @@ element(document.body).content(
     ),
   ),
   element('footer').cls('inverse').content(
-    span('find latest at:').at('qrcode-hint'),
+    lighter('TECH STACK').at('techstack-hint'),
+    article('tech-stack').at('techstack').content(...Object.entries(techstack).flatMap(([category, items]) => [
+      light(category.toUpperCase()).cls('section-title'),
+      div(...items.flatMap(i => [rhombus(6), i]).slice(1))
+    ])),
+    light('FIND LATEST AT').at('qrcode-hint'),
     qcode.at('qrcode'),
   ),
 )
