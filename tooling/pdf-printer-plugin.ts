@@ -15,13 +15,11 @@ export type PDFPrinterConfig = {
   host?:       string
   port?:       string
   paths?:      string[]
+  options?:    PDFOptions | ScreenshotOptions
   properties?: DocumentProperties
   /** Whether the rest of the compilation should wait for PDF compilation to go through */
   blocking?:   boolean
-} & (
-    { format?: 'pdf', options?: PDFOptions }
-  | { format:  'png', options?: ScreenshotOptions }
-)
+}
 
 // TODO: Consider renaming to PrinterPlugin, together with its file name.
 export class PDFPrinter implements WebpackPluginInstance {
@@ -35,14 +33,14 @@ export class PDFPrinter implements WebpackPluginInstance {
   public apply(compiler: Compiler): void {
     const logger = compiler.getInfrastructureLogger(PDFPrinter.PLUGIN_ID)
     this.uris.map(uri => logger.info('Reading contents from', uri))
-    logger.info('Compiling', this.config.format ?? 'PDF', 'at', this.output)
+    logger.info('Compiling', this.type, 'at', this.output)
 
     compiler.hooks.done[this.config.blocking === true ? 'tapPromise' : 'tap'](`${PDFPrinter.PLUGIN_ID}:compile`, async () => {
       try {
         await this.print()
         logger.info('Successfully printed', this.output)
       } catch (trace) {
-        logger.error('An error occurred while attempting to print', this.config.format ?? 'PDF', 'document')
+        logger.error('An error occurred compiling', this.type, 'document')
         logger.error(trace)
       }
     })
@@ -66,20 +64,20 @@ export class PDFPrinter implements WebpackPluginInstance {
     // TODO: prefer simple block-scoped type-narrowing when implemented in TS
     // See https://github.com/microsoft/TypeScript/issues/10421
     this.assertBrowser()
-    const { config: { options, format }, output } = this
-    const contents = await Promise.all(this.uris.map(async uri => {
+    const { config: { options }, type, output, uris } = this
+    const contents = await Promise.all(uris.map(async uri => {
       const page = await this.browser.newPage()
       await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 1 }) // A4 Portrait @ 96 DPI
       await page.goto(uri, { waitUntil: 'networkidle0' })
-      const content = await (format === 'png'
-        ? page.screenshot({ fullPage: true, omitBackground: false, optimizeForSpeed: true, quality: 0, ...options, type: 'png' })
-        : page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options }))
+      const content = await (type === 'PDF'
+        ? (page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options }))
+        : (page.screenshot({ fullPage: true, omitBackground: false, optimizeForSpeed: true, quality: 0, ...options, type: 'png' })))
       await page.close()
       return content
     }))
 
-    await mkdirp(dirname(resolve(output)))
-    await writeFile(resolve(output), await (this.config.format === 'png' ? this.combinePNGs(contents) : this.combinePDFs(contents)))
+    await mkdirp(dirname(output))
+    await writeFile(output, await (type === 'PDF' ? this.combinePDFs(contents) : this.combinePNGs(contents)))
   }
 
   private get uris(): string[] {
@@ -88,7 +86,11 @@ export class PDFPrinter implements WebpackPluginInstance {
   }
 
   private get output(): string {
-    return this.config.output.replace(/([.][a-w]{2,4})?/i, `.${this.config.format}`)
+    return resolve(this.config.output.replace(/([.][a-w]{2,4})?$/i, ext => /^[.]svg$/i.test(ext) ? '.svg' : '.pdf'))
+  }
+
+  private get type(): 'PDF' | 'SVG' {
+    return /[.]pdf$/i.test(this.output) ? 'PDF' : 'SVG'
   }
 
   private async combinePNGs(imgs: Uint8Array[]): Promise<Buffer> {
