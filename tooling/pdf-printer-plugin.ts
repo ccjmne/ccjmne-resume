@@ -86,11 +86,11 @@ export class PDFPrinter implements WebpackPluginInstance {
   }
 
   private get output(): string {
-    return resolve(this.config.output.replace(/([.][a-w]{2,4})?$/i, ext => /^[.]svg$/i.test(ext) ? '.svg' : '.pdf'))
+    return resolve(this.config.output.replace(/([.][a-w]{2,4})?$/i, ext => /^[.]png$/i.test(ext) ? '.png' : '.pdf'))
   }
 
-  private get type(): 'PDF' | 'SVG' {
-    return /[.]pdf$/i.test(this.output) ? 'PDF' : 'SVG'
+  private get type(): 'PDF' | 'PNG' {
+    return /[.]pdf$/i.test(this.output) ? 'PDF' : 'PNG'
   }
 
   private async combinePNGs(imgs: Uint8Array[]): Promise<Buffer> {
