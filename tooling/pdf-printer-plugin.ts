@@ -82,7 +82,7 @@ export class PDFPrinter implements WebpackPluginInstance {
 
   private get uris(): string[] {
     const { scheme = 'http', host = 'localhost', port = '80', paths = [''] } = this.config
-    return paths.map(path => `${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path}`)
+    return paths.map(path => `${scheme}://${host}${scheme === 'http' ? `:${port}` : ''}/${path.replace(/^[/]/, '')}`)
   }
 
   private get output(): string {
