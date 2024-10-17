@@ -70,8 +70,8 @@ export class PDFPrinter implements WebpackPluginInstance {
       await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 1 }) // A4 Portrait @ 96 DPI
       await page.goto(uri, { waitUntil: 'networkidle0' })
       const content = await (type === 'PDF'
-        ? (page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options }))
-        : (page.screenshot({ fullPage: true, omitBackground: false, optimizeForSpeed: true, quality: 0, ...options, type: 'png' })))
+        ? page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options })
+        : page.screenshot({ fullPage: true, omitBackground: false, optimizeForSpeed: true, ...options }))
       await page.close()
       return content
     }))
@@ -96,11 +96,11 @@ export class PDFPrinter implements WebpackPluginInstance {
   private async combinePNGs(imgs: Uint8Array[]): Promise<Buffer> {
     const meta = await Promise.all(imgs.map(img => sharp(img).metadata()))
     const { maxh: height, w: width } = meta.reduce(({ maxh, w }, { width, height }) => ({ maxh: Math.max(maxh, height ?? 0), w: (width ?? 0) + w }), { maxh: 0, w: 0 })
-    return await sharp({ create: { width, height, channels: 3, background: 'white' } }).composite(imgs.map((data, index) => ({
+    return await sharp({ create: { width, height, channels: 3, background: 'white' } }).composite(imgs.map((data, i) => ({
       input: Buffer.from(data),
       top: 0,
-      left: meta.slice(0, index).reduce((sum, { width }) => sum + (width ?? 0), 0),
-    }))).toBuffer()
+      left: meta.slice(0, i).reduce((sum, { width }) => sum + (width ?? 0), 0),
+    }))).png().toBuffer()
   }
 
   private async combinePDFs(pdfs: Uint8Array[]): Promise<Buffer> {
