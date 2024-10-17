@@ -53,20 +53,21 @@ export default class EasyHTMLElement {
    * - replace linefeeds (literal `\n`) with `<br />` elements
    * - replace markdown-style hyperlinks with `<a href="...">...</a>` elements
    * - replace `&nbsp;` with `\u00A0` (non-breaking space)
-   * - replace `&shy;`  with `\u00AD` (soft hyphen)
    *
-   * Additionally, while in `development` mode, automatically mark for
-   * hyphenation (for `en-gb`) with `\u00AD` (soft hyphen).
+   * Additionally, when the HYPHENATE environment variable starts with `y`,
+   * automatically mark for hyphenation (for `en-gb`) with `\u00AD` (soft
+   * hyphen).
    *
-   * This isn't done in `production` builds so as to avoid needlessly confusing
-   * crawlers and possible ATSs (Applicant Tracking System).
+   * The idea is to use HYPHENATE=yes only in order to identify the adequate
+   * hyphenating locations, then eventually manually hyphenate there, so as to
+   * avoid needlessly confusing crawlers and possible ATSs (Applicant Tracking
+   * System).
    */
   private static prepare(elements: ReadonlyArray<string | EasyHTMLElement>): ReadonlyArray<string | HTMLElement | SVGElement> {
     return elements
       .filter(content => content !== '')
       .flatMap(content => (typeof content !== 'string' ? content.elem : content
         .replace(/&nbsp;/g, '\u00A0')
-        .replace(/&shy;/g,  '\u00AD')
         .split(/(?<=\[[^\]]+\]\([^)]+\))|(?=\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks
         .map(fragment => fragment.match(/^\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)$/)?.groups as RegExpGroups<'text' | 'href'> | undefined ?? fragment)
         .flatMap(fragment => (typeof fragment === 'string'
