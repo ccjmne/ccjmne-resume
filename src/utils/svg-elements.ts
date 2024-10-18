@@ -1,32 +1,19 @@
-import css from '../scss/exported-vars.scss'
-
 import type EasyHTMLElement from './easy-htmlelement'
 import { elementSVG } from './easy-htmlelement'
 
 /**
  * Generates the `d` attribute for a `path` SVG element that draws a rhombus.
- * Preserves initial cursor position.
- * @param r Circumradius of the rhombus
- * @param align Whether the current location shall correspond to the left or center of the rhombus
- * @deprecated
- */
-function rhombusPathD(r: number, align: 'center' | 'left' = 'center'): string {
-  return `
-    ${align === 'center' ? `m-${r},0` : ''}
-    l${r},-${r}l${r},${r}l-${r},${r}l-${r},-${r}z
-    ${align === 'center' ? `m${r},0` : ''}`
-}
-
-/**
- * Generates the `d` attribute for a `path` SVG element that draws a rhombus.
+ *
+ * The helicity to draw it with may be specified, so as to work with `'nonzero'` `fill-rule`.
+ * See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule#nonzero
+ *
  * Overwrites cursor position.
- * @param x abscissa of the rhombus's centre
- * @param y ordinate of the rhombus's centre
- * @param diag Diagonal of the rhombus
  */
-function rhombusPathAt({ x, y, diag }: { x: number, y: number, diag: number }): string {
+export function rhombusPath({ x, y, diag, clockwise = true }: { x: number, y: number, diag: number, clockwise?: boolean }): string {
   const r = diag / 2
-  return `M${x},${y} m0,${-r} l${r},${r} l${-r},${r} l${-r},${-r} l${r},${-r} z`
+  return clockwise
+    ? `M${x},${y} m0,${-r} ${r},${r} ${-r},${r} ${-r},${-r} ${r},${-r} z`
+    : `M${x},${y} m0,${-r} ${-r},${r} ${r},${r} ${r},${-r} ${-r},${-r} z`
 }
 
 // See https://stackoverflow.com/a/19303725
@@ -43,42 +30,41 @@ function seededRandom(seed?: number): () => number {
  */
 function smootherstep(e0 = 0, e1 = 1): (x: number) => number {
   return (x: number) => {
-    const t = Math.max(0, Math.min(1, ((x - e0) / (e1 - e0))))
+    const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)))
     return t * t * t * (3 * t * (2 * t - 5) + 10)
   }
 }
 
-// TODO: rewrite using `rhombusPathAt`
-export function rhombus(height = 10): EasyHTMLElement {
+export function rhombus(height = 9): EasyHTMLElement {
   return elementSVG()
     .cls('lighter')
     .attrs({ viewBox: `${-height / 2 - 1} ${-height / 2 - 1} ${height + 2} ${height + 2}`, height })
     .styles({ fill: 'none', stroke: 'currentColor' })
-    .content(elementSVG('path').attrs({ d: rhombusPathD(height / 2) }))
+    .content(elementSVG('path').attrs({ d: rhombusPath({ x: 0, y: 0, diag: height }) }))
 }
 
-// TODO: rewrite using `rhombusPathAt`
-export function hr(height = 10, reverse = false): EasyHTMLElement {
-  const [gap, d1, d2, d3] = [height / 2, height / 2, height / 2.75, height / 3.5]
+export function hr({ height = 9, reverse = false, tail = 'long' }: { height?: number, reverse?: boolean, tail?: 'short' | 'long' } = {}): EasyHTMLElement {
+  const [gap, d1, d2, d3] = [height / 4, height, height * .75, height * .5]
+
   return elementSVG()
     .cls('lighter')
     .attrs({ viewBox: `-1 -1 ${height + 2} ${height + 2}`, preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`, height })
     .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
     .content(
-      elementSVG('g').attrs({ transform: `translate(${height / 2} ${height / 2}) rotate(${reverse ? 180 : 0})` }).content(
-        elementSVG('path').attrs({
-          d: `M0,0      ${rhombusPathD(d1, 'center')} m${d1},0
-              m${gap},0 ${rhombusPathD(d2, 'left')} m${2 * d2},0
-              m${gap},0 ${rhombusPathD(d3, 'left')}`,
+      elementSVG('g').attrs({ 'transform-origin': `${height / 2} ${height / 2}`, transform: `translate(0, ${(reverse ? -height : height) / 2}) rotate(${reverse ? 180 : 0})` }).content(
+        elementSVG('path').styles({ 'stroke-width': '1px' }).attrs({
+          d: `${rhombusPath({ x: d1 / 2,                         y: 0, diag: d1 })}
+              ${rhombusPath({ x: d1 + d2 / 2 + gap,              y: 0, diag: d2 })}
+              ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.5 * gap, y: 0, diag: d3 })}`
         }),
-        elementSVG('path').styles({ 'shape-rendering': 'crispEdges' }).attrs({ d: `M${-d1 + 2 * (d1 + d2 + d3) + 3 * gap},0 h9999` }),
+        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }).styles({ 'stroke-dasharray': tail === 'short' ? `20 4 10 4 5 4 2 9999` : 9999 }),
       ),
     )
 }
 
-export function h2bg(seed?: number): EasyHTMLElement {
-  const HEIGHT = 100
+export function titlebar({ x, y, h, seed, align = 'left', separator = true }: { x: number, y: number, h: number, seed: number, align?: 'left' | 'right', separator?: boolean }): EasyHTMLElement {
   const random = seededRandom(seed)
+  random() // I messed up, I found the perfect seeds... off by 1.
 
   function visible(t: number): boolean {
     return (1 - (t - 1) ** 2) * .7 + .2 > random()
@@ -89,31 +75,23 @@ export function h2bg(seed?: number): EasyHTMLElement {
       throw new Error('Requires at least two rows')
     }
 
-    const size = HEIGHT / ((rows - 1) / 2)
-    const step = smootherstep(size * cols, 0) // steps DOWN over [0, size * cols]
+    const size = h / ((rows - 1) / 2)
+    const step = smootherstep(size * cols, 0) // step DOWN over [0, size * cols]
 
-    return Array.from({ length: rows })
-      .map((_, r) => Array.from({ length: cols })
-        .map((_, c) => ({ x: (c + (r % 2) / 2) * size, y: (r * size) / 2 }))
+    return [...Array(rows).keys()]
+      .map(r => [...Array(cols).keys()]
+        .map(c => ({ x: (c + (r % 2) / 2) * size, y: (r * size) / 2 }))
         .filter(({ x }) => visible(step(x)))
-        .map(({ x, y }) => rhombusPathAt({ x, y, diag: step(x) * size }))
+        .map(({ x, y }) => rhombusPath({ x: align === 'left' ? x : -x, y, diag: step(x) * size }))
         .join(' '))
       .join(' ')
   }
 
-  const maskId = `h2bg-mask-${Math.floor(random() * 1000)}`
-  return elementSVG()
-    .attrs({ preserveAspectRatio: 'xMinYMid meet', viewBox: `0 0 1 ${HEIGHT}` })
-    .styles({ position: 'absolute', top: 0, right: 0, height: '100%', width: '50%' })
-    .content(
-      elementSVG('defs').content(
-        elementSVG('mask')
-          .attrs({ id: maskId })
-          .content(
-            elementSVG('rect').attrs({ fill: 'white', x: 0, y: 0, width: 9999, height: HEIGHT }),
-            elementSVG('path').attrs({ fill: 'black', d: disintegrate(7, 18) }),
-          ),
-      ),
-      elementSVG('rect').attrs({ x: 0, y: 0, width: 9999, height: HEIGHT, fill: css['light-bg'], mask: `url(#${maskId})` }),
-    )
+  return elementSVG('g').attrs({ transform: `translate(0, ${y})` }).content(
+    elementSVG('path').attrs({ fill: '#000', transform: `translate(${x})`, d: disintegrate(7, 18) }),
+    elementSVG('rect').attrs({ fill: '#000', x: align === 'left' ? 0 : x, y: 0,   height: h,  width: align === 'left' ? x : 9999 }),
+    elementSVG('rect').attrs({ fill: '#fff', x: 0,                        y: -10, height: 10, width: 9999 }), // clip overflowing rhombuses
+    elementSVG('rect').attrs({ fill: '#fff', x: 0,                        y: h,   height: 10, width: 9999 }), // clip overflowing rhombuses
+    ...separator ? [elementSVG('line').attrs({ stroke: '#000', x1: 0, y1: -.5, x2: 9999, y2: -.5 })] : [],    // 1-pixel border at top
+  )
 }
