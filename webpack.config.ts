@@ -15,14 +15,13 @@ import { DefinePlugin } from 'webpack'
 const src = resolve(__dirname, 'src')
 const dist = resolve(__dirname, 'dist')
 const tools = resolve(__dirname, 'tooling')
-const out = 'ccjmne-resume'
 
 class TypedScssModulesPlugin implements WebpackPluginInstance {
   public constructor(private readonly config: { watch: boolean } = { watch: false }) { }
 
   public apply(compiler: Compiler): void {
     compiler.hooks.afterPlugins.tap('TypedScssModulesPlugin', () => require('child_process').spawn(
-      'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', this.config.watch ? '--watch' : ''], { stdio: 'inherit' }
+      'npx', ['typed-scss-modules', 'src/scss/**/*.module.scss', this.config.watch ? '--watch' : ''], { stdio: 'inherit' },
     ))
   }
 }
@@ -86,9 +85,8 @@ export default (
       index: '1.html',
     },
   },
-  output: {
-    path: dist,
-  },
+  output: { path: dist },
+  stats: { all: mode === 'development' },
   plugins: [
     new DefinePlugin({ 'process.env': JSON.stringify(env) }),
     ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
@@ -104,7 +102,7 @@ export default (
       ...mode === 'production'
         ? { scheme: 'file', paths: Object.keys(pages).map(name => resolve(dist, `${name}.html`)) }
         : { port, paths: Object.keys(pages).map(name => `${name}.html`) },
-      output: resolve(dist, env.OUTPUT ?? `${out}.pdf`),
+      output: resolve(dist, env.OUTPUT ?? `${name}.pdf`),
       properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
       blocking: mode === 'production',
     }),
