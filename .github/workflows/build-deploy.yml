@@ -5,8 +5,8 @@ on:
     types: published
 
 env:
-  resume-file: ccjmne-resume.pdf
-  artifact-id: ccjmne-resume
+  resume-file: resume.pdf
+  artifact-id: resume
 
 jobs:
   build:
@@ -22,10 +22,17 @@ jobs:
         node-version: ${{ env.node-version }}
         cache: yarn
 
+    - name: Verify manual hyphenation
+      run: |
+        yarn install
+        npx webpack --mode production --env HYPHENATE=yes --env OUTPUT=l.png && mv dist/l.png .
+        npx webpack --mode production --env HYPHENATE=no  --env OUTPUT=r.png && mv dist/r.png .
+        diff --brief l.png r.png
+
     - name: Compile PDF
       run: |
         yarn install
-        npx webpack --mode production
+        npx webpack --mode production --env HYPHENATE=no --env OUTPUT=${{ env.resume-file }}
 
     - name: Upload resume artifact
       uses: actions/upload-artifact@v4
