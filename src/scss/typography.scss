@@ -1,5 +1,6 @@
 @use 'sass:color';
-@import './colours';
+@use "sass:map";
+@use 'colours';
 
 @font-face {
   font-family:  Raleway;
@@ -24,14 +25,14 @@
 }
 
 body {
-  color: $light-fg;
+  color: colours.$light-fg;
   font-family: Raleway, Montserrat, HelveticaNeue, Helvetica, Arial, sans-serif;
   font-size: 10pt;
   letter-spacing: .3px;
 }
 
 .inverse {
-  color: $dark-fg;
+  color: colours.$dark-fg;
   font-weight: 500; // slightly bolder to account for lesser legibility from inversed colours
 }
 
@@ -63,11 +64,11 @@ h3 {
 
 p {
   margin: 0;
-  color: $light-fg-0;
+  color: colours.$light-fg-0;
   text-align: justify;
 
   .inverse & {
-    color: $dark-fg-0;
+    color: colours.$dark-fg-0;
   }
 }
 
@@ -107,7 +108,7 @@ a {
 // Miscellaneous ---------------------------------------------------------------
 
 @mixin text-sea($turn: .25turn, $bright: false) {
-  @include bg-sea($turn, $bright);
+  @include colours.bg-sea($turn, $bright);
   letter-spacing:  1px;
   background-clip: text;
   color:           transparent;
@@ -121,17 +122,17 @@ a {
 .bold   { @include bold; }
 
 $shades: (
-  light:    (fg: $light-fg-1, inverse-fg: $dark-fg-1),
-  lighter:  (fg: $light-fg-2, inverse-fg: $dark-fg-2),
-  lightest: (fg: $light-fg-3, inverse-fg: $dark-fg-3)
+  light:    (fg: colours.$light-fg-1, inverse-fg: colours.$dark-fg-1),
+  lighter:  (fg: colours.$light-fg-2, inverse-fg: colours.$dark-fg-2),
+  lightest: (fg: colours.$light-fg-3, inverse-fg: colours.$dark-fg-3)
 );
 
 @each $name, $colors in $shades {
   .#{$name} {
-    color: map-get($colors, fg);
+    color: map.get($colors, fg);
 
     .inverse & {
-      color: map-get($colors, inverse-fg);
+      color: map.get($colors, inverse-fg);
     }
   }
 }

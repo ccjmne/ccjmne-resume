@@ -1,4 +1,5 @@
-@import '../spacing';
+@use '../spacing';
+@use "../typography";
 
 header {
   display: flex;
@@ -15,7 +16,7 @@ header {
     }
 
     &.title {
-      @include thin;
+      @include typography.thin;
       font-size: 1.7em;
       line-height: 80%;
       letter-spacing: .1ch;

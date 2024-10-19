@@ -1,10 +1,11 @@
 @use 'sass:color';
-@import '../colours.scss';
-@import '../typography.scss';
-@import '../spacing.scss';
+@use "sass:list";
+@use '../colours.scss';
+@use '../typography.scss';
+@use '../spacing.scss';
 
 body {
-  @include bg-sea(-90deg);
+  @include colours.bg-sea(-90deg);
   display: grid;
   width:   100vw;
   height:  100vh;
@@ -24,7 +25,7 @@ body {
     mask-image: url('#main-background-mask');
     background-size: cover;
     background-image:
-      linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
+      linear-gradient(color.adjust(colours.$light-bg, $alpha: -.6), color.adjust(colours.$light-bg, $alpha: -.6)),
       // url('https://plus.unsplash.com/premium_photo-1671650125917-4cef01cd7574?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
       url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   }
@@ -41,15 +42,15 @@ main {
     margin:     0;
     padding:    5px 0;
     text-align: right;
-    color:      $light-bg;
+    color:      colours.$light-bg;
   }
 }
 
 footer {
   display:   grid;
   grid-area: footer;
-  padding:   calc( $default-padding / 1 );
-  grid-gap:  calc( $default-padding / 4 );
+  padding:   calc( spacing.$default-padding / 1 );
+  grid-gap:  calc( spacing.$default-padding / 4 );
   grid-template:
     'techstack-hint techstack qrcode-hint qrcode' 1fr / auto 1fr auto 100px;
 
@@ -58,7 +59,7 @@ footer {
     font-size:    small;
     text-align:   center;
     writing-mode: vertical-lr;
-    margin:       -$default-padding 0;
+    margin:       -(spacing.$default-padding) 0;
   }
 
   [grid-area=qrcode-hint] {
@@ -111,9 +112,9 @@ footer {
     hsl(0 0% 45+05%), //
   );
 
-  @for $i from 0 through length($branch-colours) - 1 {
+  @for $i from 0 through list.length($branch-colours) - 1 {
     .colour-#{$i} {
-      --colour: #{nth($branch-colours, $i + 1)};
+      --colour: #{list.nth($branch-colours, $i + 1)};
     }
   }
 
@@ -123,7 +124,7 @@ footer {
 
   // Approximating the colour of the gradient at the point where the 'master' branch merges into the footer
   $meld: color.mix(
-    color.mix(color.adjust($verdigris,  $lightness: -25%), color.adjust($yinmn-blue, $lightness: -15%), 12.5%),
+    color.mix(color.adjust(colours.$verdigris,  $lightness: -25%), color.adjust(colours.$yinmn-blue, $lightness: -15%), 12.5%),
     #000, 85%
   );
 
@@ -134,14 +135,14 @@ footer {
 
   #highlight-gradient {
     $stops: (
-      color.adjust($verdigris,  $lightness: -10%),
-      color.adjust($yinmn-blue, $lightness: +05%),
-      color.adjust($yinmn-blue, $lightness: -10%),
+      color.adjust(colours.$verdigris,  $lightness: -10%),
+      color.adjust(colours.$yinmn-blue, $lightness: +05%),
+      color.adjust(colours.$yinmn-blue, $lightness: -10%),
     );
 
-    @for $i from 0 through length($stops) - 1 {
+    @for $i from 0 through list.length($stops) - 1 {
       stop:nth-child(#{$i + 1}) {
-        stop-color: #{nth($stops, $i + 1)};
+        stop-color: #{list.nth($stops, $i + 1)};
       }
     }
   }
@@ -150,8 +151,8 @@ footer {
 [grid-area=highlights] {
   display:              flex;
   flex-direction:       column;
-  padding:              $default-padding;
-  padding-inline-start: calc($default-padding / 2);
+  padding:              spacing.$default-padding;
+  padding-inline-start: calc(spacing.$default-padding / 2);
 }
 
 section#highlights {
@@ -188,7 +189,7 @@ article.highlight {
     text-align: end;
 
     strong {
-      @include text-sea(90deg, true);
+      @include typography.text-sea(90deg, true);
       font-weight: 800;
 
       $font-size:     1.1em;
@@ -207,7 +208,7 @@ article.tech-stack {
   display:               grid;
   align-items:           baseline;
   grid-template-columns: auto 1fr;
-  grid-gap:              0 calc( $default-padding / 3 );
+  grid-gap:              0 calc( spacing.$default-padding / 3 );
   padding-inline-start:  .5em;
 
   .section-title {

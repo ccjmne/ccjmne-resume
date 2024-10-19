@@ -1,5 +1,6 @@
-@import '../spacing';
-@import '../colours';
+@use "sass:color";
+@use '../spacing';
+@use '../colours';
 
 main {
   display: flex;
@@ -19,18 +20,18 @@ main {
     mask-image: url('#main-background-mask');
     background-size: cover;
     background-image:
-      linear-gradient(transparentize($light-bg, .6), transparentize($light-bg, .6)),
+      linear-gradient(color.adjust(colours.$light-bg, $alpha: -.6), color.adjust(colours.$light-bg, $alpha: -.6)),
       url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   }
 
   section {
-    padding: $default-padding;
+    padding: spacing.$default-padding;
   }
 
   h2 {
     margin: 0;
-    padding: 5px $default-padding;
-    color: $light-bg;
+    padding: 5px spacing.$default-padding;
+    color: colours.$light-bg;
   }
 
   section#experience {
@@ -54,7 +55,7 @@ main {
     margin: .75em 0 0;
     padding: 0;
     float: right;
-    color: $light-fg;
+    color: colours.$light-fg;
     font-size: smaller;
     justify-self: flex-end;
 

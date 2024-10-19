@@ -42,14 +42,18 @@ export default (
       use: 'ts-loader',
       exclude: /node_modules/,
     }, {
-      test: /\.module\.scss$/,
+      test: /\.scss$/,
       use: [
-        { loader: 'css-loader', options: { modules: 'icss' } },
-        { loader: 'sass-loader' },
+        { loader: 'style-loader' },
+        {
+          loader: 'css-loader',
+          options: { modules: { auto: true, exportLocalsConvention: 'camel-case-only' } },
+        },
+        {
+          loader: 'sass-loader',
+          options: { api: "modern-compiler", sassOptions: { implementation: require('sass-embedded') } }
+        },
       ],
-    }, {
-      test: /(?<!\.module)\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
       exclude: /node_modules/,
     }, {
       test: /\.(png|jpe?g|gif)$/i,
@@ -60,11 +64,11 @@ export default (
       enforce: 'pre',
       use: 'svgo-loader',
     }, {
-      test: /\.svg$/, // w/o `?template` query param
+      test: /\.svg$/,
       resourceQuery: /template/,
       use: resolve(tools, 'template-element-loader.ts'),
     }, {
-      test: /\.svg$/, // w/ `?template` query param
+      test: /\.svg$/,
       resourceQuery: query => !/template/.test(query),
       // see https://webpack.js.org/guides/asset-modules/
       type: 'asset/inline',

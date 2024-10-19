@@ -1,5 +1,5 @@
-@import '../colours';
-@import '../spacing';
+@use '../colours';
+@use '../spacing';
 
 $icon-size: 22px;
 
@@ -9,12 +9,12 @@ aside {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  padding: $default-padding;
+  padding: spacing.$default-padding;
   text-align: justify;
   hyphens: auto;
 
   a {
-    text-decoration-color: $dark-fg-1;
+    text-decoration-color: colours.$dark-fg-1;
   }
 
   .watermark {

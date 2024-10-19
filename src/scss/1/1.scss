@@ -1,4 +1,4 @@
-@import '../typography';
-@import '../svg';
+@use '../typography';
+@use '../svg';
 
-@import './structure';
+@use 'structure';

@@ -1,11 +1,15 @@
 @use 'sass:string';
-@import './colours';
+@use 'sass:color';
+@use './colours' as colours;
 
 @function hsl-str($color) {
-  @return string.unquote('hsl(#{hue($color)}, #{saturation($color)}, #{lightness($color)})');
+  $hue:        color.channel($color, "hue", $space: hsl);
+  $saturation: color.channel($color, "saturation", $space: hsl);
+  $lightness:  color.channel($color, "lightness", $space: hsl);
+  @return string.unquote('hsl(#{$hue}, #{$saturation}, #{$lightness})');
 }
 
 :export {
   // stylelint-disable property-no-unknown
-  light-bg: hsl-str($light-bg);
+  light-bg: hsl-str(colours.$light-bg);
 }
