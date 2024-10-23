@@ -59,18 +59,13 @@ element(document.body).content(
     section('experience').content(
       ...experience
         .map(({ dates, ...exp }) => ({ ...exp, dates, duration: duration(dates) }))
-        .map(({ title, notabene, company, dates, duration, location, abstract, tags }) => article('experience').content(
+        .map(({ title, notabene, company, dates, duration, location, abstract }) => article('experience').content(
           element('h3').at('title').content(title, ' ', element('small').cls('thin')
             .append(lighter('at'), ' ', light(company).cls('bolder'))
             .append(notabene !== undefined ? lighter(` (${notabene})`).cls('notabene') : '')),
           lighter().at('when').content(element('time').content(dates), ` (${duration})`),
           lighter().at('where').content(location),
-          element('p').at('summary').content(
-            abstract,
-            element('ol').cls('tags').content(...tags
-              .map(tag => (/^(?<star>\*)?(?<tag>.+)/.exec(tag) as MatchArrayWGroups<'star' | 'tag'>).groups)
-              .map(({ tag, star }) => element('li').cls(star ? 'star' : '').content(tag))),
-          ),
+          element('p').at('summary').content(abstract),
         )),
     ),
     elementSVG().attrs({ width: 0, height: 0 }).content(elementSVG('defs').content(mask)),
