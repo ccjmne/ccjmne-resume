@@ -109,7 +109,7 @@
   "identity": {
     "name":    "Éric NICOLAS",
     "title":   "Solutions Architect",
-    "aboutme": "Analytical tinkerer by nature, I like to constantly challenge myself and experiment with technologies beyond my comfort zone.\nI am a detail-oriented problem solver who thinks critically and aims for infallible, simple and reusable solutions: in my experience, the secret often lies in the savvy design of scalable microservices."
+    "aboutme": "I am a strategic and detail-oriented problem solver with an acutely critical mind, driven by a passion for innovation. In my experience, most of a project's value is derived from adequately identifying and contextualising the problem to answer—this is where I have the greatest impact.\nIn designing systems, I believe that [clarity](https://en.wikipedia.org/wiki/Worse_is_better) and [elegance](https://en.wikipedia.org/wiki/Unix_philosophy) are key to a lasting significance: I am a stalwart advocate of radical simplicity, and strive for creative solutions that will remain effective and adaptable."
   },
   "skills": [
     ["AWS Platform", "Arch. Design"],
@@ -126,7 +126,7 @@
       "location": "Leipzig, Germany",
       "title":    "Software Architect",
       "notabene": "remote position",
-      "abstract": "Supporting the complete reinvention of a B2B e-procurement platform grossing 500 million euros a year.",
+      "abstract": "[Empowering our feature teams](https://martinfowler.com/articles/platform-teams-stuff-done.html) to focus on building functionality in the trying context of [reinventing a B2B e-procurement platform](https://unite.eu/en-global/resources/press-and-coverage/mercateo-becomes-unite-b2b-platform-repositions-itself) grossing 500 million euros a year.",
       "tags":     ["*Software Architecture", "*Large-Scale Refactoring", "*DevOps", "AWS Platform", "Java"]
     },
     {
@@ -135,7 +135,7 @@
       "location": "Brittany region, France",
       "title":    "Solutions Architect",
       "notabene": "freelance entrepreneur",
-      "abstract": "Designed the entirety of the services that make up an enterprise EHS solution.",
+      "abstract": "Designed the entirety of the services that make up an enterprise EHS solution trusted by the [French national employment agency](https://en.wikipedia.org/wiki/France_Travail) since 2016.",
       "tags":     ["*AWS Platform", "*TypeScript", "*DevOps", "*Java", "*PostgreSQL", "*CI/CD"]
     },
     {
@@ -143,7 +143,7 @@
       "company":  "[Propellerhead](https://www.propellerhead.co.nz/)",
       "location": "Auckland, New Zealand",
       "title":    "Software Engineer",
-      "abstract": "Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://web.archive.org/web/20210419091526/https://twitter.com/w3c/status/826454510902136834) as a foremost example for their [Data&nbsp;on&nbsp;the&nbsp;Web&nbsp;Best&nbsp;Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.",
+      "abstract": "Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://web.archive.org/web/20210419091526/https://twitter.com/w3c/status/826454510902136834) as one of the foremost examples for their [Data on the Web Best Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.",
       "readmore": "https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630",
       "tags":     ["*AWS Platform", "*Java", "*Semantic Web", "*Atlassian Suite", "RDF DBMS", "DevOps"]
     },
@@ -160,7 +160,7 @@
       "company":  "[Safran Aircraft Engines](https://www.safran-group.com/companies/safran-aircraft-engines)",
       "location": "Île-de-France, France",
       "title":    "Software Engineer",
-      "abstract": "Primarily interfaced with mathematicians and physicists to develop and implement real-time ports of cutting-edge signal processing algorithms in the demanding context of aircraft and rocket engines.\nMentored a junior IT engineer from 2011 to 2013.",
+      "abstract": "Interfaced with physicists to implement real-time ports of cutting-edge signal processing algorithms in the demanding context of aircraft and rocket engines.\nMentored a [junior IT engineer](https://uk.linkedin.com/in/maxime-endewelt-320ab79a) from 2011 to 2013.",
       "tags":     ["*C++", "*Signal Processing", "MATLAB", "Qt Toolkit"]
     },
     {
@@ -168,7 +168,7 @@
       "company":  "[Site Alpha, Planon group](https://planonsoftware.com/uk/)",
       "location": "Paris area, France",
       "title":    "Apprentice Product Owner",
-      "abstract": "Handpicked by our CEO to elaborate with him specification documents for the company's new flagship product.",
+      "abstract": "Handpicked by our CEO to elaborate with them specification documents for the company's new flagship product.",
       "tags":     ["*Business Requirements Docs", "VBA"]
     }
   ],
