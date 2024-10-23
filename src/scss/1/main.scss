@@ -1,0 +1,54 @@
+@use "sass:color";
+@use '../spacing';
+@use '../colours';
+
+main {
+  display: flex;
+  grid-area: main;
+  flex-direction: column;
+  position: relative;
+  hyphens: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    mask-image: url('#main-background-mask');
+    background-size: cover;
+    background-color: hsla(240, 100%, 99.13%, 1); // ghostwhite +.5% lightness
+    background-image:
+      radial-gradient(at  0% 90%, hsla(240, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
+      linear-gradient(     90deg, hsla(185, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 30%),
+  }
+
+  section {
+    padding: spacing.$default-padding;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 5px spacing.$default-padding;
+    color: colours.$light-bg;
+  }
+
+  section#experience {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  article.experience {
+    display: grid;
+    grid-template: 'title title' 'when where' 'summary summary' / 1fr auto;
+    gap: .4em 0;
+
+    > * {
+      margin: 0;
+    }
+  }
+}

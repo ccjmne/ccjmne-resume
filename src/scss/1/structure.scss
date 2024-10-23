@@ -1,0 +1,14 @@
+@use 'sass:color';
+@use 'main';
+@use 'header';
+@use 'aside';
+@use "../colours";
+
+body {
+  @include colours.bg-sea;
+  display: grid;
+  grid-template: 'aside main' 1fr / 34% 1fr;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
