@@ -74,7 +74,7 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
         return pos ? '' : `V${y}`
       case SPAWN.test(type):
       default:
-        return 'v+1'
+        return ''
     }
   }
 

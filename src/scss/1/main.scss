@@ -19,9 +19,10 @@ main {
     left: 0;
     mask-image: url('#main-background-mask');
     background-size: cover;
+    background-color: hsla(240, 100%, 99.13%, 1); // ghostwhite +.5% lightness
     background-image:
-      linear-gradient(color.adjust(colours.$light-bg, $alpha: -.6), color.adjust(colours.$light-bg, $alpha: -.6)),
-      url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      radial-gradient(at  0% 90%, hsla(240, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
+      linear-gradient(     90deg, hsla(185, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 30%),
   }
 
   section {

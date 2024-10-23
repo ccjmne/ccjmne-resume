@@ -13,27 +13,12 @@ body {
   grid-template:
     'main'   1fr
     'footer' auto / 1fr;
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    mask-image: url('#main-background-mask');
-    background-size: cover;
-    background-image:
-      linear-gradient(color.adjust(colours.$light-bg, $alpha: -.6), color.adjust(colours.$light-bg, $alpha: -.6)),
-      // url('https://plus.unsplash.com/premium_photo-1671650125917-4cef01cd7574?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-      url('https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  }
 }
 
 main {
   display:   grid;
   grid-area: main;
+  position:  relative;
   hyphens:   none;
   grid-template:
     'graph highlights' 1fr / 33% 1fr;
@@ -43,6 +28,23 @@ main {
     padding:    5px 0;
     text-align: right;
     color:      colours.$light-bg;
+  }
+
+  &::before {
+    content:    '';
+    position:   absolute;
+    z-index:    -1;
+    top:        0;
+    right:      0;
+    bottom:     0;
+    left:       0;
+    mask-image: url('#main-background-mask');
+
+    background-color: hsla(240, 100%, 99.13%, 1); // ghostwhite +.5% lightness
+    background-image:
+      radial-gradient(at 80%  5%, hsla(185, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
+      radial-gradient(at  5% 90%, hsla(240, 35%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
+      linear-gradient(0deg,       hsla(185, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
   }
 }
 

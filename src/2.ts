@@ -53,7 +53,6 @@ qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${data.replace(/#f+/
 
 document.fonts.ready.then(async function () {
   const { top, height }                = document.querySelector('[grid-area=highlights]')!.getBoundingClientRect()
-  const { top: ftop }                  = document.querySelector('footer')!.getBoundingClientRect()
   const { top: ttop, height: theight } = document.querySelector('main h2')!.getBoundingClientRect()
   const highlights = [...document.querySelectorAll('[grid-area=headline]')]
     .map(e => e.getBoundingClientRect())
@@ -63,11 +62,6 @@ document.fonts.ready.then(async function () {
   graph.content(svg, ...labels)
   mask.content(
     elementSVG('rect').attrs({ x: 0, y: 0,    width: 9999, height: 9999, fill: '#fff' }),
-    elementSVG('rect').attrs({ x: 0, y: ftop, width: 9999, height: 9999, fill: '#000' }),
-    // This actually would "hollow out" the SVG instead of printing it in (off-)white.
-    // TODO: If we never actually use it, let's put the background back onto <main> only, avoiding having to carve out the footer
-    //element(((new DOMParser().parseFromString(data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#000')), 'image/svg+xml')).querySelector('path:last-child') as SVGPathElement))
-    //  .attrs({ stroke: '#fff', transform: 'translate(669 998.171875) scale(4)' }),
     titlebar({ seed: 42, x: 500, y: ttop, h: theight, align: 'right', separator: false }),
   )
 })
