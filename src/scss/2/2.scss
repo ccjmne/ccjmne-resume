@@ -191,7 +191,6 @@ article.highlight {
     text-align: end;
 
     strong {
-      @include typography.text-sea(90deg, true);
       font-weight: 800;
 
       $font-size:     1.1em;
