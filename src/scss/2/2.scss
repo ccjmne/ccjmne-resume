@@ -208,6 +208,7 @@ article.highlight {
 
 article.tech-stack {
   display:               grid;
+  align-content:         space-between;
   align-items:           baseline;
   grid-template-columns: auto 1fr;
   grid-gap:              0 calc( spacing.$default-padding / 3 );
@@ -218,6 +219,11 @@ article.tech-stack {
     font-size:      smaller;
     text-align:     right;
     letter-spacing: 1px;
+  }
+
+  > :not(.section-title) {
+    display: flex;
+    align-items: center;
   }
 
   svg {
