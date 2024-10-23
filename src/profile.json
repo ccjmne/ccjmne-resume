@@ -13,7 +13,7 @@
     "├┼┘                                                                                                ",
     "☆│  Mastery of [RxJs](https://rxjs.dev/)                                                           ",
     "│★                                                                                                 ",
-    "│☆  Mastery of TypeScript                                                                          ",
+    "☆│  Mastery of TypeScript                                                                          ",
     "│☆  Mastery of [D3.js](https://d3js.org/)                                                          ",
     "│☆  Migrate services to [IPv6](https://en.wikipedia.org/wiki/IPv4_address_exhaustion)              ",
     "☆│  Start contributing to [the TC39](https://tc39.es/)                                             ",
@@ -49,15 +49,15 @@
   "highlights": [
     {
       "dates":    "2024",
-      "headline": "Redesigned dysfunctional payment workflow",
-      "content":  "I overhauled the procedure and architecture of the credit card payment system at a [major e-procurement platform](https://unite.eu/), regarded as unmaintainable for its ongoing bugs; and provided a working implementation that purged accidental complexity and addressed vulnerabilities.",
-      "numbers":  ["reduced code base\nby about *96%*", "handles *millions of euros*\nin transactions yearly", "*11,954* fewer\nlines of code"]
+      "headline": "Steered project back on track to meet crucial deadline",
+      "content":  "I led the initiative to revise the design of a project gone off-course and coordinated the efforts to deliver on time a future-proof solution that would address the imminent amendments to the [Visa](https://usa.visa.com/) compliance mandate.",
+      "numbers":  ["corrected course of project\nof *6 months'* lead time", "with under *3 weeks*\nbefore pivotal cutoff date"]
     },
     {
       "dates":    "2023",
-      "headline": "Appropriated and patched legacy system under tight deadline",
-      "content":  "I stepped up to acclimate to a crucial piece of our system and amend it to address the threat of its imminent inoperability, in response to the unanticipated termination of a longstanding partner's business operation.",
-      "numbers":  ["under *2 weeks*\nof lead time", "took over a project with\nover *17 years* of history"]
+      "headline": "Spearheaded redesign of dysfunctional payment workflow",
+      "content":  "I drove the complete overhaul of the procedure and architecture of the credit card payment system at a [major B2B e-procurement platform](https://unite.eu/), and provided a working implementation that purged accidental complexity and addressed discovered vulnerabilities.",
+      "numbers":  ["reduced code base\nby about *96%*", "for platform handling annually\n*billions of euros* in transactions"]
     },
     {
       "dates":    "2020",
@@ -75,7 +75,7 @@
       "dates":    "2014",
       "headline": "Built data contextualisation protocol for the [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web)",
       "content":  "I jointly designed as well as implemented the procedure and supporting system by which [Auckland Museum](https://www.aucklandmuseum.com/)'s collections curator could map out the semantic attributes of their [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform's ever-growing digital archive.",
-      "numbers":  ["implemented the *Web 3.0*\nover a decade ago", "highlighted\nby *the W3C*"]
+      "numbers":  ["implemented for the *Web 3.0*\nover a decade ago", "highlighted\nby *the W3C*"]
     },
     {
       "dates":    "2012",
