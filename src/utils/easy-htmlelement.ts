@@ -68,7 +68,7 @@ export default class EasyHTMLElement {
       .filter(content => content !== '')
       .flatMap(content => (typeof content !== 'string' ? content.elem : content
         .replace(/&nbsp;/g, '\u00A0')
-        .split(/(?<=\[[^\]]+\]\([^)]+\))|(?=\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks
+        .split(/(\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks
         .map(fragment => fragment.match(/^\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)$/)?.groups as RegExpGroups<'text' | 'href'> | undefined ?? fragment)
         .flatMap(fragment => (typeof fragment === 'string'
           ? fragment.split(/\n/g).flatMap(t => [new EasyHTMLElement('br').elem, HYPHENATE ? hyphenate(t) : t]).slice(1)
