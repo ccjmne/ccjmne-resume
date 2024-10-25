@@ -4,7 +4,6 @@ import './scss/1/1.scss'
 
 import logo from './logo'
 import profile from './profile.json'
-import { type MatchArrayWGroups } from './types'
 
 import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
 import { hr, rhombus, titlebar } from './utils/svg-elements'
