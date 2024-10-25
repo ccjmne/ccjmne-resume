@@ -2,6 +2,7 @@ import EasyHTMLElement, { article, div, element, elementSVG, light, lighter, lig
 
 import './scss/2/2.scss'
 import profile from './profile.json'
+import pkg from '../package.json'
 import qrcode from 'qrcode'
 import { MatchArrayWGroups } from 'types'
 import { render } from 'utils/timeline'
@@ -10,7 +11,6 @@ import { hr, rhombus, titlebar } from 'utils/svg-elements'
 const { highlights, techstack, timeline } = profile
 
 const graph = element()
-const qcode = element('img')
 const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })
 
 element(document.body).content(
@@ -39,17 +39,14 @@ element(document.body).content(
       div(...items.flatMap(i => [rhombus(6), i]).slice(1))
     ])),
     light('FIND LATEST AT').at('qrcode-hint'),
-    qcode.at('qrcode'),
+    element('img').at('qrcode').attrs({
+      src: `data:image/svg+xml;utf8,${encodeURIComponent(await qrcode.toString(
+        `ccjmne.github.io/${pkg.name}`,
+        { type: 'svg', errorCorrectionLevel: 'L', margin: 0, color: { dark: '#eeee', light: '#0000' } }
+      ))}`
+    }),
   ),
 )
-
-// TODO: prefix with https://, move/rename project to github.com/ccjmne/resume (drop ccjmne- prefix in project name)
-// TODO: pass colours to generator, if possible?
-// TODO: consider using toDataURL?
-// TODO: consider using a proper SVG w/ currentColor for fill?
-// TODO: otherwise, should use $light-bg for fill anyways (get from SCSS)
-const data = await qrcode.toString('ccjmne.github.io/ccjmne-resume', { type: 'svg', errorCorrectionLevel: 'L', version: 2, margin: 0 })
-qcode.attrs({ height: 'auto', src: `data:image/svg+xml;utf8,${data.replace(/#f+/, 'transparent').replace(/#0+/, encodeURIComponent('#eee'))}` })
 
 document.fonts.ready.then(async function () {
   const { top, height }                = document.querySelector('[grid-area=highlights]')!.getBoundingClientRect()
