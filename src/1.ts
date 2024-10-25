@@ -3,13 +3,12 @@ import pkg from '../package.json'
 import './scss/1/1.scss'
 
 import logo from './logo'
-import profile from 'profile'
+import { experience, identity, links, skills, education, endorsments } from 'profile'
 
 import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
 import { hr, rhombus, titlebar } from './utils/svg-elements'
 
 const { name, homepage } = pkg
-const { experience, identity, links, skills, education, endorsments } = profile
 
 const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })
 

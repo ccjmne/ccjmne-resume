@@ -1,5 +1,4 @@
-export default {
-  "timeline": [
+export const timeline = [
     "╷╷╷                                                                                                ",
     "☆││ Start using [Neovim](https://neovim.io/)                                                       ",
     "││★                                                                                                ",
@@ -38,15 +37,17 @@ export default {
     "├┘                                                                                                 ",
     "☆   Start using [Debian](https://www.debian.org/)                                                  ",
     "╵                                                                                                  "
-  ],
-  "techstack": {
+  ]
+
+export const techstack = {
     "Web":      ["Webpack", "RxJs", "NodeJs", "Angular", "Vite", "Lit", "Tailwind", "GraphQL", "React"],
     "Database": ["PostgreSQL", "jOOQ", "DynamoDB", "Liquibase", "RDS", "OracleDB", "SQLite"],
     "Code":     ["Neovim", "TypeScript", "Java", "Visual Studio Code", "JavaScript", "Git", "Lua", "C++"],
     "Tools":    ["tmux", "Git", "Linux", "ripgrep", "fd", "Zsh", "AWK", "jq", "fzf", "asdf", "powerlevel10k"],
     "Cloud":    ["AWS", "Google Cloud Platform", "GitHub Actions", "Kubernetes", "Terraform"]
-  },
-  "highlights": [
+  }
+
+export const highlights = [
     {
       "dates":    "2024",
       "headline": "Steered project back on track to meet crucial deadline",
@@ -83,8 +84,9 @@ export default {
       "content":  "I noticed an opportunity for, designed, built and drove the promotion of a workflow optimisation for technicians at a [world-leading aircraft engines manufacturer](https://www.safran-group.com/companies/safran-aircraft-engines) to substantially reduce the strenuous cost of late-stage testing of our propulsion systems.",
       "numbers":  ["over *1,000,000 euros*\nsaved each year", "improved longstanding procedure\nin the *defence industry*"]
     }
-  ],
-  "links": [
+  ]
+
+export const links = [
     {
       "icon": "mail.svg",
       "href": "mailto:ccjmne@gmail.com",
@@ -105,21 +107,24 @@ export default {
       "href": "https://github.com/ccjmne",
       "text": "github/ccjmne"
     }
-  ],
-  "identity": {
+  ]
+
+export const identity = {
     "name":    "Éric NICOLAS",
     "title":   "Solutions Architect",
     "aboutme": "I am a strategic and detail-oriented problem solver with an acutely critical mind, driven by a passion for innovation. In my experience, most of a project's value is derived from adequately identifying and contextualising the problem to answer—this is where I have the greatest impact.\nIn designing systems, I believe that [clarity](https://en.wikipedia.org/wiki/Worse_is_better) and [elegance](https://en.wikipedia.org/wiki/Unix_philosophy) are key to a lasting significance: I am a stalwart advocate of radical simplicity, and strive for creative solutions that will remain effective and adaptable."
-  },
-  "skills": [
+  }
+
+export const skills = [
     ["AWS Platform", "Arch. Design"],
     ["Git Surgery", "Linux Sys. Admin."],
     ["DevOps", "TypeScript", "Java"],
     ["Documentation", "DB Admin."],
     ["Web Dev.", "Communication"],
     ["Code Quality", "Organisation"]
-  ],
-  "experience": [
+  ]
+
+export const experience = [
     {
       "dates":    "Nov. 2022 – Present",
       "company":  "[Unite](https://unite.eu/en-global)",
@@ -165,8 +170,9 @@ export default {
       "title":    "Apprentice Product Owner",
       "abstract": "Handpicked by our CEO to elaborate with them specification documents for the company's new flagship product."
     }
-  ],
-  "education": [
+  ]
+
+export const education = [
     {
       "degree":    "Engineer's Degree",
       "field":     "Network Security",
@@ -185,8 +191,9 @@ export default {
       "dates":     "2005 – 2008",
       "highlight": "Awarded with the greatest dis-tinction. Graduated top of class; top 0.4% nationwide."
     }
-  ],
-  "endorsments": [
+  ]
+
+export const endorsments = [
     {
       "from":    "[Christian POPESCU](https://www.linkedin.com/in/christian-popescu-6766873/)",
       "title":   "Senior Software Engineer",
@@ -198,4 +205,3 @@ export default {
       "excerpt": "Éric is a hard-working person, tackling all assignments with dedication.\nI highly recommend him, he is a team player and would make a great asset to any organization. "
     }
   ]
-}

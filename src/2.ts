@@ -1,14 +1,12 @@
 import EasyHTMLElement, { article, div, element, elementSVG, light, lighter, lightest, section, span } from 'utils/easy-htmlelement'
 
 import './scss/2/2.scss'
-import profile from 'profile'
 import pkg from '../package.json'
+import { highlights, techstack, timeline } from 'profile'
 import qrcode from 'qrcode'
 import { MatchArrayWGroups } from 'types'
 import { render } from 'utils/timeline'
 import { hr, rhombus, titlebar } from 'utils/svg-elements'
-
-const { highlights, techstack, timeline } = profile
 
 const graph = element()
 const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })
