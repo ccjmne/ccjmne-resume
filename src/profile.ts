@@ -1,4 +1,4 @@
-{
+export default {
   "timeline": [
     "╷╷╷                                                                                                ",
     "☆││ Start using [Neovim](https://neovim.io/)                                                       ",
