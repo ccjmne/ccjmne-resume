@@ -3,7 +3,7 @@ import pkg from '../package.json'
 import './scss/1/1.scss'
 
 import logo from './logo'
-import { experience, identity, links, skills, education, endorsments } from 'profile'
+import { experience, identity, links, skills, education, endorsements } from 'profile'
 
 import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
 import { hr, rhombus, titlebar } from './utils/svg-elements'
@@ -33,9 +33,9 @@ element(document.body).content(
         light(highlight).at('highlight'),
       )),
     ),
-    section('endorsments').content(
-      element('h2').cls('hr').content('Endorsments', hr()),
-      ...endorsments.map(({ from, title, excerpt }) => article('endorsment').content(
+    section('endorsements').content(
+      element('h2').cls('hr').content('Endorsements', hr()),
+      ...endorsements.map(({ from, title, excerpt }) => article('endorsement').content(
         element('h3').at('from').cls('no-underline').content(from),
         element('h3').at('title').cls('hr').content(lightest(hr({ height: 7, reverse: true })), title),
         light().at('excerpt').content(excerpt),

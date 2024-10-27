@@ -89,7 +89,7 @@ export const education = [{
   highlight: 'Awarded with the greatest dis-tinction. Graduated top of class; top 0.4% nationwide.',
 }]
 
-export const endorsments = [{
+export const endorsements = [{
   from:    '[Christian POPESCU](https://www.linkedin.com/in/christian-popescu-6766873/)',
   title:   'Senior Software Engineer',
   excerpt: 'Éric showed obvious technical skills and remarkable abstraction capacities.\nI trust in his technical and human skills.',
