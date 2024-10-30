@@ -35,7 +35,6 @@
     "@types/qrcode": "^1.5.5",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
-    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
     "css-modules-typescript-loader": "^4.0.1",
     "eslint": "^9.13.0",

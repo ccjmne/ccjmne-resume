@@ -1,6 +1,5 @@
 import { resolve } from 'path'
 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import svgToMiniDataURI from 'mini-svg-data-uri'
 import { WebpackPluginInstance, type Configuration } from 'webpack'
@@ -89,11 +88,10 @@ export default (
       index: '1.html',
     },
   },
-  output: { path: dist },
+  output: { path: dist, clean: mode === 'production' },
   stats: { all: mode === 'development' },
   plugins: [
     new DefinePlugin({ 'process.env': JSON.stringify(env) }),
-    ...mode === 'production' ? [new CleanWebpackPlugin()] : [],
     new TypedScssModulesPlugin({ watch: mode === 'development' }),
     ...Object.keys(pages).map(name => new HtmlWebpackPlugin({
       title: `Page ${name}`,
