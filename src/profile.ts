@@ -37,21 +37,21 @@ export const experience = [{
   location: 'Leipzig, Germany',
   title:    'Software Architect',
   notabene: 'remote position',
-  abstract: "[Empowering our feature teams](https://martinfowler.com/articles/platform-teams-stuff-done.html) to focus on building functionality in the trying context of [reinventing a B2B e-procurement platform](https://unite.eu/en-global/resources/press-and-coverage/mercateo-becomes-unite-b2b-platform-repositions-itself) grossing 500 million euros a year.\nMentored a [junior IT developer](https://www.linkedin.com/in/tymofii-bondarchuk-44157822a/) in 2023 and 2024.",
+  abstract: '[Empowering our feature teams](https://martinfowler.com/articles/platform-teams-stuff-done.html) to focus on building functionality in the trying context of [reinventing a B2B e-procurement platform](https://unite.eu/en-global/resources/press-and-coverage/mercateo-becomes-unite-b2b-platform-repositions-itself) grossing 500 million euros a year.\nMentored a [junior IT developer](https://www.linkedin.com/in/tymofii-bondarchuk-44157822a/) in 2023 and 2024.',
 }, {
   dates:    'Dec. 2014 – Present',
   company:  '[NCLS Development](https://www.orca-solution.com/)',
   location: 'Brittany region, France',
   title:    'Solutions Architect',
   notabene: 'freelance entrepreneur',
-  abstract: "Designed the entirety of the services that make up an enterprise EHS solution trusted by the [French national employment agency](https://en.wikipedia.org/wiki/France_Travail) since 2016.",
+  abstract: `Designed the entirety of the services that make up an enterprise EHS solution trusted by the [French national employment agency](https://en.wikipedia.org/wiki/France_Travail) since 2016.`,
 }, {
   dates:    'Dec. 2013 – Dec. 2014',
   company:  '[Propellerhead](https://www.propellerhead.co.nz/)',
   location: 'Auckland, New Zealand',
   title:    'Software Engineer',
   abstract: 'Co-designed and implemented the engine responsible for parsing and semantically classifying 160+ years of heterogeneous historical data.\nProject [highlighted by the W3C](https://web.archive.org/web/20210419091526/https://twitter.com/w3c/status/826454510902136834) as one of the foremost examples for their [Data on the Web Best Practices](https://www.w3.org/TR/2017/REC-dwbp-20170131/) publication released in 2017.',
-  readmore: "https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630",
+  readmore: 'https://medium.com/propellerhead/uncovering-treasures-our-work-with-auckland-museum-98531ac9b630',
 }, {
   dates:    'Sep. 2012 – Mar. 2013',
   company:  '[Gaspard Monge Institute](https://igm.univ-gustave-eiffel.fr/)',
@@ -69,21 +69,21 @@ export const experience = [{
   company:  '[Site Alpha, Planon group](https://planonsoftware.com/uk/)',
   location: 'Paris area, France',
   title:    'Apprentice Product Owner',
-  abstract: "Handpicked by [our CEO](https://www.linkedin.com/in/jean-luc-isnardi-3785232/) to elaborate with him specification documents for the company's new flagship product.",
+  abstract: `Handpicked by [our CEO](https://www.linkedin.com/in/jean-luc-isnardi-3785232/) to elaborate with him specification documents for the company's new flagship product.`,
 }]
 
 export const education = [{
-  degree:    "Engineer's Degree",
+  degree:    `Engineer's Degree`,
   field:     'Network Security',
   dates:     '2010 – 2013',
   highlight: 'Upskilled in the Java language by [Rémi FORAX](https://github.com/forax), major contributor to its expansion.\nAwarded with the greatest dis-tinction. Graduated top of class.',
 }, {
-  degree:    "Licentiate's Degree",
+  degree:    `Licentiate's Degree`,
   field:     'Computer Science',
   dates:     '2008 – 2010',
   highlight: 'Awarded with the greatest dis-tinction. Graduated top of class.',
 }, {
-  degree:    "Bachelor's Degree",
+  degree:    `Bachelor's Degree`,
   field:     'Applied Physics for Electronics',
   dates:     '2005 – 2008',
   highlight: 'Awarded with the greatest dis-tinction. Graduated top of class; top 0.4% nationwide.',
@@ -103,7 +103,7 @@ export const highlights = [{
   dates:    '2024',
   headline: 'Steered project back on track to meet crucial deadline',
   content:  'I led the initiative to revise the design of a project gone off-course and coordinated the efforts to deliver on time a future-proof solution that would address the imminent amendments to the [Visa](https://usa.visa.com/) compliance mandate.',
-  numbers:  ["corrected course of project\nof *6 months'* lead time", "with under *3 weeks*\nbefore pivotal cutoff date"],
+  numbers:  [`corrected course of project\nof *6 months'* lead time`, 'with under *3 weeks*\nbefore pivotal cutoff date'],
 }, {
   dates:    '2023',
   headline: 'Spearheaded redesign of dysfunctional payment workflow',
@@ -112,7 +112,7 @@ export const highlights = [{
 }, {
   dates:    '2020',
   headline: 'Resolved performance bottleneck in data computation engine',
-  content:  "I proposed to [better leverage a customer's database engine](https://blog.jooq.org/truth-first-or-why-you-should-mostly-implement-database-first-designs/) and pair intricate [SQL queries](https://en.wikipedia.org/wiki/SQL) with savvy and straightforward API design to break the impasse of a solution having far outgrown its original scope.",
+  content:  `I proposed to [better leverage a customer's database engine](https://blog.jooq.org/truth-first-or-why-you-should-mostly-implement-database-first-designs/) and pair intricate [SQL queries](https://en.wikipedia.org/wiki/SQL) with savvy and straightforward API design to break the impasse of a solution having far outgrown its original scope.`,
   numbers:  ['from about 15 seconds\ndown to *80 milliseconds*', 'entirely eliminated\nthe *reliance on caching*'],
 }, {
   dates:    '2016',
@@ -122,7 +122,7 @@ export const highlights = [{
 }, {
   dates:    '2014',
   headline: 'Built data contextualisation protocol for the [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web)',
-  content:  "I jointly designed as well as implemented the procedure and supporting system by which [Auckland Museum](https://www.aucklandmuseum.com/)'s collections curator could map out the semantic attributes of their [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform's ever-growing digital archive.",
+  content:  `I jointly designed as well as implemented the procedure and supporting system by which [Auckland Museum](https://www.aucklandmuseum.com/)'s collections curator could map out the semantic attributes of their [Linked Open Data](https://en.wikipedia.org/wiki/Linked_data) platform's ever-growing digital archive.`,
   numbers:  ['implemented for the *Web 3.0*\nover a decade ago', 'highlighted\nby *the W3C*'],
 }, {
   dates:    '2012',
