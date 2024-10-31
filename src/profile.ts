@@ -37,7 +37,7 @@ export const experience = [{
   location: 'Leipzig, Germany',
   title:    'Software Architect',
   notabene: 'remote position',
-  abstract: '[Empowering our feature teams](https://martinfowler.com/articles/platform-teams-stuff-done.html) to focus on building functionality in the trying context of [reinventing a B2B e-procurement platform](https://unite.eu/en-global/resources/press-and-coverage/mercateo-becomes-unite-b2b-platform-repositions-itself) grossing 500 million euros a year.\nMentored a [junior IT developer](https://www.linkedin.com/in/tymofii-bondarchuk-44157822a/) in 2023 and 2024.',
+  abstract: '[Enabling our feature teams](https://martinfowler.com/articles/platform-teams-stuff-done.html) to focus on delivering functionality in the trying context of [reinventing a B2B e-procurement platform](https://unite.eu/en-global/resources/press-and-coverage/mercateo-becomes-unite-b2b-platform-repositions-itself) grossing 500 million euros a year.\nMentored a [junior IT developer](https://www.linkedin.com/in/tymofii-bondarchuk-44157822a/) in 2023 and 2024.',
 }, {
   dates:    'Dec. 2014 – Present',
   company:  '[NCLS Development](https://www.orca-solution.com/)',
