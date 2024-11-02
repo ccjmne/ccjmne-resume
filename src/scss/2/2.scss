@@ -43,7 +43,7 @@ main {
     background-color: hsla(240, 100%, 99.13%, 1); // ghostwhite +.5% lightness
     background-image:
       radial-gradient(at 80%  5%, hsla(185, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
-      radial-gradient(at  5% 90%, hsla(240, 35%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
+      radial-gradient(at  5% 90%, hsla(240, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
       linear-gradient(0deg,       hsla(185, 25%, 25%, 0.13) 0px, hsla(240, 100%, 98.63%, 0) 50%),
   }
 }
