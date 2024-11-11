@@ -133,9 +133,9 @@ export const highlights = [{
 
 export const timeline = `
 ╷╷╷
-☆││ Start using [Neovim](https://neovim.io/)
+☆││ Begin using [Neovim](https://neovim.io/)
 ││★
-☆││ Start using [Rust](https://www.rust-lang.org/)<br>for personal projects
+☆││ Begin using [Rust](https://www.rust-lang.org/)<br>for personal projects
 ☆││ Switch to [Arch Linux](https://archlinux.org/)
 │☆│ Migrate Cloud resources<br>to [ARM architecture](https://en.wikipedia.org/wiki/ARM_architecture_family)
 ││★
@@ -148,10 +148,10 @@ export const timeline = `
 ☆│  Mastery of TypeScript
 │☆  Mastery of [D3.js](https://d3js.org/)
 │☆  Migrate services to [IPv6](https://en.wikipedia.org/wiki/IPv4_address_exhaustion)
-☆│  Start contributing to [the TC39](https://tc39.es/)
+☆│  Begin contributing to [the TC39](https://tc39.es/)
 │★
 │☆  Mastery of AngularJS
-│☆  Begin freelancing
+│☆  Begin freelance activity
 ├┘╷
 ├┐☆ Graduation of [my apprentice](https://uk.linkedin.com/in/maxime-endewelt-320ab79a)
 │☆│ Excellent JavaScript proficiency
@@ -168,7 +168,7 @@ export const timeline = `
 │☆  Skilled C++ proficiency
 │☆  Join [Safran Aircraft Engines](https://www.safran-group.com/companies/safran-aircraft-engines)
 ├┘
-☆   Start using [Debian](https://www.debian.org/)
+☆   Begin using [Debian](https://www.debian.org/)
 ╵
 `.trim().split(/\n/g)
 
