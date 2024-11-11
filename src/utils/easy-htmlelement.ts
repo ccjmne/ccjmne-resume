@@ -65,7 +65,7 @@ export default class EasyHTMLElement {
    */
   private static prepare(elements: ReadonlyArray<string | EasyHTMLElement>): ReadonlyArray<string | HTMLElement | SVGElement> {
     return elements
-      .filter(content => content !== '')
+      .filter(content => !!content)
       .flatMap(content => (typeof content !== 'string' ? content.elem : content
         .replace(/&nbsp;/g, '\u00A0')
         .split(/(\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks

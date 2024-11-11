@@ -61,13 +61,7 @@ document.fonts.ready.then(async function () {
 })
 
 function parseStat(stat: string): EasyHTMLElement {
-  function strong(num?: string): (string | EasyHTMLElement)[] {
-    const [l, r] = em.split(num!)
-    return num ? [l, span(num).cls('num'), r] : [em]
-  }
-
-  // TODO: Can probably be nicer, leveraging String#split on a RegExp that contains a capturing group
-  // See https://262.ecma-international.org/5.1/#sec-15.5.4.14
-  const { pre, em, post } = (/^(?<pre>.*)[*](?<em>.*?)[*](?<post>.*)$/s.exec(stat) as MatchArrayWGroups<'pre' | 'em' | 'post'>)!.groups
-  return span(pre, element('strong').content(...strong(/(?<=\s|^)((?:\d+,)*\d+%?)(?=\s|$)/.exec(em)?.[0])), post).cls('stat')
+  const [pre, em, post] = stat.split('*')
+  const [l, num, r] = em.split(new RegExp(/(?<=\s|^)((?:\d+,)*\d+%?)(?=\s|$)/))
+  return span(pre, element('strong').content(l, span(num).cls('num'), r), post).cls('stat')
 }
