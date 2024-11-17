@@ -160,7 +160,7 @@ export const timeline = `
 │☆│ Join [Propellerhead](https://www.propellerhead.co.nz/)
 ├┘│
 ├┐│
-│☆│ Excellent Java proficiency
+☆││ Excellent Java proficiency
 │☆│ First lead developer role
 │★│
 ││☆ First mentor role
