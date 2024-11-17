@@ -19,7 +19,7 @@ export type PDFPrinterConfig = {
   paths?:      string[]
   options?:    PDFOptions | ScreenshotOptions
   properties?: DocumentProperties
-  /** The date to use for the 'generated on' info */
+  /** The date to use for the 'generated on' info and in the PDF metadata */
   date?:       Date
   /** Whether the rest of the compilation should wait for PDF compilation to go through */
   blocking?:   boolean
@@ -109,7 +109,7 @@ export class PDFPrinter implements WebpackPluginInstance {
   }
 
   private async combinePDFs(pdfs: Uint8Array[]): Promise<Buffer> {
-    const doc = new Document({ properties: this.config.properties, font: null! })
+    const doc = new Document({ properties: { ...this.config.properties, creationDate: this.config.date }, font: null! })
     pdfs.forEach(content => doc.addPagesOf(new ExternalDocument(content)))
     return doc.asBuffer()
   }
