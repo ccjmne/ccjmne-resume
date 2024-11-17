@@ -1,4 +1,4 @@
-import { writeFile } from 'fs/promises'
+import { readFile, writeFile } from 'fs/promises'
 import { dirname, resolve } from 'path'
 
 import { mkdirp } from 'mkdirp'
@@ -6,6 +6,8 @@ import { Document, ExternalDocument, type DocumentProperties } from 'pdfjs'
 import Puppeteer, { type Browser, type PDFOptions, type ScreenshotOptions } from 'puppeteer'
 import sharp from 'sharp'
 import { type Compiler, type WebpackPluginInstance } from 'webpack'
+
+const MockDate = await readFile('./node_modules/mockdate/lib/mockdate.js');
 
 type Concrete<T> = { [P in keyof T]-?: NonNullable<T[P]> }
 
@@ -17,6 +19,8 @@ export type PDFPrinterConfig = {
   paths?:      string[]
   options?:    PDFOptions | ScreenshotOptions
   properties?: DocumentProperties
+  /** The date to use for the 'generated on' info */
+  date?:       Date
   /** Whether the rest of the compilation should wait for PDF compilation to go through */
   blocking?:   boolean
 }
@@ -67,6 +71,7 @@ export class PDFPrinter implements WebpackPluginInstance {
     const { config: { options }, type, output, uris } = this
     const contents = await Promise.all(uris.map(async uri => {
       const page = await this.browser.newPage()
+      await page.evaluateOnNewDocument(`${MockDate}; MockDate.set(${this.config.date?.getTime()}, 0)`);
       await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 1 }) // A4 Portrait @ 96 DPI
       await page.goto(uri, { waitUntil: 'networkidle0' })
       const content = await (type === 'PDF'

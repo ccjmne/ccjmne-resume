@@ -105,6 +105,7 @@ export default (
         ? { scheme: 'file', paths: Object.keys(pages).map(name => resolve(dist, `${name}.html`)) }
         : { port, paths: Object.keys(pages).map(name => `${name}.html`) },
       output: resolve(dist, env.OUTPUT ?? `${name}.pdf`),
+      date: env.DATE ? new Date(env.DATE) : undefined,
       properties: { title, author, subject: description, keywords: keywords.join(', '), creator: `${name} (${homepage})` },
       blocking: mode === 'production',
     }),

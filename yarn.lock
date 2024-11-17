@@ -2118,6 +2118,7 @@ __metadata:
     hyphen: "npm:^1.10.6"
     mini-svg-data-uri: "npm:^1.4.4"
     mkdirp: "npm:^3.0.1"
+    mockdate: "npm:^3.0.5"
     pdfjs: "npm:^2.5.3"
     puppeteer: "npm:^23.6.1"
     qrcode: "npm:^1.5.4"
@@ -5632,6 +5633,13 @@ __metadata:
   bin:
     mkdirp: dist/cjs/src/bin.js
   checksum: 10c0/9f2b975e9246351f5e3a40dcfac99fcd0baa31fbfab615fe059fb11e51f10e4803c63de1f384c54d656e4db31d000e4767e9ef076a22e12a641357602e31d57d
+  languageName: node
+  linkType: hard
+
+"mockdate@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "mockdate@npm:3.0.5"
+  checksum: 10c0/36ab00c4b94d3e3cc8b9ecec27730dcf396d47d2ba046ad96635e7f9bc4bba0fff6125dedaba7313b1cadc0cefc0eb3f3ac0d5c3655707afd3b82fa4550aae92
   languageName: node
   linkType: hard
 
