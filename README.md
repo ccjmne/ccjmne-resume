@@ -77,6 +77,14 @@ With each newly published release on GitHub,
    my resume [here](https://ccjmne.github.io/ccjmne-resume), with [GitHub
    Pages](https://pages.github.com/)
 
+## History
+
+In order to re-generate older documents for preservation
+purposes, or generate their thumbnails (and/or anything
+that I might think up at a later date), look into
+[ccjmne/ccjmne-resume-printer](https://github/com/ccjmne/ccjmne-resume-printer).
+
+
 ## Licensing
 
 **GPL-3.0**
