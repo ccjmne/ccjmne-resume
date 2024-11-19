@@ -1,25 +1,35 @@
 <script>
-  import Counter from './lib/Counter.svelte'
+  import Resume from "./lib/Resume.svelte";
+
+  const resumes = Object.keys(
+    import.meta.glob("/public/assets/*/*.pdf", { eager: true }),
+  ).map((pdf) => ({
+    version: pdf.split("/").slice(-2, -1)[0],
+    pdf,
+    thumbnail: pdf.replace(/.pdf$/, ".png"),
+  }));
 </script>
 
 <main>
   <h1>ccjmne-resume</h1>
 
-  <div class="card">
-    <Counter />
+  <div class="links">
+    {#each resumes as { version, pdf, thumbnail }}
+      <Resume {version} {pdf} {thumbnail} />
+    {/each}
   </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
 </main>
 
 <style lang="scss">
-  .read-the-docs {
-    color: #888;
+  h1 {
+    text-align: center;
+    font-size: 3.2em;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-bottom: 100px;
   }
 </style>
