@@ -35,7 +35,7 @@ export const experience = [{
   dates:    'Nov. 2022 – Present',
   company:  '[Unite](https://unite.eu/en-global)',
   location: 'Leipzig, Germany',
-  title:    'Software Architect',
+  title:    'Principal Software Engineer',
   notabene: 'remote position',
   abstract: '[Enabling our feature teams](https://martinfowler.com/articles/platform-teams-stuff-done.html) to focus on delivering functionality in the trying context of [reinventing a B2B e-procurement platform](https://unite.eu/en-global/resources/press-and-coverage/mercateo-becomes-unite-b2b-platform-repositions-itself) grossing 500 million euros a year.\nMentored a [junior IT developer](https://www.linkedin.com/in/tymofii-bondarchuk-44157822a/) in 2023 and 2024.',
 }, {
@@ -133,6 +133,7 @@ export const highlights = [{
 
 export const timeline = `
 ╷╷╷
+││☆ First principal engineer role
 ☆││ Begin using [Neovim](https://neovim.io/)
 ││★
 ☆││ Begin using [Rust](https://www.rust-lang.org/)<br>for personal projects
