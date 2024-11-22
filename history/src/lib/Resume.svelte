@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let pdf, thumbnail, version;
+  export let pdf, thumbnail, version
 </script>
 
 <a href={pdf} target="_blank">
