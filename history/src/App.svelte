@@ -1,12 +1,19 @@
 <script>
   import Resume from './lib/Resume.svelte'
 
-  const resumes = Object.keys(
-    import.meta.glob('/public/assets/*/*.pdf', { eager: true })
-  ).map(pdf => ({
-    version: pdf.split('/').slice(-2, -1)[0],
-    pdf,
-    thumbnail: pdf.replace(/.pdf$/, '.png'),
+  const thumbnails = import.meta.glob('/src/assets/*.png', {
+    eager: true,
+    import: 'default',
+    query: { url: true, h: 250 },
+  })
+
+  const resumes = Object.values(
+    import.meta.glob('/src/assets/*.ts', { eager: true })
+  ).map(({ version, date, resume, thumbnail }) => ({
+    version,
+    date,
+    pdf: import.meta.resolve(`/assets/${version}.pdf`),
+    thumbnail: thumbnails[`/src/assets/${version}.png`],
   }))
 </script>
 
