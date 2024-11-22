@@ -1,4 +1,5 @@
 <script>
+<script lang="ts">
   import Resume from './lib/Resume.svelte'
 
   const thumbnails = import.meta.glob('/src/assets/*.png', {
@@ -8,8 +9,8 @@
   })
 
   const resumes = Object.values(
-    import.meta.glob('/src/assets/*.ts', { eager: true })
-  ).map(({ version, date, resume, thumbnail }) => ({
+    import.meta.glob<{ version: string; date: Date }>('/src/assets/*.ts', { eager: true })
+  ).map(({ version, date }) => ({
     version,
     date,
     pdf: import.meta.resolve(`/assets/${version}.pdf`),
