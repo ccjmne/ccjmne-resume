@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
+import { imagetools } from 'vite-imagetools'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [svelte(), imagetools()],
 })
