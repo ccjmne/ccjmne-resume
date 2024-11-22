@@ -1,4 +1,3 @@
-<script>
 <script lang="ts">
   import Chic from './lib/chic/Chic.svelte'
   import Resume from './lib/Resume.svelte'
