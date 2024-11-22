@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
-  import vert from './chic.vert'
-  import frag from './chic.frag'
+  import vert from './vert.glsl'
+  import frag from './frag.glsl'
 
   let canvas: HTMLCanvasElement
   let gl: WebGLRenderingContext
