@@ -8,7 +8,7 @@
   let gl: WebGLRenderingContext
 
   onMount(function initializeShader() {
-    if (!(gl = canvas.getContext('webgl')!)) {
+    if (!(gl = canvas.getContext('webgl2')!)) {
       console.error('WebGL not supported')
       return
     }
@@ -35,13 +35,13 @@
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW)
 
-    const positionLocation = gl.getAttribLocation(program, 'aPosition')
-    gl.enableVertexAttribArray(positionLocation)
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0)
+    const aPos = gl.getAttribLocation(program, 'aPos')
+    gl.enableVertexAttribArray(aPos)
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0)
 
-    const timeUniform = gl.getUniformLocation(program, 'uTime')
+    const uTime = gl.getUniformLocation(program, 'uTime')
     ;(function render() {
-      gl.uniform1f(timeUniform, performance.now())
+      gl.uniform1f(uTime, performance.now())
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.drawArrays(gl.TRIANGLES, 0, 6)
       requestAnimationFrame(render)
