@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Chic from './lib/chic/Chic.svelte'
   import Resume from './lib/Resume.svelte'
 
   const thumbnails = import.meta.glob('/src/assets/*.png', {
@@ -23,9 +22,7 @@
 
   <div class="links">
     {#each resumes as { version, pdf, thumbnail }}
-      <Chic>
-        <Resume {version} {pdf} {thumbnail} />
-      </Chic>
+      <Resume {version} {pdf} {thumbnail} />
     {/each}
   </div>
 </main>

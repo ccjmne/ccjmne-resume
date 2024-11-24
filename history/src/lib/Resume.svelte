@@ -1,10 +1,14 @@
 <script lang="ts">
+  import Chic from './chic/Chic.svelte'
+
   export let pdf, thumbnail, version
 </script>
 
 <a href={pdf} target="_blank">
   <figure>
-    <img src={thumbnail} alt="Resume version {version} thumbnail" />
+    <Chic>
+      <img src={thumbnail} alt="Resume version {version} thumbnail" />
+    </Chic>
     <figcaption>Version {version}</figcaption>
   </figure>
 </a>
