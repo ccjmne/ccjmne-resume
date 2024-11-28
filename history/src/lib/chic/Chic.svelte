@@ -1,15 +1,34 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onMount, type Snippet } from 'svelte'
 
   import vert from './vert.glsl'
   import frag from './frag.glsl'
+
+  let {
+    active: pActive = 'hover',
+    margin = 40,
+    children,
+  }: { active?: boolean | 'hover'; margin?: number; children: Snippet<[any]> } = $props()
+
+  let hovered = $state(false)
+  let active = $derived(pActive === 'hover' ? hovered : !!pActive)
+  let render = $state<() => void>(() => {})
 
   let canvas: HTMLCanvasElement
   let slot: HTMLDivElement
   let gl: WebGLRenderingContext
 
-  let MARGIN = 40.0
-  let tgt = MARGIN * 4
+  let frame: number
+  $effect(() => {
+    if (active) {
+      ;(function play() {
+        render()
+        frame = requestAnimationFrame(play)
+      })()
+    } else {
+      cancelAnimationFrame(frame)
+    }
+  })
 
   onMount(function initializeShader() {
     if (!(gl = canvas.getContext('webgl2')!)) {
@@ -28,19 +47,16 @@
 
     gl.useProgram(program)
 
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
     // prettier-ignore
-    const positions = new Float32Array([
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
       -1, -1, // Bottom-left
        1, -1, // Bottom-right
       -1,  1, // Top-left
        1, -1, // Bottom-right
        1,  1, // Top-right
       -1,  1, // Top-left
-    ])
-
-    const positionBuffer = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW)
+    ]), gl.STATIC_DRAW)
 
     const aPos = gl.getAttribLocation(program, 'aPos')
     gl.enableVertexAttribArray(aPos)
@@ -49,24 +65,20 @@
     const uTime = gl.getUniformLocation(program, 'uTime')
     const uRes = gl.getUniformLocation(program, 'uRes')
     const uMargin = gl.getUniformLocation(program, 'uMargin')
-    let mgn = tgt
 
-    ;(function render() {
-      canvas.setAttribute('width', String(slot.getBoundingClientRect().width + MARGIN * 2))
-      canvas.setAttribute('height', String(slot.getBoundingClientRect().height + MARGIN * 2))
+    render = function () {
+      canvas.setAttribute('width', String(slot.getBoundingClientRect().width + margin * 2))
+      canvas.setAttribute('height', String(slot.getBoundingClientRect().height + margin * 2))
       canvas.width = canvas.clientWidth * devicePixelRatio
       canvas.height = canvas.clientHeight * devicePixelRatio
       gl.viewport(0, 0, canvas.width, canvas.height)
-
-      const growth = 10
-      gl.uniform1f(uMargin, (mgn += tgt > mgn ? growth : tgt < mgn - growth ? -growth : 0))
       gl.uniform2f(uRes, canvas.width, canvas.height)
-      gl.uniform1f(uTime, performance.now())
+      gl.uniform1f(uMargin, margin)
 
+      gl.uniform1f(uTime, performance.now())
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.drawArrays(gl.TRIANGLES, 0, 6)
-      requestAnimationFrame(render)
-    })()
+    }
   })
 
   function createShader(gl: WebGLRenderingContext, type: GLenum, source: string): WebGLShader {
@@ -96,34 +108,30 @@
 </script>
 
 <div
-  class="shader-container"
-  on:mouseenter={() => (tgt = MARGIN)}
-  on:mouseleave={() => (tgt = MARGIN * 4)}
+  class="container"
+  role="figure"
+  onmouseenter={() => (hovered = true)}
+  onmouseleave={() => (hovered = false)}
 >
   <div class="overlay">
     <canvas bind:this={canvas}></canvas>
   </div>
-  <div bind:this={slot} class="rel"><slot /></div>
+  <div bind:this={slot}>{@render children?.()}</div>
 </div>
 
 <style lang="scss">
-  .shader-container {
+  .container {
     position: relative;
   }
 
   .overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .rel {
-    position: relative;
-    line-height: 0;
   }
 </style>
