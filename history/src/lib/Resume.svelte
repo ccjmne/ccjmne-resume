@@ -2,11 +2,13 @@
   import Chic from './chic/Chic.svelte'
 
   let { pdf, thumbnail, version }: { pdf: string; thumbnail: string; version: string } = $props()
+
+  let active = $state(false)
 </script>
 
-<a href={pdf} target="_blank">
+<a href={pdf} onmouseenter={() => (active = true)} onmouseleave={() => (active = false)}>
   <figure>
-    <Chic>
+    <Chic {active}>
       <img src={thumbnail} alt="Resume version {version} thumbnail" />
     </Chic>
     <figcaption>Version {version}</figcaption>
