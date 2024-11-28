@@ -8,7 +8,7 @@
     active: pActive = 'hover',
     margin = 40,
     children,
-  }: { active?: boolean | 'hover'; margin?: number; children: Snippet<[any]> } = $props()
+  }: { active?: boolean | 'hover'; margin?: number; children: Snippet } = $props()
 
   let hovered = $state(false)
   let active = $derived(pActive === 'hover' ? hovered : !!pActive)
@@ -116,7 +116,7 @@
   <div class="overlay">
     <canvas bind:this={canvas}></canvas>
   </div>
-  <div bind:this={slot}>{@render children?.()}</div>
+  <div bind:this={slot}>{@render children()}</div>
 </div>
 
 <style lang="scss">
