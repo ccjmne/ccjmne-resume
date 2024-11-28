@@ -1,7 +1,7 @@
 <script lang="ts">
   import Chic from './chic/Chic.svelte'
 
-  export let pdf, thumbnail, version
+  let { pdf, thumbnail, version }: { pdf: string; thumbnail: string; version: string } = $props()
 </script>
 
 <a href={pdf} target="_blank">
