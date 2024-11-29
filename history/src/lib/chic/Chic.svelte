@@ -39,7 +39,7 @@
     gl.enable(gl.BLEND)
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
-    const program = createProgramme(
+    const program = createProgram(
       gl,
       createShader(gl, gl.VERTEX_SHADER, vert),
       createShader(gl, gl.FRAGMENT_SHADER, frag)
@@ -91,19 +91,19 @@
     return shader
   }
 
-  function createProgramme(
+  function createProgram(
     gl: WebGLRenderingContext,
     vertex: WebGLShader,
     fragment: WebGLShader
   ): WebGLProgram {
-    const programme = gl.createProgram()!
-    gl.attachShader(programme, vertex)
-    gl.attachShader(programme, fragment)
-    gl.linkProgram(programme)
-    if (!gl.getProgramParameter(programme, gl.LINK_STATUS)) {
-      throw new Error(`Shader program failed to link: ${gl.getShaderInfoLog(programme)}`)
+    const program = gl.createProgram()!
+    gl.attachShader(program, vertex)
+    gl.attachShader(program, fragment)
+    gl.linkProgram(program)
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      throw new Error(`Shader program failed to link: ${gl.getShaderInfoLog(program)}`)
     }
-    return programme
+    return program
   }
 </script>
 
