@@ -174,7 +174,7 @@ export const timeline = `
 `.trim().split(/\n/g)
 
 export const techstack = {
-  Web:      ['Webpack', 'RxJs', 'NodeJs', 'Angular', 'Vite', 'Lit', 'Tailwind', 'GraphQL', 'React'],
+  Web:      ['Webpack', 'RxJs', 'Angular', 'Svelte', 'Vite', 'Lit', 'Tailwind', 'GraphQL', 'React'],
   Database: ['PostgreSQL', 'jOOQ', 'DynamoDB', 'Liquibase', 'RDS', 'OracleDB', 'SQLite'],
   Code:     ['Neovim', 'TypeScript', 'Java', 'Visual Studio Code', 'JavaScript', 'Git', 'Lua', 'C++'],
   Tools:    ['tmux', 'Git', 'Linux', 'ripgrep', 'fd', 'Zsh', 'AWK', 'jq', 'fzf', 'asdf', 'powerlevel10k'],
