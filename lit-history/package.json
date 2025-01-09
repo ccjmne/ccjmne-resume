@@ -13,10 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lit-html": "^1.0.0"
+    "lit-html": "^3.2.1"
   },
   "devDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^6.0.7",
     "vite-imagetools": "^7.0.5"
   }
 }
