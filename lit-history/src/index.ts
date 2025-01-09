@@ -1,4 +1,6 @@
-import { html, render } from 'lit-html';
+import { render } from 'lit';
 
-const template = html`<h1>Hello, Lit-html!</h1>`;
-render(template, document.body);
+import './index.scss'
+import { App } from './App.js';
+
+render(new App(), document.body);
