@@ -23,6 +23,7 @@
     &:hover {
       font-weight: bold;
     }
+
     transition: transform 0.1s ease-out;
     &:hover {
       transform: translateY(-5px);

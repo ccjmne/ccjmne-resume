@@ -1,8 +1,35 @@
 <script lang="ts">
   import { onMount, type Snippet } from 'svelte'
+  import {
+    animationFrameScheduler,
+    BehaviorSubject,
+    distinctUntilChanged,
+    interval,
+    map,
+    switchMap,
+    takeWhile,
+  } from 'rxjs'
 
   import vert from './vert.glsl'
   import frag from './frag.glsl'
+
+  const TRANSITION = 200
+  const fade$ = new BehaviorSubject<boolean>(false)
+  fade$
+    .pipe(
+      distinctUntilChanged(),
+      switchMap(inout => {
+        const start = performance.now()
+        return interval(0, animationFrameScheduler).pipe(
+          map(() => (performance.now() - start) / TRANSITION),
+          takeWhile(elapsed => inout || elapsed < 1),
+          map(x => (inout ? x : 1 - x) / 3 + 2 / 3)
+        )
+      })
+    )
+    .subscribe(expand => render(Math.min(1, expand)))
+
+  $effect(() => fade$.next(active))
 
   let {
     active: pActive = 'hover',
@@ -12,23 +39,11 @@
 
   let hovered = $state(false)
   let active = $derived(pActive === 'hover' ? hovered : !!pActive)
-  let render = $state<() => void>(() => {})
+  let render: (expand: number) => void = () => {}
 
   let canvas: HTMLCanvasElement
   let slot: HTMLDivElement
   let gl: WebGLRenderingContext
-
-  let frame: number
-  $effect(() => {
-    if (active) {
-      ;(function play() {
-        render()
-        frame = requestAnimationFrame(play)
-      })()
-    } else {
-      cancelAnimationFrame(frame)
-    }
-  })
 
   onMount(function initializeShader() {
     if (!(gl = canvas.getContext('webgl2')!)) {
@@ -65,8 +80,9 @@
     const uTime = gl.getUniformLocation(program, 'uTime')
     const uRes = gl.getUniformLocation(program, 'uRes')
     const uMargin = gl.getUniformLocation(program, 'uMargin')
+    const uExpand = gl.getUniformLocation(program, 'uExpand')
 
-    render = function () {
+    render = function (expand: number) {
       canvas.setAttribute('width', String(slot.getBoundingClientRect().width + margin * 2))
       canvas.setAttribute('height', String(slot.getBoundingClientRect().height + margin * 2))
       canvas.width = canvas.clientWidth * devicePixelRatio
@@ -74,6 +90,7 @@
       gl.viewport(0, 0, canvas.width, canvas.height)
       gl.uniform2f(uRes, canvas.width, canvas.height)
       gl.uniform1f(uMargin, margin)
+      gl.uniform1f(uExpand, expand)
 
       gl.uniform1f(uTime, performance.now())
       gl.clear(gl.COLOR_BUFFER_BIT)

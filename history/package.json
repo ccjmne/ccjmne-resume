@@ -22,6 +22,7 @@
     "vite-plugin-glsl": "^1.3.0"
   },
   "dependencies": {
-    "lygia": "^1.3.0"
+    "lygia": "^1.3.0",
+    "rxjs": "^7.8.1"
   }
 }
