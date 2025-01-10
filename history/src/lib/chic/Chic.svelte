@@ -5,9 +5,9 @@
     BehaviorSubject,
     concatWith,
     distinctUntilChanged,
-    EMPTY,
     interval,
     map,
+    of,
     Subject,
     switchMap,
     takeUntil,
@@ -28,8 +28,8 @@
         return interval(0, animationFrameScheduler).pipe(
           map(() => (performance.now() - start) / transition),
           takeWhile(elapsed => elapsed < 1),
-          map(x => (on ? x : 1 - x) / 3 + 2 / 3),
-          concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : EMPTY),
+          map(x => (on ? x : 1 - x)),
+          concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : of(0)),
         )
       }),
       takeUntil(destroyed$),
