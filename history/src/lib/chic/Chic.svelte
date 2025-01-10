@@ -3,7 +3,9 @@
   import {
     animationFrameScheduler,
     BehaviorSubject,
+    concatWith,
     distinctUntilChanged,
+    EMPTY,
     interval,
     map,
     switchMap,
@@ -14,22 +16,22 @@
   import frag from './frag.glsl'
 
   const TRANSITION = 200
-  const fade$ = new BehaviorSubject<boolean>(false)
-  fade$
+  const toggle$ = new BehaviorSubject<boolean>(false)
+  toggle$
     .pipe(
       distinctUntilChanged(),
-      switchMap(inout => {
+      switchMap(on => {
         const start = performance.now()
         return interval(0, animationFrameScheduler).pipe(
           map(() => (performance.now() - start) / TRANSITION),
-          takeWhile(elapsed => inout || elapsed < 1),
-          map(x => (inout ? x : 1 - x) / 3 + 2 / 3)
+          takeWhile(elapsed => elapsed < 1),
+          map(x => (on ? x : 1 - x) / 3 + 2 / 3),
+          concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : EMPTY)
         )
       })
     )
-    .subscribe(expand => render(Math.min(1, expand)))
-
-  $effect(() => fade$.next(active))
+    .subscribe(expand => render(expand))
+  $effect(() => toggle$.next(active))
 
   let {
     active: pActive = 'hover',
