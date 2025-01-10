@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, type Snippet } from 'svelte'
+  import { onDestroy, onMount, type Snippet } from 'svelte'
   import {
     animationFrameScheduler,
     BehaviorSubject,
@@ -8,7 +8,9 @@
     EMPTY,
     interval,
     map,
+    Subject,
     switchMap,
+    takeUntil,
     takeWhile,
   } from 'rxjs'
 
@@ -16,6 +18,8 @@
   import frag from './frag.glsl'
 
   const TRANSITION = 200
+  const destroyed$ = new Subject<void>()
+  onDestroy(() => (destroyed$.next(), destroyed$.complete()))
   const toggle$ = new BehaviorSubject<boolean>(false)
   toggle$
     .pipe(
@@ -28,7 +32,8 @@
           map(x => (on ? x : 1 - x) / 3 + 2 / 3),
           concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : EMPTY)
         )
-      })
+      }),
+      takeUntil(destroyed$)
     )
     .subscribe(expand => render(expand))
   $effect(() => toggle$.next(active))
