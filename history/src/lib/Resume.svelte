@@ -3,12 +3,19 @@
 
   let { pdf, thumbnail, version }: { pdf: string; thumbnail: string; version: string } = $props()
 
+  const margin = 20
+  const transition = 100
   let active = $state(false)
 </script>
 
-<a href={pdf} onmouseenter={() => (active = true)} onmouseleave={() => (active = false)}>
+<a
+  href={pdf}
+  onmouseenter={() => (active = true)}
+  onmouseleave={() => (active = false)}
+  style={`--margin: ${margin}px; --transition: ${transition}ms;`}
+>
   <figure>
-    <Chic {active}>
+    <Chic {active} {margin} {transition}>
       <img src={thumbnail} alt="Resume version {version} thumbnail" />
     </Chic>
     <figcaption>Version {version}</figcaption>
@@ -19,13 +26,10 @@
   a {
     text-decoration: none;
     color: inherit;
+    transition: transform var(--transition) ease-out;
 
     &:hover {
       font-weight: bold;
-    }
-
-    transition: transform 0.1s ease-out;
-    &:hover {
       transform: translateY(-5px);
     }
   }
@@ -36,9 +40,9 @@
 
   figcaption {
     text-align: center;
-    transition: transform 0.1s ease-out;
+    transition: transform var(--transition) ease-out;
     @at-root a:hover & {
-      transform: translateY(30px);
+      transform: translateY(var(--margin));
     }
   }
 
