@@ -17,7 +17,6 @@
   import vert from './vert.glsl'
   import frag from './frag.glsl'
 
-  const TRANSITION = 200
   const destroyed$ = new Subject<void>()
   onDestroy(() => (destroyed$.next(), destroyed$.complete()))
   const toggle$ = new BehaviorSubject<boolean>(false)
@@ -27,7 +26,7 @@
       switchMap(on => {
         const start = performance.now()
         return interval(0, animationFrameScheduler).pipe(
-          map(() => (performance.now() - start) / TRANSITION),
+          map(() => (performance.now() - start) / transition),
           takeWhile(elapsed => elapsed < 1),
           map(x => (on ? x : 1 - x) / 3 + 2 / 3),
           concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : EMPTY),
@@ -41,8 +40,14 @@
   let {
     active: pActive = 'hover',
     margin = 40,
+    transition = 200,
     children,
-  }: { active?: boolean | 'hover'; margin?: number; children: Snippet } = $props()
+  }: {
+    active?: boolean | 'hover'
+    margin?: number
+    transition?: number
+    children: Snippet
+  } = $props()
 
   let hovered = $state(false)
   let active = $derived(pActive === 'hover' ? hovered : !!pActive)
