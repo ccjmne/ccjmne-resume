@@ -2,7 +2,8 @@
 precision mediump float;
 
 #define FBM_OCTAVES 8
-#include "/node_modules/lygia/generative/fbm"
+#extension GL_GOOGLE_include_directive : require
+#include "../../../node_modules/lygia/generative/fbm.glsl"
 
 in      vec2  fragCoord;
 out     vec4  fragColor;
