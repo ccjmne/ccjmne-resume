@@ -30,10 +30,10 @@
           map(() => (performance.now() - start) / TRANSITION),
           takeWhile(elapsed => elapsed < 1),
           map(x => (on ? x : 1 - x) / 3 + 2 / 3),
-          concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : EMPTY)
+          concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : EMPTY),
         )
       }),
-      takeUntil(destroyed$)
+      takeUntil(destroyed$),
     )
     .subscribe(expand => render(expand))
   $effect(() => toggle$.next(active))
@@ -64,7 +64,7 @@
     const program = createProgram(
       gl,
       createShader(gl, gl.VERTEX_SHADER, vert),
-      createShader(gl, gl.FRAGMENT_SHADER, frag)
+      createShader(gl, gl.FRAGMENT_SHADER, frag),
     )
 
     gl.useProgram(program)
@@ -118,7 +118,7 @@
   function createProgram(
     gl: WebGLRenderingContext,
     vertex: WebGLShader,
-    fragment: WebGLShader
+    fragment: WebGLShader,
   ): WebGLProgram {
     const program = gl.createProgram()!
     gl.attachShader(program, vertex)
