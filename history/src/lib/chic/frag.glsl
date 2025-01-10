@@ -1,15 +1,18 @@
 #version 460 core
 precision mediump float;
 
-#define FBM_OCTAVES 8
-#include "/node_modules/lygia/generative/fbm"
+#extension GL_GOOGLE_include_directive : require
+#include "../../../node_modules/lygia/generative/fbm.glsl"
 
-in      vec2  fragCoord;
-out     vec4  fragColor;
-uniform float uTime;
-uniform float uMargin;
-uniform vec2  uRes;
-uniform float uExpand;
+layout(location = 0) in  vec2 fragCoord;
+layout(location = 0) out vec4 fragColor;
+
+layout(set = 0, binding = 0) uniform UBO {
+    float uTime;
+    float uMargin;
+    vec2  uRes;
+    float uExpand;
+};
 
 float disc(float r, vec2 p) {
     return length(p) - r;
