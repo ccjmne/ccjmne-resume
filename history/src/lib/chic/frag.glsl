@@ -1,8 +1,8 @@
 #version 300 es
+#extension GL_GOOGLE_include_directive : enable
 precision mediump float;
 
 #define FBM_OCTAVES 8
-#extension GL_GOOGLE_include_directive : require
 #include "../../../node_modules/lygia/generative/fbm.glsl"
 
 in      vec2  fragCoord;
