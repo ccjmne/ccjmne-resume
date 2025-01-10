@@ -1,6 +1,6 @@
 export default {
   arrowParens: 'avoid',
-  trailingComma: 'es5',
+  trailingComma: 'all',
   tabWidth: 2,
   printWidth: 100,
   semi: false,
