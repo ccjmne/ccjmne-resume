@@ -1,7 +1,7 @@
-#version 300 es
+#version 460 core
 
-in  vec2 aPos;
-out vec2 fragCoord;
+layout(location = 0) in  vec2 aPos;
+layout(location = 0) out vec2 fragCoord;
 
 void main() {
     fragCoord = (aPos * 0.5) + 0.5;
