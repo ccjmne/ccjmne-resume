@@ -1,4 +1,4 @@
-#version 300 es
+#version 460 core
 precision mediump float;
 
 #define FBM_OCTAVES 8
