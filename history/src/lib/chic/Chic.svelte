@@ -12,6 +12,7 @@
     switchMap,
     takeUntil,
     takeWhile,
+    withLatestFrom,
   } from 'rxjs'
 
   import vert from './vert.glsl'
@@ -20,21 +21,26 @@
   const destroyed$ = new Subject<void>()
   onDestroy(() => (destroyed$.next(), destroyed$.complete()))
   const toggle$ = new BehaviorSubject<boolean>(false)
+  const expand$ = new BehaviorSubject<number>(0)
   toggle$
     .pipe(
       distinctUntilChanged(),
-      switchMap(on => {
+      withLatestFrom(expand$),
+      switchMap(([on, expand]) => {
         const start = performance.now()
+        const [from, to] = [expand, on ? 1 : 0]
+        const duration = Math.abs(to - from)
         return interval(0, animationFrameScheduler).pipe(
-          map(() => (performance.now() - start) / transition),
-          takeWhile(elapsed => elapsed < 1),
-          map(x => (on ? x : 1 - x)),
+          map(() => ((performance.now() - start) / transition) * duration),
+          takeWhile(elapsed => elapsed < duration),
+          map(x => from + (to - from) * (x / duration)),
           concatWith(on ? interval(0, animationFrameScheduler).pipe(map(() => 1)) : of(0)),
         )
       }),
       takeUntil(destroyed$),
     )
-    .subscribe(expand => render(expand))
+    .subscribe(expand$)
+
   $effect(() => toggle$.next(active))
 
   let {
@@ -58,6 +64,8 @@
   let gl: WebGLRenderingContext
 
   onMount(function initializeShader() {
+    expand$.pipe(takeUntil(destroyed$)).subscribe(expand => render(expand))
+
     if (!(gl = canvas.getContext('webgl2')!)) {
       console.error('WebGL not supported')
       return
