@@ -19,7 +19,7 @@
   import frag from './frag.glsl'
 
   const destroyed$ = new Subject<void>()
-  onDestroy(() => (destroyed$.next(), destroyed$.complete()))
+  onDestroy(() => (destroyed$.next(), destroyed$.complete(), cleanupWebGL()))
   const toggle$ = new BehaviorSubject<boolean>(false)
   const expand$ = new BehaviorSubject<number>(0)
   toggle$
@@ -62,6 +62,7 @@
   let canvas: HTMLCanvasElement
   let slot: HTMLDivElement
   let gl: WebGLRenderingContext
+  let cleanupWebGL: () => void = () => {}
 
   onMount(function initializeShader() {
     expand$.pipe(takeUntil(destroyed$)).subscribe(expand => render(expand))
@@ -101,6 +102,10 @@
     const uRes = gl.getUniformLocation(program, 'uRes')
     const uMargin = gl.getUniformLocation(program, 'uMargin')
     const uExpand = gl.getUniformLocation(program, 'uExpand')
+
+    cleanupWebGL = function () {
+      gl.getExtension('WEBGL_lose_context')?.loseContext()
+    }
 
     render = function (expand: number) {
       canvas.setAttribute('width', String(slot.getBoundingClientRect().width + margin * 2))
