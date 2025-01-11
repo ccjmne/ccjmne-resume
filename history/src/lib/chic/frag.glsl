@@ -4,6 +4,8 @@ precision mediump float;
 
 #define FBM_OCTAVES 8
 #include "../../../node_modules/lygia/generative/fbm.glsl"
+#include "../../../node_modules/lygia/generative/snoise.glsl"
+#include "../../../node_modules/lygia/math/const.glsl"
 
 in      vec2  fragCoord;
 out     vec4  fragColor;
@@ -12,6 +14,7 @@ uniform float uMargin;
 uniform vec2  uRes;
 uniform float uExpand;
 
+// Delete?
 float disc(float r, vec2 p) {
     return length(p) - r;
 }
@@ -19,6 +22,16 @@ float disc(float r, vec2 p) {
 // https://www.youtube.com/watch?v=62-pRVZuS5c
 float rect(vec2 r, vec2 p) {
     return length(max(abs(p) - r, vec2(0.)));
+}
+float rect_hollow(vec2 r, vec2 p) {
+    vec2 q = abs(p) - r;
+    return abs(length(max(q, vec2(0.))) + min(max(q.x, q.y), 0.));
+}
+
+float lineSDF(vec2 uv, float angle) {
+    // TODO: Rewrite better
+    vec2 dir = vec2(cos(angle), sin(angle));
+    return abs(dot(uv, vec2(-dir.y, dir.x)));
 }
 
 #define RESOLUTION 128.
@@ -31,20 +44,25 @@ void main() {
 
     vec2  uv = (fragCoord - 0.5) * uRes1;
     float t  = uTime * TIMESCALE;
+    float noise = fbm(vec3(uv.xy, t * 2.));
+    float noiseY = fbm(vec3(uv.yx, t * 2.));
 
-    // float d1    = rect((uRes1 - uMargin1 * 2.) / 2., uv);
-    // float d2    = disc((max(uRes1.x, uRes1.y)) / 2. * uExpand, uv);
-    // float d     = max(d1, d2);
-    float d     = rect((uRes1 - uMargin1 * 2.) * uExpand / 2., uv);
-    float outer = smoothstep(uMargin1, 0., d);
-    float inner = smoothstep(uMargin1 / 2., 0., d);
-    float noise = fbm(vec3(uv.x, uv.y - t * 2., t) * 2.) * outer + inner;
+    uv += vec2(noise, noiseY) * uMargin1 * 1.;
 
-    float core = step(CUTOFF, noise);
-    float edge = smoothstep(min(CUTOFF, max(0., uMargin1 / 2. - CUTOFF)), CUTOFF, noise);
+    float d = rect_hollow((uRes1 / 2. - uMargin1 * (2. - uExpand)), uv);
 
-    vec3 cCore = vec3(0.);
-    vec3 cEdge = vec3(.3, .5, .5);
+    // play with the exponent
+    d = pow(d / uMargin1 * 2., 1.); // [0, uMargin1 / 2] => [0, 1]
+    float i = 1. - d; // BLACK is 1
 
-    fragColor = vec4(cEdge * max(0., (edge - core)) + cCore * core, max(edge, core));
+    float arc = PI / 3.;
+    float angle = t * 8.;
+
+    float i2 = pow(lineSDF(uv, angle) * 1., 1.); // play with the exponent
+    i *= 1. - smoothstep( 0., 1., i2);
+
+    // fragColor = vec4(vec3(0.), i);
+    fragColor = vec4(vec3(1. - i), step(.2, i));
+    // fragColor = vec4(vec3(0.), noise);
+    // fragColor = vec4(noise, noiseY, 0., 1.);
 }
