@@ -110,6 +110,7 @@
       gl.getExtension('WEBGL_lose_context')?.loseContext()
     }
 
+    const UNIQ = Math.random()
     render = function (expand: number) {
       canvas.setAttribute('width', String(slot.getBoundingClientRect().width + margin * 2))
       canvas.setAttribute('height', String(slot.getBoundingClientRect().height + margin * 2))
@@ -120,7 +121,7 @@
       gl.uniform1f(uMargin, margin)
       gl.uniform1f(uExpand, expand)
 
-      gl.uniform1f(uTime, performance.now())
+      gl.uniform1f(uTime, UNIQ * 1_000_000 + performance.now())
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
