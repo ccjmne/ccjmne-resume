@@ -3,8 +3,8 @@
 
   let { pdf, thumbnail, version }: { pdf: string; thumbnail: string; version: string } = $props()
 
-  const margin = 20
-  const transition = 100
+  const margin = 50
+  const transition = 200
   let active = $state(false)
 </script>
 
