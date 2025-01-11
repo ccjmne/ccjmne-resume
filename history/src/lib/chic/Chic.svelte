@@ -20,7 +20,8 @@
 
   const destroyed$ = new Subject<void>()
   onDestroy(() => (destroyed$.next(), destroyed$.complete(), cleanupWebGL()))
-  const toggle$ = new BehaviorSubject<boolean>(false)
+  const ALWAYS_ON = false
+  const toggle$ = new BehaviorSubject<boolean>(ALWAYS_ON)
   const expand$ = new BehaviorSubject<number>(0)
   toggle$
     .pipe(
@@ -41,7 +42,9 @@
     )
     .subscribe(expand$)
 
-  $effect(() => toggle$.next(active))
+  if (!ALWAYS_ON) {
+    $effect(() => toggle$.next(active))
+  }
 
   let {
     active: pActive = 'hover',
