@@ -1,7 +1,7 @@
 export const identity = {
   name:    'Éric NICOLAS',
   title:   'Solutions Architect',
-  aboutme: `I am a strategic, detail-oriented problem solver with a keen and analytical mind, driven by a passion for innovation. My experience has taught me that a project's value lies in accurately identifying and contextualising the objectives to achieve—this is where I make the greatest impact.\nIn designing systems, I believe that [clarity](https://en.wikipedia.org/wiki/KISS_principle) and [elegance](https://en.wikipedia.org/wiki/Unix_philosophy) are key to lasting relevance: I am a stalwart advocate for radical simplicity and empower my collaborators to strive for creative solutions that will remain effective and adaptable.`,
+  aboutme: `I am a strategic, detail-oriented problem solver with a keen and analytical mind, driven by a passion for innovation. My experience has taught me that a project's value lies in accurately identifying and contextualising the objectives to achieve—this is where I make the greatest impact.\nIn designing systems, I believe that [clarity](https://en.wikipedia.org/wiki/KISS_principle) and [elegance](https://en.wikipedia.org/wiki/Unix_philosophy) are key to lasting relevance: I am a stalwart advocate of radical simplicity and empower my collaborators to strive for creative solutions that will remain effective and adaptable.`,
 }
 
 export const links = [{
