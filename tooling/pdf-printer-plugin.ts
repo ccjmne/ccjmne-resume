@@ -105,7 +105,7 @@ export class PDFPrinter implements WebpackPluginInstance {
 
   private async combinePDFs(pdfs: Uint8Array[]): Promise<Buffer> {
     const doc = new Document({ properties: this.config.properties, font: null! })
-    pdfs.forEach(content => doc.addPagesOf(new ExternalDocument(content)))
+    pdfs.forEach(content => doc.addPagesOf(new ExternalDocument(Buffer.from(content))))
     return doc.asBuffer()
   }
 
