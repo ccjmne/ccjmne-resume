@@ -134,7 +134,7 @@ export const highlights = [{
 export const timeline = `
 ╷╷╷
 ││☆ First principal engineer role
-☆││ Begin using [Neovim](https://neovim.io/)
+☆││ Migrate to [Neovim](https://neovim.io/)
 ││★
 ☆││ Begin using [Rust](https://www.rust-lang.org/)<br>for personal projects
 ☆││ Switch to [Arch Linux](https://archlinux.org/)
