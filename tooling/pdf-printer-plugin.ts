@@ -65,7 +65,8 @@ export class PDFPrinter implements WebpackPluginInstance {
     // See https://github.com/microsoft/TypeScript/issues/10421
     this.assertBrowser()
     const { config: { options }, type, output, uris } = this
-    const contents = await Promise.all(uris.map(async uri => {
+    const contents = await (uris.reduce(async (b4, uri) => {
+      const compiled = await b4 // Parallelised screenshot is broken w/ Puppeteer or Chrome
       const page = await this.browser.newPage()
       await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 1 }) // A4 Portrait @ 96 DPI
       await page.goto(uri, { waitUntil: 'networkidle0' })
@@ -73,8 +74,8 @@ export class PDFPrinter implements WebpackPluginInstance {
         ? page.pdf({ format: 'a4', landscape: false, printBackground: true, ...options })
         : page.screenshot({ fullPage: true, omitBackground: false, optimizeForSpeed: true, ...options }))
       await page.close()
-      return content
-    }))
+      return [...compiled, content]
+    }, Promise.resolve([])))
 
     await mkdirp(dirname(output))
     await writeFile(output, await (type === 'PDF' ? this.combinePDFs(contents) : this.combinePNGs(contents)))
