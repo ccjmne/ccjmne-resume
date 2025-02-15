@@ -20,18 +20,18 @@ Technologies used:
 
 ## How-To
 
-Development merely uses the standard [NodeJS](https://nodejs.org/en/) process (using `yarn`);  
+Development merely uses the standard [NodeJS](https://nodejs.org/en/) process (using `pnpm`);  
 Publication is automated through [Continuous Deployment](https://www.atlassian.com/continuous-delivery/continuous-deployment), leverating [GitHub Actions](https://docs.github.com/en/actions).
 
 ### Set up
 
-Install with `yarn install`.
+Install with `pnpm install`.
 
 ### Build
 
-Continuously watch-rebuild with `yarn start` (or `npx webpack serve --mode
+Continuously watch-rebuild with `pnpm start` (or `npx webpack serve --mode
 development`) during development;  
-Perform a one-off compilation with `yarn build` (or `npx webpack --mode
+Perform a one-off compilation with `pnpm build` (or `npx webpack --mode
 production`).
 
 The output (and the pre-compiled HTML-CSS-JS assets in `development` mode) will

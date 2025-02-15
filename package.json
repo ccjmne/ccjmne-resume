@@ -3,6 +3,7 @@
   "title": "Éric NICOLAS - Resume",
   "version": "2.1.0",
   "description": "My static HTML resume, printed out into an A4 portrait PDF document",
+  "packageManager": "pnpm@10.4.0",
   "scripts": {
     "start": "webpack serve --mode development --env HYPHENATE=yes --port 8042 --open",
     "build": "webpack       --mode production"
