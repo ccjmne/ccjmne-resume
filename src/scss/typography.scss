@@ -1,36 +1,56 @@
 @use 'sass:color';
-@import 'https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Cinzel:wght@500&display=swap';
-@import './spacing';
-@import './colours';
+@use "sass:map";
+@use 'colours';
+
+@font-face {
+  font-family:  Raleway;
+  src:          url('assets/fonts/Raleway-VariableFont_wght.ttf') format('woff');
+  font-weight:  400 500 600 700 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family:  Cinzel;
+  src:          url('assets/fonts/Cinzel-VariableFont_wght.ttf') format('woff');
+  font-weight:  400;
+  font-display: swap;
+}
+
+@font-face {
+  // For numbers in career highlights' stats
+  font-family:  Outfit;
+  src:          url('assets/fonts/Outfit-ExtraBold.ttf') format('woff');
+  font-weight:  700;
+  font-display: swap;
+}
 
 body {
-  color: $light-fg;
+  color: colours.$light-fg;
   font-family: Raleway, Montserrat, HelveticaNeue, Helvetica, Arial, sans-serif;
   font-size: 10pt;
-  letter-spacing: .5px;
+  letter-spacing: .3px;
 }
 
 .inverse {
-  color: $dark-fg;
+  color: colours.$dark-fg;
+  font-weight: 500; // slightly bolder to account for lesser legibility from inversed colours
 }
 
-h1,
-h2,
-aside h3 {
+// Headings --------------------------------------------------------------------
+
+h1, h2, h3, h4 {
+  padding: 0;
+}
+
+h1, h2 {
   font-family: Cinzel, serif;
 }
 
 h2 {
-  position: relative;
-  margin: 0;
-  padding: 5px $default-padding;
-  overflow: hidden;
-  border-top: 1px solid color.adjust($yinmn-blue, $lightness: -20%);
-  color: $light-bg;
   letter-spacing: .2ch;
 }
 
-h4 {
+h3 {
   margin: 0;
 }
 
@@ -40,13 +60,15 @@ h4 {
   gap: 0 .5ch;
 }
 
+// Paragraphs ------------------------------------------------------------------
+
 p {
   margin: 0;
-  color: $light-fg-0;
+  color: colours.$light-fg-0;
   text-align: justify;
 
   .inverse & {
-    color: $dark-fg-0;
+    color: colours.$dark-fg-0;
   }
 }
 
@@ -55,21 +77,26 @@ br {
   display: block;
 
   section#aboutme & {
-    margin-top: 1em;
+    margin-block-start: 1em;
   }
 
   section#experience & {
-    margin-top: .5em;
+    margin-block-start: .5em;
   }
 }
 
 a {
   color: inherit; // avoid changing link colour to browser default (blue/purple)
   text-underline-offset: 2px;
-  text-decoration-color: $light-fg-2;
 
-  .inverse & {
-    text-decoration-color: $dark-fg-2;
+  &.no-underline, .no-underline & {
+    text-decoration: none;
+
+    > svg {
+      // bump the 'external-link' icon a bit higher to account for the absence of underline
+      position: relative;
+      top: -1px;
+    }
   }
 
   > svg {
@@ -78,29 +105,34 @@ a {
   }
 }
 
-.lighter {
-  color: $light-fg-2;
+// Miscellaneous ---------------------------------------------------------------
 
-  .inverse & {
-    color: $dark-fg-2;
-  }
+@mixin text-sea($turn: .25turn, $bright: false) {
+  @include colours.bg-sea($turn, $bright);
+  letter-spacing:  1px;
+  background-clip: text;
+  color:           transparent;
 }
 
-.lightest {
-  color: $light-fg-3;
+@mixin thin   { font-weight: 400; }
+@mixin bolder { font-weight: 600; }
+@mixin bold   { font-weight: 700; }
+.thin   { @include thin; }
+.bolder { @include bolder; }
+.bold   { @include bold; }
 
-  .inverse & {
-    color: $dark-fg-3;
-  }
-}
+$shades: (
+  light:    (fg: colours.$light-fg-1, inverse-fg: colours.$dark-fg-1),
+  lighter:  (fg: colours.$light-fg-2, inverse-fg: colours.$dark-fg-2),
+  lightest: (fg: colours.$light-fg-3, inverse-fg: colours.$dark-fg-3)
+);
 
-.ellipsis::before {
-  content: '[…]';
-  color: $light-fg-3;
-  font-weight: bold;
-  letter-spacing: .5ch;
+@each $name, $colors in $shades {
+  .#{$name} {
+    color: map.get($colors, fg);
 
-  .inverse & {
-    color: $dark-fg-3;
+    .inverse & {
+      color: map.get($colors, inverse-fg);
+    }
   }
 }

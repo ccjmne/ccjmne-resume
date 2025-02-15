@@ -1,5 +1,5 @@
-@import './colours';
-@import './spacing';
+@use '../colours';
+@use '../spacing';
 
 $icon-size: 22px;
 
@@ -9,14 +9,12 @@ aside {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  padding: $default-padding;
+  padding: spacing.$default-padding;
   text-align: justify;
   hyphens: auto;
 
-  @media print {
-    & {
-      font-weight: bolder;
-    }
+  a {
+    text-decoration-color: colours.$dark-fg-1;
   }
 
   .watermark {
@@ -39,29 +37,17 @@ aside {
     pointer-events: none;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    a {
-      text-decoration: none;
-
-      > svg {
-        // bump the 'external-link' icon a bit higher to account for the absence of underline
-        position: relative;
-        top: -1px;
-      }
-    }
+  h2 {
+    margin-block-start: 0;
+    font-size: 1.3em;
   }
 
   h3 {
-    margin-top: 0;
-    font-size: 1.3em;
-    letter-spacing: .3ch;
+    font-size: 1em;
   }
 
   article + article {
-    margin-top: 15px;
+    margin-block-start: 20px;
   }
 
   article.top-skills > * {
@@ -75,18 +61,18 @@ aside {
     grid-template: 'degree dates' 'field field' 'highlight highlight' / 1fr auto;
 
     [grid-area='field'] {
-      margin-bottom: .3em;
+      margin-block-end: .3em;
       font-size: .9em;
       text-align: right;
     }
   }
 
-  article.endorsment {
+  article.endorsement {
     display: grid;
     grid-template: 'from' 'title' 'excerpt' / auto;
 
     [grid-area='title'] {
-      margin-bottom: .3em;
+      margin-block-end: .3em;
       font-size: .9em;
       text-align: right;
     }

@@ -1,0 +1,29 @@
+@use '../spacing';
+@use "../typography";
+
+header {
+  display: flex;
+  grid-area: header;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px 0;
+
+  h1 {
+    margin: 0;
+
+    &.name {
+      font-size: 2.2em;
+    }
+
+    &.title {
+      @include typography.thin;
+      font-size: 1.7em;
+      line-height: 80%;
+      letter-spacing: .1ch;
+    }
+  }
+
+  .logo {
+    max-width: 100px;
+  }
+}
