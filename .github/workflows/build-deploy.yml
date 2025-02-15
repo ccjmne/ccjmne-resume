@@ -17,22 +17,24 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4.1.0
       with:
-        node-version: ${{ env.node-version }}
-        cache: yarn
+        run_install: true
+
+    - name: Install Chrome for Puppeteer
+      run: |
+        pnpm puppeteer browsers install chrome
 
     - name: Verify manual hyphenation
       run: |
-        yarn install
-        npx webpack --mode production --env HYPHENATE=yes --env OUTPUT=l.png && mv dist/l.png .
-        npx webpack --mode production --env HYPHENATE=no  --env OUTPUT=r.png && mv dist/r.png .
+        pnpm webpack --mode production --env HYPHENATE=yes --env OUTPUT=l.png && mv dist/l.png .
+        pnpm webpack --mode production --env HYPHENATE=no  --env OUTPUT=r.png && mv dist/r.png .
         diff --brief l.png r.png
 
     - name: Compile PDF
       run: |
-        yarn install
-        npx webpack --mode production --env HYPHENATE=no --env OUTPUT=${{ env.resume-file }}
+        pnpm webpack --mode production --env HYPHENATE=no --env OUTPUT=${{ env.resume-file }}
 
     - name: Upload resume artifact
       uses: actions/upload-artifact@v4
