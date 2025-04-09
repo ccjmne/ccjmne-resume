@@ -1,6 +1,8 @@
 name: Compile and Publish Resume
 
 on:
+  schedule:
+    - cron: 0 4 * * * # every day at 4:00 UTC
   release:
     types: published
 
