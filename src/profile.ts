@@ -108,7 +108,7 @@ export const highlights = [{
   dates:    '2023',
   headline: 'Spearheaded redesign of dysfunctional payment workflow',
   content:  'I drove the complete overhaul of the procedure and architecture of the credit card payment system at a [major B2B e-procurement platform](https://unite.eu/), and provided a working implementation that purged accidental complexity and addressed discovered vulnerabilities.',
-  numbers:  ['reduced code base\nby about *96%*', 'for platform handling annually\n*billions of euros* in transactions'],
+  numbers:  ['reduced code base\nby about *96%*', 'for a platform handling annually\n*billions of euros* in transactions'],
 }, {
   dates:    '2020',
   headline: 'Resolved performance bottleneck in data computation engine',
