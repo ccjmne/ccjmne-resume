@@ -43,7 +43,7 @@ export const experience = [{
   company:  '[NCLS Development](https://www.orca-solution.com/)',
   location: 'Brittany region, France',
   title:    'Solutions Architect',
-  notabene: 'freelance entrepreneur',
+  notabene: 'independent consultant',
   abstract: `Designed the entirety of the services that make up an enterprise EHS solution trusted by the [French national employment agency](https://en.wikipedia.org/wiki/France_Travail) since 2016.`,
 }, {
   dates:    'Dec. 2013 – Dec. 2014',
