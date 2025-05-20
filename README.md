@@ -3,7 +3,7 @@
 [![Compile and Publish Resume](https://github.com/ccjmne/ccjmne-resume/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/ccjmne/ccjmne-resume/actions/workflows/build-deploy.yml)
 
 This project lets me build my current static resume.  
-Take a look at it [here](https://ccjmne.github.io/ccjmne-resume).
+See it [here](https://ccjmne.github.io/ccjmne-resume).
 
 ## Inside the Box
 
@@ -21,7 +21,7 @@ Technologies used:
 ## How-To
 
 Development merely uses the standard [NodeJS](https://nodejs.org/en/) process (using `pnpm`);  
-Publication is automated through [Continuous Deployment](https://www.atlassian.com/continuous-delivery/continuous-deployment), leverating [GitHub Actions](https://docs.github.com/en/actions).
+Publication is automated through [Continuous Deployment](https://www.atlassian.com/continuous-delivery/continuous-deployment), leveraging [GitHub Actions](https://docs.github.com/en/actions).
 
 ### Set up
 
@@ -65,10 +65,10 @@ With each newly published release on GitHub,
    - print it out to PDF through my own [PDF-Printer Webpack
      Plugin](./tooling/pdf-printer-plugin.ts),
    - ensure accurate manual hyphenation by comparing w/ automatically hyphenated version,
-   - create and upload the generated resume as as [GitHub
+   - create and upload the generated resume as a [GitHub
      Artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)
 2. a subsequent job will:
-   - retrieve the compiled artifact,
+   - retrieve the compiled artefact,
    - generate a stripped-down `index.html` that merely sets up an [HTML Meta
      Refresh](https://en.wikipedia.org/wiki/Meta_refresh) to the PDF resume,
    - push a new commit to the `gh-pages` branch, referencing the original commit
