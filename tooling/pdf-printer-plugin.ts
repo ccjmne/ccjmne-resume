@@ -1,4 +1,3 @@
-import { execSync } from 'node:child_process'
 import { writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 
@@ -50,11 +49,7 @@ export class PDFPrinter implements WebpackPluginInstance {
   }
 
   private async launch(): Promise<void> {
-    this.browser ??= await Puppeteer.launch({
-      executablePath: execSync('ls /usr/bin/*chrom* | head -1').toString().trim(),
-      headless: true,
-      args: ['--no-sandbox', '--disabled-setuid-sandbox'],
-    })
+    this.browser ??= await Puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disabled-setuid-sandbox'] })
   }
 
   private async close(): Promise<void> {
