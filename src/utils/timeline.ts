@@ -8,6 +8,14 @@ const TURNSIZE = 10
 const GAPSIZE  = 6
 const PADDING  = 25 // TODO: Obtain from SCSS
 
+// TODO: Support the following (allowing whitespace characters in the pipes):
+//   ★
+// ☆ │
+// │☆│
+// ││★
+const MILESTONE_PARSER = /^(?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/s as MatcherWGroups<'year' | 'pipes' | 'label'>
+const [HIGHLIGHT, MILESTONE, NEW, MERGE, SPAWN, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╵/, /╷/, /^┼$/]
+
 export function render(timeline: string[], pivots: number[], height: number): [graph: EasyHTMLElement, labels: Array<EasyHTMLElement>] {
   const domain   = [0, 1, ...timeline.map((s, i) => [s, i] as const).filter(([s]) => HIGHLIGHT.test(s)).map(([, i]) => i), timeline.length - 2, timeline.length - 1]
   const range    = [0, PADDING + GAPSIZE * 3 / 2, ...pivots, height - (PADDING + GAPSIZE * 3 / 2), height]
@@ -23,23 +31,15 @@ export function render(timeline: string[], pivots: number[], height: number): [g
     elementSVG()
       .attrs({ height, width: '100%', viewBox: `0 0 20 ${height}`, preserveAspectRatio: 'xMaxYMin meet' })
       .content(...graph(compute(timeline), scale)),
-    labels(compute(timeline), scale)
+    labels(compute(timeline), scale),
   ]
 }
 
-type Event = { pos: number, type: string, label: string, xsection: number }
-type Branch = {
-  depth:  number,
-  events: Event[],
+interface Event { pos: number, type: string, label: string, xsection: number }
+interface Branch {
+  depth:  number
+  events: Event[]
 }
-
-// TODO: Support the following (allowing whitespace characters in the pipes):
-//   ★
-// ☆ │
-// │☆│
-// ││★
-const MILESTONE_PARSER = /^(?<pipes>[★☆│├┼┘┐╷╵]+)\s*(?<label>.*?)\s*$/s as MatcherWGroups<'year' | 'pipes' | 'label'>
-const [HIGHLIGHT, MILESTONE, NEW, MERGE, SPAWN, END, CROSS] = [/★/, /☆/, /┼*┘/, /┼*┐/, /╵/, /╷/, /^┼$/]
 
 function compute(timeline: string[]): Branch[] {
   const branches: Branch[] = [{ depth: 0, events: [] }]
@@ -47,7 +47,8 @@ function compute(timeline: string[]): Branch[] {
 
   timeline.toReversed()
     .map(entry => entry.replace(/\S+(?=★)|(?<=☆)\S+/, ({ length }) => '┼'.repeat(length))) // "Cross" for the label pin arm
-    .map(c => MILESTONE_PARSER.exec(c)!.groups).forEach(({ pipes, label }, pos, { length }) => {
+    .map(c => MILESTONE_PARSER.exec(c)!.groups)
+    .forEach(({ pipes, label }, pos, { length }) => {
       for (const { 0: type, index } of [...pipes.matchAll(/┼*[^│├┼]/g)!, ...pipes.matchAll(/┼/g)!]) {
         const branch = ongoing.find(({ depth }) => depth === index + type.length - 1) ?? { depth: index + type.length - 1, events: [] }
         branch.events.push({ pos: length - pos - 1, type, label, xsection: pipes.length })
@@ -110,7 +111,7 @@ function graph(branches: Branch[], scale: (at: number) => number): EasyHTMLEleme
     ...events.filter(({ Λ }) => Λ).map(({ y }) => elementSVG('path').cls('colour-accent', 'fill').attrs({
       d:  rhombusPath({ x, y, diag: GAPSIZE * 3, clockwise: true })
         + rhombusPath({ x, y, diag: GAPSIZE,     clockwise: false })
-        + `M${x + (UNIT_X / 2 - 1)},${y - 1} H20 v2 H${x + (UNIT_X / 2 - 1)} z`
+        + `M${x + (UNIT_X / 2 - 1)},${y - 1} H20 v2 H${x + (UNIT_X / 2 - 1)} z`,
     })),
 
     // highlights contouring
@@ -123,7 +124,7 @@ function labels(branches: Branch[], scale: (at: number) => number): EasyHTMLElem
   return branches.flatMap(({ events }) => events
     .filter(({ type }) => MILESTONE.test(type))
     .map(({ pos, xsection, label }) => element().content(label).cls('label')
-      .styles({ right: UNIT_X * xsection + 8 + 'px', top: scale(pos) + 'px' }))
+      .styles({ right: UNIT_X * xsection + 8 + 'px', top: scale(pos) + 'px' })),
   )
 }
 

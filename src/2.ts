@@ -24,9 +24,9 @@ element(document.body).content(
           element('p').content(content).at('content'),
           div(
             lightest(hr({ height: 9, reverse: true, tail: 'short' })),
-            ...numbers.map(parseStat).flatMap(em => [lightest(rhombus(6)), em]).slice(1)
+            ...numbers.map(parseStat).flatMap(em => [lightest(rhombus(6)), em]).slice(1),
           ).at('numbers'),
-        ))
+        )),
       ),
     ),
   ),
@@ -34,14 +34,14 @@ element(document.body).content(
     lighter('TECH STACK').at('techstack-hint'),
     article('tech-stack').at('techstack').content(...Object.entries(techstack).flatMap(([category, items]) => [
       light(category.toUpperCase()).cls('section-title'),
-      div(...items.flatMap(i => [rhombus(6), i]).slice(1))
+      div(...items.flatMap(i => [rhombus(6), i]).slice(1)),
     ])),
     light('FIND LATEST AT').at('qrcode-hint'),
     element('img').at('qrcode').attrs({
       src: `data:image/svg+xml;utf8,${encodeURIComponent(await qrcode.toString(
         `ccjmne.github.io/${pkg.name}`,
-        { type: 'svg', errorCorrectionLevel: 'L', margin: 0, color: { dark: '#eeee', light: '#0000' } }
-      ))}`
+        { type: 'svg', errorCorrectionLevel: 'L', margin: 0, color: { dark: '#eeee', light: '#0000' } },
+      ))}`,
     }),
   ),
 )
@@ -62,6 +62,6 @@ document.fonts.ready.then(async function () {
 
 function parseStat(stat: string): EasyHTMLElement {
   const [pre, em, post] = stat.split('*')
-  const [l, num, r] = em.split(new RegExp(/(?<=\s|^)((?:\d+,)*\d+%?)(?=\s|$)/))
+  const [l, num, r] = em.split(/(?<=\s|^)((?:\d+,)*\d+%?)(?=\s|$)/)
   return span(pre, element('strong').content(l, span(num).cls('num'), r), post).cls('stat')
 }

@@ -7,7 +7,6 @@ const HYPHENATE = /^y/i.test(process.env.HYPHENATE ?? 'no')
 
 const anchorSVG = template(externalLink)
 export default class EasyHTMLElement {
-
   private readonly elem!: HTMLElement | SVGElement
 
   constructor(base: string | HTMLElement | SVGElement) {
@@ -75,7 +74,6 @@ export default class EasyHTMLElement {
           : EasyHTMLElement.anchor(fragment).elem))
       ))
   }
-
 }
 
 export function element(tag: keyof HTMLElementTagNameMap | HTMLElement | SVGElement = 'div'): EasyHTMLElement {

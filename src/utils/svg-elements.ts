@@ -19,8 +19,6 @@ export function rhombusPath({ x, y, diag, clockwise = true }: { x: number, y: nu
 // See https://stackoverflow.com/a/19303725
 function seededRandom(seed?: number): () => number {
   let s = seed ?? 1990 - 5 - 15
-
-  // eslint-disable-next-line no-plusplus
   return () => (r => r - Math.floor(r))(Math.sin(++s) * 10000)
 }
 
@@ -51,13 +49,13 @@ export function hr({ height = 9, reverse = false, tail = 'long' }: { height?: nu
     .attrs({ viewBox: `-1 -1 ${height + 2} ${height + 2}`, preserveAspectRatio: `${reverse ? 'xMaxYMid' : 'xMinYMid'} meet`, height })
     .styles({ flex: '1', fill: 'none', stroke: 'currentColor' })
     .content(
-      elementSVG('g').attrs({ 'transform-origin': `${height / 2} ${height / 2}`, transform: `translate(0, ${(reverse ? -height : height) / 2}) rotate(${reverse ? 180 : 0})` }).content(
+      elementSVG('g').attrs({ 'transform-origin': `${height / 2} ${height / 2}`, 'transform': `translate(0, ${(reverse ? -height : height) / 2}) rotate(${reverse ? 180 : 0})` }).content(
         elementSVG('path').styles({ 'stroke-width': '1px' }).attrs({
           d: `${rhombusPath({ x: d1 / 2,                         y: 0, diag: d1 })}
               ${rhombusPath({ x: d1 + d2 / 2 + gap,              y: 0, diag: d2 })}
-              ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.5 * gap, y: 0, diag: d3 })}`
+              ${rhombusPath({ x: d1 + d2 + d3 / 2.5 + 2.5 * gap, y: 0, diag: d3 })}`,
         }),
-        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }).styles({ 'stroke-dasharray': tail === 'short' ? `20 4 10 4 5 4 2 9999` : 9999 }),
+        elementSVG('path').attrs({ d: `M${(d1 + d2 + d3) + 3.75 * gap},0 h9999` }).styles({ 'stroke-dasharray': tail === 'short' ? '20 4 10 4 5 4 2 9999' : 9999 }),
       ),
     )
 }
