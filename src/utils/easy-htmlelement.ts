@@ -1,11 +1,11 @@
+import type { RegExpGroups } from '/types'
 import { hyphenateSync as hyphenate } from 'hyphen/en-gb'
-import externalLink from 'src/assets/external-link.svg?template'
-
-import { type RegExpGroups } from 'src/types'
+import externalLink from '/assets/external-link.svg?raw'
 
 const SVGNS = 'http://www.w3.org/2000/svg'
 const HYPHENATE = /^y/i.test(process.env.HYPHENATE ?? 'no')
 
+const anchorSVG = template(externalLink)
 export default class EasyHTMLElement {
 
   private readonly elem!: HTMLElement | SVGElement
@@ -15,7 +15,7 @@ export default class EasyHTMLElement {
   }
 
   public static anchor({ href, text }: { href: string, text: string }): EasyHTMLElement {
-    return new EasyHTMLElement('a').attrs({ href }).content(text, new EasyHTMLElement(externalLink.content.cloneNode(true) as SVGElement))
+    return new EasyHTMLElement('a').attrs({ href }).content(text, new EasyHTMLElement(anchorSVG.content.cloneNode(true) as SVGElement))
   }
 
   public cls(...classes: string[]): this {
@@ -125,4 +125,10 @@ export function lighter(...content: ReadonlyArray<string | EasyHTMLElement>): Ea
 
 export function lightest(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
   return make(...content).cls('lightest')
+}
+
+function template(content: string): HTMLTemplateElement {
+  const tmpl = document.createElement('template')
+  tmpl.innerHTML = content.trim()
+  return tmpl
 }

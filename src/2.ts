@@ -1,12 +1,12 @@
-import EasyHTMLElement, { article, div, element, elementSVG, light, lighter, lightest, section, span } from 'utils/easy-htmlelement'
-
-import './scss/2/2.scss'
-import pkg from '../package.json'
-import { highlights, techstack, timeline } from 'profile'
+import type EasyHTMLElement from './utils/easy-htmlelement'
 import qrcode from 'qrcode'
-import { MatchArrayWGroups } from 'types'
-import { render } from 'utils/timeline'
-import { hr, rhombus, titlebar } from 'utils/svg-elements'
+
+import pkg from '../package.json'
+import { highlights, techstack, timeline } from './profile'
+import { article, div, element, elementSVG, light, lighter, lightest, section, span } from './utils/easy-htmlelement'
+import { hr, rhombus, titlebar } from './utils/svg-elements'
+import { render } from './utils/timeline'
+import './scss/2/2.scss'
 
 const graph = element()
 const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })

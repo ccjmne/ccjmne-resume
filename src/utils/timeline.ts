@@ -1,6 +1,7 @@
-import { MatcherWGroups } from "types"
-import EasyHTMLElement, { element, elementSVG } from "./easy-htmlelement"
-import { rhombusPath } from "./svg-elements"
+import type { MatcherWGroups } from 'types'
+import type EasyHTMLElement from './easy-htmlelement'
+import { element, elementSVG } from './easy-htmlelement'
+import { rhombusPath } from './svg-elements'
 
 const UNIT_X   = 18
 const TURNSIZE = 10

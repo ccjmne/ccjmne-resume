@@ -28,5 +28,5 @@ $yinmn-blue:  hsl(211deg 47% 34% / 100%);
       color.adjust($yinmn-blue, $lightness: if($bright, -05%, -15%), $alpha: -.15)  80%,
       color.adjust($yinmn-blue, $lightness: if($bright, -15%, -25%))               100%,
     ),
-    url('assets/caustics.jpg');
+    url('/assets/caustics.jpg');
 }

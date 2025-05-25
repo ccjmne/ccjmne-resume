@@ -1,23 +1,18 @@
-import pkg from '../package.json'
-
-import './scss/1/1.scss'
-
-import logo from './logo'
-import { experience, identity, links, skills, education, endorsements } from 'profile'
-
-import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from './utils/easy-htmlelement'
-import { hr, rhombus, titlebar } from './utils/svg-elements'
-
-const { name, homepage } = pkg
+import { homepage, name } from '../package.json'
+import '/scss/1/1.scss'
+import logo from '/logo'
+import { education, endorsements, experience, identity, links, skills } from '/profile'
+import { anchor, article, div, element, elementSVG, light, lighter, lightest, section } from '/utils/easy-htmlelement'
+import { hr, rhombus, titlebar } from '/utils/svg-elements'
 
 const mask = elementSVG('mask').attrs({ id: 'main-background-mask' })
+const icons = import.meta.glob('/assets/links/*', { eager: true, query: '?url' }) as Record<string, { default: string }>
 
 element(document.body).content(
   element('aside').cls('inverse').content(
     section('links').content(
       ...links.flatMap(({ icon, text, href }, row) => [
-        // eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-dynamic-require
-        element('img').at(`${row + 1} / 1`).attrs({ src: require(/* webpackMode: 'eager' */ `src/assets/links/${icon}`) as string }),
+        element('img').at(`${row + 1} / 1`).attrs({ src: icons[`/assets/links/${icon}`].default }),
         anchor({ text, href }).at(`${row + 1} / 2`),
       ]),
     ),

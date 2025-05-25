@@ -1,7 +1,6 @@
-import type EasyHTMLElement from 'utils/easy-htmlelement'
-import { elementSVG } from 'utils/easy-htmlelement'
-
-import caustics from './assets/caustics.jpg?dataURI'
+import type EasyHTMLElement from './utils/easy-htmlelement'
+import caustics from './assets/caustics.jpg'
+import { elementSVG } from './utils/easy-htmlelement'
 
 export default function logo(): EasyHTMLElement {
   const stroke = 5

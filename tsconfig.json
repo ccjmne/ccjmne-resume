@@ -1,33 +1,30 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "*": ["./node_modules/@types/*", "./src/*"], // to avoid looking into node_modules/@types/d3-selection-multi/node_modules/@types/d3-selection/index.d.ts
-      "src/*": ["./src/*"],
-      "webpack": ["./node_modules/webpack"] // together with es-interop
-    },
-    "moduleResolution": "Node",
-    "module": "ESNext",
-    "target": "ESNext",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "incremental": true,
-    "importHelpers": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "preserveConstEnums": true,
-    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "typeRoots": ["src/*.d.ts", "node_modules/@types"]
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "paths": {
+      "*": ["src/*"],
+    },
+    "resolveJsonModule": true,
+    "typeRoots": ["src/*.d.ts", "node_modules/@types"],
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "importHelpers": true,
+    "outDir": "dist/out-tsc",
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
   },
-  "include": [".eslintrc.js", ".stylelintrc.js", "**/*"],
   "exclude": ["node_modules", "dist"]
 }
