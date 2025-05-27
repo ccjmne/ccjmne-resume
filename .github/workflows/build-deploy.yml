@@ -31,13 +31,13 @@ jobs:
 
       - name: Verify manual hyphenation
         run: |
-          pnpm webpack --mode production --env HYPHENATE=yes --env OUTPUT=l.png && mv dist/l.png .
-          pnpm webpack --mode production --env HYPHENATE=no  --env OUTPUT=r.png && mv dist/r.png .
+          HYPHENATE=yes OUTPUT=l.png pnpm vite build && mv dist/l.png .
+          HYPHENATE=no  OUTPUT=r.png pnpm vite build && mv dist/r.png .
           diff --brief l.png r.png
 
       - name: Compile PDF
         run: |
-          pnpm webpack --mode production --env HYPHENATE=no --env OUTPUT=${{ env.resume-file }}
+          HYPHENATE=no OUTPUT=${{ env.resume-file }} pnpm vite build
 
       - name: Upload resume artifact
         uses: actions/upload-artifact@v4
