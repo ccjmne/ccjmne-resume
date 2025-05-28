@@ -39,7 +39,7 @@ element(document.body).content(
     light('FIND LATEST AT').at('qrcode-hint'),
     element('img').at('qrcode').attrs({
       src: `data:image/svg+xml;utf8,${encodeURIComponent(await qrcode.toString(
-        `ccjmne.github.io/${pkg.name}`,
+        `ccjmne.sh/${pkg.name}`,
         { type: 'svg', errorCorrectionLevel: 'L', margin: 0, color: { dark: '#eeee', light: '#0000' } },
       ))}`,
     }),

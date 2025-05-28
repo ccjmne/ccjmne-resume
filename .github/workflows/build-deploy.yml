@@ -7,7 +7,7 @@ on:
     types: published
 
 env:
-  resume-file: resume.pdf
+  resume-file: latest.pdf
   artifact-id: resume
 
 jobs:
