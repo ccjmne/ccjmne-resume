@@ -6,13 +6,13 @@ import { delay, distinctUntilChanged, filter, shareReplay, switchMap, tap, withL
 import which from 'which'
 
 const keepalive = +(process.env.BROWSER_KEEPALIVE || '30000')
+const executablePath = process.env.BROWSER_EXECUTABLE || ['chrome-headless-shell', 'chromium', 'chromium-browser', 'google-chrome-stable', 'google-chrome']
+  .map(name => which.sync(name, { nothrow: true }))
+  .find(ex => !!ex)
+if (!executablePath) throw new Error('No suitable browser executable found.')
 
 // Shared browser instance created on demand, closed after `keepalive` milliseconds of inactivity
 const browser$ = (function sharedBrowser(): Observable<Browser> {
-  const executablePath = ['google-chrome-stable', 'google-chrome', 'chromium', 'chromium-browser']
-    .map(name => which.sync(name, { nothrow: true }))
-    .find(ex => !!ex)
-  if (!executablePath) throw new Error('No suitable browser executable found.')
   const request$ = new Subject<boolean>()
   const instance$ = new BehaviorSubject<Browser | null>(null)
   request$.pipe(
@@ -28,7 +28,7 @@ const browser$ = (function sharedBrowser(): Observable<Browser> {
               '--no-sandbox',
               '--disable-setuid-sandbox',
             ],
-          })).pipe(tap(async browser => console.info('Using', await browser.version())))
+          })).pipe(tap(async browser => console.info('Spawned', await browser.version())))
         : of(null).pipe(delay(keepalive), tap(() => instance?.close()))
     }),
     distinctUntilChanged(),
