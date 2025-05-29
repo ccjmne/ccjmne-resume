@@ -8,7 +8,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "paths": {
-      "*": ["src/*"],
+      "*": ["src/*"]
     },
     "resolveJsonModule": true,
     "typeRoots": ["src/*.d.ts", "node_modules/@types"],
