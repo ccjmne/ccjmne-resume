@@ -16,8 +16,8 @@
   },
   "keywords": ["ccjmne", "html", "pdf", "resume"],
   "scripts": {
-    "start": "HYPHENATE=yes PORT=8042 vite",
-    "build": "BROWSER_KEEPALIVE=0     vite build"
+    "start": "HYPHENATE=yes PORT=8042 vite       --log-level info",
+    "build": "BROWSER_KEEPALIVE=0     vite build --log-level warn"
   },
   "dependencies": {
     "pdfjs": "^2.5.3",
