@@ -31,13 +31,13 @@ jobs:
 
       - name: Verify manual hyphenation
         run: |
-          HYPHENATE=yes OUTPUT=l.png pnpm vite build && mv dist/l.png .
-          HYPHENATE=no  OUTPUT=r.png pnpm vite build && mv dist/r.png .
+          HYPHENATE=yes OUTPUT=l.png pnpm run build && mv dist/l.png .
+          HYPHENATE=no  OUTPUT=r.png pnpm run build && mv dist/r.png .
           diff --brief l.png r.png
 
       - name: Compile PDF
         run: |
-          HYPHENATE=no OUTPUT=${{ env.resume-file }} pnpm vite build
+          HYPHENATE=no OUTPUT=${{ env.resume-file }} pnpm run build
 
       - name: Upload resume artifact
         uses: actions/upload-artifact@v4
