@@ -62,6 +62,6 @@ document.fonts.ready.then(async function () {
 
 function parseStat(stat: string): EasyHTMLElement {
   const [pre, em, post] = stat.split('*')
-  const [l, num, r] = em.split(/(?<=\s|^)((?:\d+,)*\d+%?)(?=\s|$)/)
+  const [l, num, r] = em.split(/((?:\d+[,.])*\d+%?)/)
   return span(pre, element('strong').content(l, span(num).cls('num'), r), post).cls('stat')
 }
