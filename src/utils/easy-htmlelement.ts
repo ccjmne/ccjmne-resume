@@ -18,18 +18,15 @@ export default class EasyHTMLElement {
   }
 
   public cls(...classes: string[]): this {
-    this.elem.classList.add(...classes.filter(cls => !!cls))
-    return this
+    return this.elem.classList.add(...classes.filter(cls => !!cls)), this
   }
 
   public attrs(attributes: Record<string, { toString: () => string }>): this {
-    Object.entries(attributes).forEach(([k, v]) => this.elem.setAttribute(k, String(v)))
-    return this
+    return Object.entries(attributes).forEach(([k, v]) => this.elem.setAttribute(k, String(v))), this
   }
 
   public styles(styles: Record<string, { toString: () => string }>): this {
-    Object.entries(styles).forEach(([k, v]) => this.elem.style.setProperty(k, String(v)))
-    return this
+    return Object.entries(styles).forEach(([k, v]) => this.elem.style.setProperty(k, String(v))), this
   }
 
   public at(area: string): this {
@@ -37,13 +34,11 @@ export default class EasyHTMLElement {
   }
 
   public content(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
-    this.elem.replaceChildren(...EasyHTMLElement.prepare(contents))
-    return this
+    return this.elem.replaceChildren(...EasyHTMLElement.prepare(contents)), this
   }
 
   public append(...contents: ReadonlyArray<string | EasyHTMLElement>): this {
-    this.elem.append(...EasyHTMLElement.prepare(contents))
-    return this
+    return this.elem.append(...EasyHTMLElement.prepare(contents)), this
   }
 
   /**
@@ -67,7 +62,7 @@ export default class EasyHTMLElement {
       .filter(content => !!content)
       .flatMap(content => (typeof content !== 'string' ? content.elem : content
         .replace(/&nbsp;/g, '\u00A0')
-        .split(/(\[[^\]]+\]\([^)]+\))/) // split around markdown-style hyperlinks
+        .split(/(\[[^\]]+\]\([^)]+\))/) // split markdown-style hyperlinks
         .map(fragment => fragment.match(/^\[(?<text>[^\]]+)\]\((?<href>[^)]+)\)$/)?.groups as RegExpGroups<'text' | 'href'> | undefined ?? fragment)
         .flatMap(fragment => (typeof fragment === 'string'
           ? fragment.split(/\n|<br>/g).flatMap(t => [new EasyHTMLElement('br').elem, HYPHENATE ? hyphenate(t) : t]).slice(1)
@@ -104,15 +99,6 @@ export function article(cls: string): EasyHTMLElement {
   return new EasyHTMLElement('article').cls(cls)
 }
 
-/**
- * Creates a new `<span />` element with the supplied `content`,
- * unless the content already is a *single EasyHTMLElement*, in which case
- * it won't be wrapped into a (meaningless) span.
- */
-function make(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
-  return (content.length === 1 && typeof content[0] !== 'string') ? content[0] : span(...content)
-}
-
 export function light(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
   return make(...content).cls('light')
 }
@@ -123,6 +109,15 @@ export function lighter(...content: ReadonlyArray<string | EasyHTMLElement>): Ea
 
 export function lightest(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
   return make(...content).cls('lightest')
+}
+
+/**
+ * Creates a new `<span />` element with the supplied `content`,
+ * unless the content already is a *single EasyHTMLElement*, in which case
+ * it won't be wrapped into a (meaningless) span.
+ */
+function make(...content: ReadonlyArray<string | EasyHTMLElement>): EasyHTMLElement {
+  return (content.length === 1 && typeof content[0] !== 'string') ? content[0] : span(...content)
 }
 
 function template(content: string): HTMLTemplateElement {
