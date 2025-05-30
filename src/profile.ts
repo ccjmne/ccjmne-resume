@@ -176,7 +176,7 @@ export const timeline = `
 export const techstack = {
   Web:      ['Webpack', 'RxJs', 'Angular', 'Svelte', 'Vite', 'Lit', 'Tailwind', 'GraphQL', 'React'],
   Database: ['PostgreSQL', 'jOOQ', 'DynamoDB', 'Liquibase', 'RDS', 'OracleDB', 'SQLite'],
-  Code:     ['Neovim', 'TypeScript', 'Java', 'Visual Studio Code', 'JavaScript', 'Git', 'Lua', 'C++'],
-  Tools:    ['tmux', 'Git', 'Linux', 'ripgrep', 'fd', 'Zsh', 'AWK', 'jq', 'fzf', 'ast-grep', 'p10k'],
+  Code:     ['Neovim', 'TypeScript', 'Java', 'JavaScript', 'Git', 'Lua', 'ReactiveX', 'Bash', 'C++'],
+  Tools:    ['tmux', 'Git', 'GNU coreutils', 'ripgrep', 'fd', 'Zsh', 'AWK', 'jq', 'fzf', 'ast-grep', 'p10k'],
   Cloud:    ['AWS', 'Google Cloud Platform', 'GitHub Actions', 'Kubernetes', 'Terraform'],
 }
