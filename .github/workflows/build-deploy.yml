@@ -35,12 +35,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install chrome-headless-shell
+      - name: Install chrome
         run: |
           pnpm puppeteer browsers install chrome
-          cat <<-EOF >> $GITHUB_ENV
-          BROWSER_EXECUTABLE=$(find ~/.cache/puppeteer/ -name chrome-headless-shell -type f -executable)
-          EOF
 
       - name: Verify manual hyphenation
         run: |
