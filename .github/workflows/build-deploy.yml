@@ -36,13 +36,22 @@ jobs:
 
       - name: Verify manual hyphenation
         run: |
-          HYPHENATE=yes OUTPUT=l.png pnpm run build && mv dist/l.png .
-          HYPHENATE=no  OUTPUT=r.png pnpm run build && mv dist/r.png .
-          diff --brief l.png r.png
+          HYPHENATE=yes OUTPUT=expected.png pnpm build && mv dist/expected.png .
+          HYPHENATE=no  OUTPUT=actual.png   pnpm build && mv dist/actual.png .
+          diff --brief expected.png actual.png
+
+      - name: Upload hyphenation error report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyphenation-error-report
+          path: |
+            expected.png
+            actual.png
 
       - name: Compile PDF
         run: |
-          HYPHENATE=no OUTPUT=${{ env.resume-file }} pnpm run build
+          HYPHENATE=no OUTPUT=${{ env.resume-file }} pnpm build
 
       - name: Upload resume artifact
         uses: actions/upload-artifact@v4
