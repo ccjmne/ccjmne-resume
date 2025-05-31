@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "pdfjs": "^2.5.3",
-    "puppeteer-core": "^24.9.0",
+    "puppeteer": "^24.9.0",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {

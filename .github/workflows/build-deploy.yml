@@ -27,9 +27,9 @@ jobs:
         with:
           run_install: true
 
-      - name: Install Chromium
+      - name: Install chrome-headless-shell
         run: |
-          pnpm dlx puppeteer browsers install chrome # will cache browser installation
+          pnpm puppeteer browsers install chrome # will cache browser installation
           cat <<-EOF >> $GITHUB_ENV
           BROWSER_EXECUTABLE=$(find ~/.cache/puppeteer/ -name chrome-headless-shell -type f -executable)
           EOF

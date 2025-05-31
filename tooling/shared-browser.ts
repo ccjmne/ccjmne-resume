@@ -1,6 +1,6 @@
-import type { Browser } from 'puppeteer-core'
+import type { Browser } from 'puppeteer'
 import process from 'node:process'
-import puppeteer from 'puppeteer-core'
+import puppeteer from 'puppeteer'
 import { BehaviorSubject, firstValueFrom, from, Observable, of, Subject } from 'rxjs'
 import { delay, distinctUntilChanged, filter, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators'
 import which from 'which'
