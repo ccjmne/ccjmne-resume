@@ -25,11 +25,19 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v4.1.0
         with:
-          run_install: true
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Install chrome-headless-shell
         run: |
-          pnpm puppeteer browsers install chrome # will cache browser installation
+          pnpm puppeteer browsers install chrome
           cat <<-EOF >> $GITHUB_ENV
           BROWSER_EXECUTABLE=$(find ~/.cache/puppeteer/ -name chrome-headless-shell -type f -executable)
           EOF

@@ -1,5 +1,5 @@
 import type { DocumentProperties } from 'pdfjs'
-import type { PDFOptions, ScreenshotOptions } from 'puppeteer-core'
+import type { PDFOptions, ScreenshotOptions } from 'puppeteer'
 import type { Plugin } from 'vite'
 import { Buffer } from 'node:buffer'
 import { writeFile } from 'node:fs/promises'
