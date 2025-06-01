@@ -6,7 +6,7 @@ import { delay, distinctUntilChanged, filter, shareReplay, switchMap, tap, withL
 import which from 'which'
 
 const keepalive = +(process.env.BROWSER_KEEPALIVE || '30000')
-const executablePath = process.env.BROWSER_EXECUTABLE || ['chrome-headless-shell', 'chromium', 'chromium-browser', 'google-chrome-stable', 'google-chrome']
+const executablePath = process.env.BROWSER_EXECUTABLE || ['chromium', 'chromium-browser', 'google-chrome-stable', 'google-chrome']
   .map(name => which.sync(name, { nothrow: true }))
   .find(ex => !!ex)
 if (!executablePath) throw new Error('No suitable browser executable found.')
