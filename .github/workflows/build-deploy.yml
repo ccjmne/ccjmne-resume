@@ -40,19 +40,11 @@ jobs:
           pnpm puppeteer browsers install chrome
 
       - name: Verify manual hyphenation
+        id: hyphenation-check
         run: |
           HYPHENATE=yes OUTPUT=expected.png pnpm build && mv dist/expected.png .
           HYPHENATE=no  OUTPUT=actual.png   pnpm build && mv dist/actual.png .
           diff --brief expected.png actual.png
-
-      - name: Upload hyphenation error report
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hyphenation-error-report
-          path: |
-            expected.png
-            actual.png
 
       - name: Compile PDF
         run: |
@@ -63,6 +55,15 @@ jobs:
         with:
           name: ${{ env.artifact-id }}
           path: dist/${{ env.resume-file }}
+
+      - if: steps.hyphenation-check.outcome == 'failure'
+        name: Upload hyphenation error report
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyphenation-error-report
+          path: |
+            expected.png
+            actual.png
 
   deploy:
     runs-on: ubuntu-latest
