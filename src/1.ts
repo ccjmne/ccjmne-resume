@@ -47,7 +47,7 @@ element(document.body).content(
       logo().cls('logo'),
     ),
     element('h2').content('About Me'),
-    section('aboutme').content(element('p').content(identity.aboutme)),
+    section('aboutme').content(...identity.aboutme.split(/\n/g).map(p => element('p').content(p))),
     element('h2').content('Experience'),
     section('experience').content(
       ...experience
@@ -58,7 +58,7 @@ element(document.body).content(
             .append(notabene !== undefined ? lighter(` (${notabene})`).cls('notabene') : '')),
           lighter().at('when').content(element('time').content(dates), ` (${duration})`),
           lighter().at('where').content(location),
-          element('p').at('summary').content(abstract),
+          element().at('summary').content(...abstract.split(/\n/g).map(p => element('p').content(p))),
         )),
     ),
     elementSVG().attrs({ width: 0, height: 0 }).content(elementSVG('defs').content(mask)),

@@ -70,17 +70,12 @@ p {
   .inverse & {
     color: colours.$dark-fg-0;
   }
-}
 
-br {
-  content: '';
-  display: block;
-
-  section#aboutme & {
+  section#aboutme & + & {
     margin-block-start: 1em;
   }
 
-  section#experience & {
+  section#experience & + & {
     margin-block-start: .5em;
   }
 }
