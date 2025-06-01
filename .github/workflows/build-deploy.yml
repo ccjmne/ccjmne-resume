@@ -16,8 +16,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      node-version: 22
 
     steps:
       - uses: actions/checkout@v4
