@@ -152,7 +152,7 @@ export const timeline = `
 ☆│  Begin contributing to [the TC39](https://tc39.es/)
 │★
 │☆  Mastery of AngularJS
-│☆  Begin freelance activity
+│☆  Begin independent consultancy
 ├┘╷
 ├┐☆ Graduation of [my apprentice](https://uk.linkedin.com/in/maxime-endewelt-320ab79a)
 │☆│ Excellent JavaScript proficiency
